@@ -9,5 +9,4 @@ class SnakeApplication {
     static void main(String[] args) {
         SpringApplication.run(SnakeApplication, args)
     }
-
 }
