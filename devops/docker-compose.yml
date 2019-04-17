@@ -1,0 +1,11 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:latest
+    network_mode: host
+    volumes:
+      - ./data/mongo:/data/db
+
+  redis:
+    image: redis
+    network_mode: host
