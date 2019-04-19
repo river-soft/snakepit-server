@@ -24,18 +24,15 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(
-                "/api/names/users").permitAll()
                 .anyRequest().authenticated()
 
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint { req, res, e -> res.setStatus(401) }
-
-                .and()
-                .formLogin()
+                .and().formLogin()
                 .successHandler { req, res, e ->  res.setStatus(200) }
                 .failureHandler { req, res, e -> res.setStatus(401) }
+
+//                .and()
+//                .exceptionHandling()
+//                .authenticationEntryPoint { req, res, e -> res.setStatus(401) }
 
                 .and()
                 .logout()
@@ -45,6 +42,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .and()
                 .csrf().disable()
+
     }
 
     @Bean

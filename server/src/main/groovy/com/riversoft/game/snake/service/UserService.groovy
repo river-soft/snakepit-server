@@ -19,11 +19,11 @@ class UserService implements UserDetailsService {
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-//        userRepository.deleteAll()
-//        userRepository.save(new com.riversoft.game.snake.data.domain.User(
-//                username: 'user',
-//                passwordHash: passwordEncoder.encode('1234')
-//        ))
+        userRepository.deleteAll()
+        userRepository.save(new com.riversoft.game.snake.data.domain.User(
+                username: 'user',
+                passwordHash: passwordEncoder.encode('1234')
+        ))
 
         userRepository
                 .findByUsername(username)
