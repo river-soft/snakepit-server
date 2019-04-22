@@ -22,4 +22,15 @@ class GameService {
     BattleState getCurrentState() {
         BattleState.NONE
     }
+    static int[] drawArray( int[]arrayname,int countelements){
+        arrayname = new int[countelements]
+        for(int i=0;i < arrayname.length;i++){
+            int result = i + 1
+
+        }
+        return result
+    }
+   static int[] getResult() {
+             drawArray(int[]map,int p=64)
+       }
 }

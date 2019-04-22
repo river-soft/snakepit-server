@@ -15,10 +15,8 @@ class UserService implements UserDetailsService {
 
     @Autowired UserRepository userRepository
     @Autowired PasswordEncoder passwordEncoder
-
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         userRepository.deleteAll()
         userRepository.save(new com.riversoft.game.snake.data.domain.User(
                 username: 'user',
@@ -27,11 +25,17 @@ class UserService implements UserDetailsService {
 
         userRepository
                 .findByUsername(username)
-                .map { new User(it.username, it.passwordHash, []) }
+                .map { new User(it.username, it.passwordHash,[]) }
                 .orElseThrow { throw new UsernameNotFoundException('') }
     }
 
     List<UserDto> getAllUsers() {
+        userRepository.findAll().collect{new UserDto(
+         id:it.id,
+         username: it.username
+         )}
         []
     }
-}
+ }
+
+

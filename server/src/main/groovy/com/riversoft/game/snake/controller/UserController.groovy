@@ -17,8 +17,7 @@ class UserController {
     UserService userService
 
     @GetMapping
-    List<UserDto> getAllUsers() {
-
+    List<UserDto> getAllUsers(){
         userService.getAllUsers()
     }
 }

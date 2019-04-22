@@ -16,8 +16,8 @@ class GameController {
     @Autowired private GameService gameService
 
     @GetMapping
-    BattleState getBattleState() {
-
-        gameService.getCurrentState()
+     int[] getResult(){
+        gameService.getResult()
     }
+
 }
