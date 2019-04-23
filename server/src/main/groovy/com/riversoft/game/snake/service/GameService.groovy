@@ -23,10 +23,10 @@ class GameService {
         movePackmans()
     }
     GameService(){
-        COLUMN_COUNT_X.times {
+        COLUMN_COUNT_X.times { x->
             def temp = []
-            COLUMN_COUNT_Y.times{
-                temp.add(0)
+            COLUMN_COUNT_Y.times{ y->
+                temp.add(1)
             }
             map.add(temp)
         }
@@ -62,11 +62,13 @@ class GameService {
         }
         log.debug(savePackmans.toString())
         savePackmans.each {
-
+            while(it.y < 64) {
             map[it.x][it.y] = 0
-            map[it.x][it.y + 1] = 2
+                map[it.x][it.y + 1] = 2
+            }
         }
     }
+
     BattleState getCurrentState() {
         BattleState.NONE
     }
