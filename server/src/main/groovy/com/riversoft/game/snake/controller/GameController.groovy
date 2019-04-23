@@ -16,7 +16,7 @@ class GameController {
     @Autowired private GameService gameService
 
     @GetMapping
-     int[] getResult(){
+     List<List> getResult(){
         gameService.getResult()
     }
 

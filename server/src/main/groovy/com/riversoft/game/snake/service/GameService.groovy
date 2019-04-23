@@ -12,25 +12,70 @@ import org.springframework.stereotype.Service
 class GameService {
 
     @Autowired private UserRepository userRepository
+    private List<List> map = []
+
+    //constans
+    final COLUMN_COUNT_X = 64
+    final COLUMN_COUNT_Y = 64
 
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
+        movePackmans()
+    }
+    GameService(){
+        COLUMN_COUNT_X.times {
+            def temp = []
+            COLUMN_COUNT_Y.times{
+                temp.add(0)
+            }
+            map.add(temp)
+        }
 
-        log.debug("Calculate game logic")
+        generateCoins()
+        generatePackmans()
+    }
+    void generateCoins(){
+        10.times{
+            map[new Random().nextInt(COLUMN_COUNT_X)][new Random().nextInt(COLUMN_COUNT_Y)] = 3
+        }
     }
 
+    void generatePackmans(){
+        def count = 8
+        while(count > 0) {
+            def indexX = new Random().nextInt(COLUMN_COUNT_X)
+            def indexY = new Random().nextInt(COLUMN_COUNT_Y)
+            if (map[indexX][indexY] == 0) {
+                map[indexX][indexY] = 2
+                count--
+            }
+        }
+    }
+    void movePackmans(){
+        List savePackmans = []
+        COLUMN_COUNT_X.times { x ->
+            COLUMN_COUNT_Y.times{ y->
+                if(map[x][y]==2){
+                    savePackmans.add([x:x,y:y])
+                }
+            }
+        }
+        log.debug(savePackmans.toString())
+        savePackmans.each {
+
+            map[it.x][it.y] = 0
+            map[it.x][it.y + 1] = 2
+        }
+    }
     BattleState getCurrentState() {
         BattleState.NONE
     }
-    static int[] drawArray( int[]arrayname,int countelements){
-        arrayname = new int[countelements]
-        for(int i=0;i < arrayname.length;i++){
-            int result = i + 1
 
-        }
-        return result
-    }
-   static int[] getResult() {
-             drawArray(int[]map,int p=64)
-       }
+
+
+//get ready array for return into gameController
+   List<List> getResult() {
+          return map
+
+   }
 }
