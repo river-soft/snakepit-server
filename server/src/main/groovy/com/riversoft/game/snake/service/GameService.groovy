@@ -38,6 +38,7 @@ class GameService {
         }
         generatePackmans()
         generateCoins()
+//        eatCoins()
     }
     //Create coins for packmans
     void generateCoins(){
@@ -58,7 +59,7 @@ class GameService {
         while(count > 0) {
             def indexX = new Random().nextInt(COLUMN_COUNT_X)
             def indexY = new Random().nextInt(COLUMN_COUNT_Y)
-            if (map[indexX][indexY] == 0) {
+            if (map[indexX][indexY] != BORDERS) {
                 map[indexX][indexY] = 2
                 count--
             }
@@ -76,11 +77,30 @@ class GameService {
         }
         log.debug(savePackmans.toString())
         savePackmans.each {
+            if (it.y < (COLUMN_COUNT_Y -2)) {
                 map[it.x][it.y] = 0
                 map[it.x][it.y + 1] = 2
+            }else{
+                map[it.x][it.y] = map[it.x][it.y]
+            }
         }
     }
 
+    //crash packman in borders
+//    void eatCoins(){
+//        COLUMN_COUNT_X.times { x->
+//            COLUMN_COUNT_Y.times { y->
+//                savePackmans.each{
+//                    if(map[it.x][it.y] == 3){
+//                        map[it.x][it.y] = 2
+//                        generateCoins()
+//
+//                   }
+//
+//                }
+//            }
+//        }
+//    }
     BattleState getCurrentState() {
         BattleState.NONE
     }
