@@ -22,10 +22,10 @@
                             let cell = response.data[row][col];
 
                             if (cell === 0) {
-                                this.mapData += ' '
+                                this.mapData += '-'
                             }
                             if (cell === 1) {
-                                this.mapData += '*'
+                                this.mapData += '&'
                             }
                             if (cell === 2) {
                                 this.mapData += 'C'

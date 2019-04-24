@@ -13,6 +13,7 @@ class GameService {
 
     @Autowired private UserRepository userRepository
     private List<List> map = []
+    private List<UserPackman> packmansList = []
 
     //constans
     final COLUMN_COUNT_X = 64
@@ -24,20 +25,7 @@ class GameService {
         movePackmans()
     }
 
-    @Scheduled(cron = '0/30 * * * * *')
-    void resetGame() {
-        COLUMN_COUNT_X.times {x ->
-            COLUMN_COUNT_Y.times {y ->
-                if (y > 0  && x > 0 && y < ( 64 - 1 ) && x < ( 64 - 1 ) ) {
-                    map[x][y] = 0
-                } else {
-                    map[x][y] = BORDERS
-                }
-            }
-        }
-        generatePackmans()
-        generateCoins()
-    }
+
     //CONSTRUCCTOR FOR THIS CLASS
     GameService(){
         COLUMN_COUNT_X.times { x->
@@ -51,9 +39,10 @@ class GameService {
             }
             map.add(temp)
         }
-        generatePackmans()
         generateCoins()
-//        eatCoins()
+        (0..7).each {
+            packmansList.add(new UserPackman(map,it.toString(), new Random().nextInt(COLUMN_COUNT_X),  new Random().nextInt(COLUMN_COUNT_Y)))
+        }
     }
     //Create coins for packmans
     void generateCoins(){
@@ -68,35 +57,34 @@ class GameService {
             }
         }
 
-    //create packmans for each user
-    void generatePackmans(){
-        def count = 8
-        while(count > 0) {
-            def indexX = new Random().nextInt(COLUMN_COUNT_X)
-            def indexY = new Random().nextInt(COLUMN_COUNT_Y)
-            if (map[indexX][indexY] != BORDERS) {
-                map[indexX][indexY] = 2
-                count--
-            }
-        }
-    }
+//    //create packmans for each user
+//    void generatePackmans(){
+//        def count = 8
+//        while(count > 0) {
+//            def indexX = new Random().nextInt(COLUMN_COUNT_X)
+//            def indexY = new Random().nextInt(COLUMN_COUNT_Y)
+//            if (map[indexX][indexY] != BORDERS) {
+//                map[indexX][indexY] = 2
+//                count--
+//            }
+//        }
+//    }
     //save coordinates packmans and move packmans
     void movePackmans(){
-        List savePackmans = []
-        COLUMN_COUNT_X.times { x ->
-            COLUMN_COUNT_Y.times{ y->
-                if(map[x][y]==2){
-                    savePackmans.add([x:x,y:y])
-                }
-            }
-        }
-        log.debug(savePackmans.toString())
-        savePackmans.each {
-            if (it.y < (COLUMN_COUNT_Y -2) && it.x < (COLUMN_COUNT_X - 2 ) && it.y > 1 && it.x > 1) {
-                map[it.x][it.y] = 0
-                map[it.x + 1][it.y] = 2
-            }else{
-                map[it.x][it.y] = map[it.x][it.y]
+        packmansList.each { i->
+            switch (new Random().nextInt(3)) {
+                case 0:
+                    i.moveRight()
+                    break
+                case 1:
+                    i.moveLeft()
+                    break
+                case 2:
+                    i.moveDown()
+                    break
+                case 3:
+                    i.moveUp()
+                    break
             }
         }
     }
