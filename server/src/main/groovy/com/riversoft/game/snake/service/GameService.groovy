@@ -17,29 +17,42 @@ class GameService {
     //constans
     final COLUMN_COUNT_X = 64
     final COLUMN_COUNT_Y = 64
+    final BORDERS = 1
 
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
         movePackmans()
     }
+    //CONSTRUCCTOR FOR THIS CLASS
     GameService(){
         COLUMN_COUNT_X.times { x->
             def temp = []
             COLUMN_COUNT_Y.times{ y->
-                temp.add(1)
+                if (y > 0  && x > 0 && y < ( 64 - 1 ) && x < ( 64 - 1 ) ) {
+                    temp.add(0)
+                } else {
+                    temp.add(BORDERS)
+                }
             }
             map.add(temp)
         }
-
-        generateCoins()
         generatePackmans()
+        generateCoins()
     }
+    //Create coins for packmans
     void generateCoins(){
-        10.times{
-            map[new Random().nextInt(COLUMN_COUNT_X)][new Random().nextInt(COLUMN_COUNT_Y)] = 3
+            def count = 30
+            while(count > 0) {
+                def indexX = new Random().nextInt(COLUMN_COUNT_X)
+                def indexY = new Random().nextInt(COLUMN_COUNT_Y)
+                if (map[indexX][indexY] == 0) {
+                    map[indexX][indexY] = 3
+                    count--
+                }
+            }
         }
-    }
 
+    //create packmans for each user
     void generatePackmans(){
         def count = 8
         while(count > 0) {
@@ -51,6 +64,7 @@ class GameService {
             }
         }
     }
+    //save coordinates packmans and move packmans
     void movePackmans(){
         List savePackmans = []
         COLUMN_COUNT_X.times { x ->
@@ -62,9 +76,10 @@ class GameService {
         }
         log.debug(savePackmans.toString())
         savePackmans.each {
-            while(it.y < 64) {
-            map[it.x][it.y] = 0
+            while (map[it.x][it.y] != BORDERS) {
+                map[it.x][it.y] = 0
                 map[it.x][it.y + 1] = 2
+
             }
         }
     }
