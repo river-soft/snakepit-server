@@ -19,10 +19,25 @@ class GameService {
     final COLUMN_COUNT_Y = 64
     final BORDERS = 1
 
-//    @Scheduled(cron = '* * * * * *')
-//    void gameTick() {
-//        movePackmans()
-//    }
+    @Scheduled(cron = '* * * * * *')
+    void gameTick() {
+        movePackmans()
+    }
+
+    @Scheduled(cron = '0/30 * * * * *')
+    void resetGame() {
+        COLUMN_COUNT_X.times {x ->
+            COLUMN_COUNT_Y.times {y ->
+                if (y > 0  && x > 0 && y < ( 64 - 1 ) && x < ( 64 - 1 ) ) {
+                    map[x][y] = 0
+                } else {
+                    map[x][y] = BORDERS
+                }
+            }
+        }
+        generatePackmans()
+        generateCoins()
+    }
     //CONSTRUCCTOR FOR THIS CLASS
     GameService(){
         COLUMN_COUNT_X.times { x->
