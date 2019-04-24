@@ -19,10 +19,10 @@ class GameService {
     final COLUMN_COUNT_Y = 64
     final BORDERS = 1
 
-    @Scheduled(cron = '* * * * * *')
-    void gameTick() {
-        movePackmans()
-    }
+//    @Scheduled(cron = '* * * * * *')
+//    void gameTick() {
+//        movePackmans()
+//    }
     //CONSTRUCCTOR FOR THIS CLASS
     GameService(){
         COLUMN_COUNT_X.times { x->
@@ -77,9 +77,9 @@ class GameService {
         }
         log.debug(savePackmans.toString())
         savePackmans.each {
-            if (it.y < (COLUMN_COUNT_Y -2)) {
+            if (it.y < (COLUMN_COUNT_Y -2) && it.x < (COLUMN_COUNT_X - 2 ) && it.y > 1 && it.x > 1) {
                 map[it.x][it.y] = 0
-                map[it.x][it.y + 1] = 2
+                map[it.x + 1][it.y] = 2
             }else{
                 map[it.x][it.y] = map[it.x][it.y]
             }
