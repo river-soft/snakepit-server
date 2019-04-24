@@ -76,11 +76,8 @@ class GameService {
         }
         log.debug(savePackmans.toString())
         savePackmans.each {
-            while (map[it.x][it.y] != BORDERS) {
                 map[it.x][it.y] = 0
                 map[it.x][it.y + 1] = 2
-
-            }
         }
     }
 
