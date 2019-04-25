@@ -14,6 +14,7 @@ class GameService {
     @Autowired private UserRepository userRepository
     private List<List> map = []
     private List<UserPackman> packmansList = []
+    private List<Coins> coins = []
 
     //constans
     final COLUMN_COUNT_X = 64
@@ -26,7 +27,7 @@ class GameService {
     }
 
 
-    //CONSTRUCCTOR FOR THIS CLASS
+    //CONSTRUCTOR FOR THIS CLASS
     GameService(){
         COLUMN_COUNT_X.times { x->
             def temp = []
@@ -41,21 +42,24 @@ class GameService {
         }
         generateCoins()
         (0..7).each {
-            packmansList.add(new UserPackman(map,it.toString(), new Random().nextInt(COLUMN_COUNT_X),  new Random().nextInt(COLUMN_COUNT_Y)))
+                packmansList.add(new UserPackman(map, it.toString(), new Random().nextInt(COLUMN_COUNT_X - 1), new Random().nextInt(COLUMN_COUNT_Y -1 )))
         }
     }
+
+
+
     //Create coins for packmans
     void generateCoins(){
-            def count = 30
-            while(count > 0) {
-                def indexX = new Random().nextInt(COLUMN_COUNT_X)
-                def indexY = new Random().nextInt(COLUMN_COUNT_Y)
-                if (map[indexX][indexY] == 0) {
-                    map[indexX][indexY] = 3
-                    count--
-                }
+        def count = 30
+        while(count > 0) {
+            def indexX = new Random().nextInt(COLUMN_COUNT_X)
+            def indexY = new Random().nextInt(COLUMN_COUNT_Y)
+            if (map[indexX][indexY] == 0) {
+                map[indexX][indexY] = 3
+                count--
             }
         }
+    }
 
 //    //create packmans for each user
 //    void generatePackmans(){
