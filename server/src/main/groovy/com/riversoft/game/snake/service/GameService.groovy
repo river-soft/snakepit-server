@@ -26,8 +26,10 @@ class GameService {
 
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
-        movePackmans()
+
         getCoins()
+        movePackmans()
+        log.debug(packmansList.rating.toString())
     }
 
 
@@ -36,7 +38,7 @@ class GameService {
         COLUMN_COUNT_X.times { x->
             def temp = []
             COLUMN_COUNT_Y.times{ y->
-                if (y > 0  && x > 0 && y < ( 64 - 1 ) && x < ( 64 - 1 ) ) {
+                if (y > 0  && x > 0 && y < ( COLUMN_COUNT_Y - 1 ) && x < ( COLUMN_COUNT_X - 1 ) ) {
                     temp.add(0)
                 } else {
                     temp.add(BORDERS)
@@ -59,6 +61,7 @@ class GameService {
                     coins.add(new Coins(map, coinsX, coinsY))
                 }
         }
+
     }
 
 
@@ -109,10 +112,11 @@ class GameService {
     }
 
     void getCoins(){
-        coins.each {
+        coins.each{
             it.generateCoins()
         }
     }
+
 
     //crash packman in borders
 //    void eatCoins(){
@@ -138,6 +142,5 @@ class GameService {
 //get ready array for return into gameController
    List<List> getResult() {
           return map
-
    }
 }

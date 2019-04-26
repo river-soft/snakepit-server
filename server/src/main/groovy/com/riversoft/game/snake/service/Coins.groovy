@@ -1,8 +1,11 @@
 package com.riversoft.game.snake.service
 
 import groovy.util.logging.Slf4j
+import org.springframework.beans.factory.annotation.Autowired
 
 class Coins {
+
+    final BORDERS = 1
 
     int coinsX
     int coinsY
@@ -15,11 +18,7 @@ class Coins {
     }
 
     void generateCoins(){
-        def count = 30
-        while(count > 0) {
+            if(map[coinsX][coinsY] != BORDERS )
                 map[coinsX][coinsY] = 3
-                count--
-
         }
     }
-}
