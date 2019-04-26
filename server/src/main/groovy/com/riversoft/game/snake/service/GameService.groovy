@@ -21,9 +21,13 @@ class GameService {
     final COLUMN_COUNT_Y = 64
     final BORDERS = 1
 
+
+
+
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
         movePackmans()
+        getCoins()
     }
 
 
@@ -40,26 +44,37 @@ class GameService {
             }
             map.add(temp)
         }
-        generateCoins()
         (0..7).each {
-                packmansList.add(new UserPackman(map, it.toString(), new Random().nextInt(COLUMN_COUNT_X - 1), new Random().nextInt(COLUMN_COUNT_Y -1 )))
+            //create coords for packmansList
+            int packmansX = new Random().nextInt(COLUMN_COUNT_X)
+            int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
+                if(packmansY > BORDERS && packmansX > BORDERS && packmansY < COLUMN_COUNT_Y && packmansX < COLUMN_COUNT_X) {
+                    packmansList.add(new UserPackman(map, it.toString(), packmansX,packmansY))
+                }
+        }
+        (0..29).each {
+            int coinsX = new Random().nextInt(COLUMN_COUNT_X)
+            int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
+                if(coinsY > BORDERS && coinsX > BORDERS && coinsY < COLUMN_COUNT_Y && coinsX < COLUMN_COUNT_X) {
+                    coins.add(new Coins(map, coinsX, coinsY))
+                }
         }
     }
 
 
 
     //Create coins for packmans
-    void generateCoins(){
-        def count = 30
-        while(count > 0) {
-            def indexX = new Random().nextInt(COLUMN_COUNT_X)
-            def indexY = new Random().nextInt(COLUMN_COUNT_Y)
-            if (map[indexX][indexY] == 0) {
-                map[indexX][indexY] = 3
-                count--
-            }
-        }
-    }
+//    void generateCoins(){
+//        def count = 30
+//        while(count > 0) {
+//            def indexX = new Random().nextInt(COLUMN_COUNT_X)
+//            def indexY = new Random().nextInt(COLUMN_COUNT_Y)
+//            if (map[indexX][indexY] == 0) {
+//                map[indexX][indexY] = 3
+//                count--
+//            }
+//        }
+//    }
 
 //    //create packmans for each user
 //    void generatePackmans(){
@@ -90,6 +105,12 @@ class GameService {
                     i.moveUp()
                     break
             }
+        }
+    }
+
+    void getCoins(){
+        coins.each {
+            it.generateCoins()
         }
     }
 
