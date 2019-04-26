@@ -26,7 +26,6 @@ class GameService {
 
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
-
         getCoins()
         movePackmans()
         log.debug(packmansList.rating.toString())
@@ -94,7 +93,7 @@ class GameService {
     //save coordinates packmans and move packmans
     void movePackmans(){
         packmansList.each { i->
-            switch (new Random().nextInt(3)) {
+            switch (0) {
                 case 0:
                     i.moveRight()
                     break

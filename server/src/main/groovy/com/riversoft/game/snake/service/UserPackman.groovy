@@ -49,6 +49,7 @@ class UserPackman {
             map[x][y] = 2
         } else if (map[x][y + 1] == 3){
             map[x][y] = 0
+            coinsList.map.remove(map[x][y])
             y +=1
             map[x][y] = 2
             rating++

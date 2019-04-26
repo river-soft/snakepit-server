@@ -10,15 +10,17 @@ class Coins {
     int coinsX
     int coinsY
 
-    private List<List> map
+    public List<List> map
     Coins(List<List> map,coinsX,coinsY) {
         this.map = map
         this.coinsX = coinsX
         this.coinsY = coinsY
     }
 
-    void generateCoins(){
-            if(map[coinsX][coinsY] != BORDERS )
+    def generateCoins(){
+            if(map[coinsX][coinsY] != BORDERS ) {
                 map[coinsX][coinsY] = 3
+            }
         }
+
     }
