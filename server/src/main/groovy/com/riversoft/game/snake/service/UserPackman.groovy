@@ -20,7 +20,7 @@ class UserPackman {
     //--------------------------------
     //--------------------------------
 
-
+//delete it
     private List<List> map
     UserPackman(List<List> map, String name, int x,y) {
         this.map = map
