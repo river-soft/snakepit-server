@@ -61,8 +61,8 @@ class GameService {
                     coins.add(new Coins(map, coinsX, coinsY))
                 }
         }
-        (0..1).each{
-            walls.add(new walls (map,4,4))
+        (0..3).each{
+            walls.add(new walls (map,2,2))
         }
         getCoins()//add coins in map
         CreateWalls()
@@ -98,7 +98,7 @@ class GameService {
     //save coordinates packmans and move packmans
     void movePackmans(){
         packmansList.each { i->
-            switch (0) {
+            switch (1) {
                 case 0:
                     i.moveRight()
                     break
