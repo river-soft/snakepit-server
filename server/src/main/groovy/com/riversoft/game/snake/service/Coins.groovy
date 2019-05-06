@@ -21,6 +21,5 @@ class Coins {
             if(map[coinsX][coinsY] != BORDERS ) {
                 map[coinsX][coinsY] = 3
             }
-        }
-
-    }
+         }
+     }

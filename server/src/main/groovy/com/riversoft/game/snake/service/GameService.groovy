@@ -26,7 +26,6 @@ class GameService {
 
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
-        getCoins()
         movePackmans()
         log.debug(packmansList.rating.toString())
     }
@@ -60,7 +59,7 @@ class GameService {
                     coins.add(new Coins(map, coinsX, coinsY))
                 }
         }
-
+        getCoins()
     }
 
 
