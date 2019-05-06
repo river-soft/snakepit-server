@@ -54,7 +54,7 @@ class GameService {
                 }
         }
         //create coins
-        (0..29).each {
+        (0..50).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
                 if(coinsY > BORDERS && coinsX > BORDERS && coinsY < COLUMN_COUNT_Y && coinsX < COLUMN_COUNT_X) {
@@ -70,35 +70,11 @@ class GameService {
 
 
 
-    //Create coins for packmans
-//    void generateCoins(){
-//        def count = 30
-//        while(count > 0) {
-//            def indexX = new Random().nextInt(COLUMN_COUNT_X)
-//            def indexY = new Random().nextInt(COLUMN_COUNT_Y)
-//            if (map[indexX][indexY] == 0) {
-//                map[indexX][indexY] = 3
-//                count--
-//            }
-//        }
-//    }
 
-//    //create packmans for each user
-//    void generatePackmans(){
-//        def count = 8
-//        while(count > 0) {
-//            def indexX = new Random().nextInt(COLUMN_COUNT_X)
-//            def indexY = new Random().nextInt(COLUMN_COUNT_Y)
-//            if (map[indexX][indexY] != BORDERS) {
-//                map[indexX][indexY] = 2
-//                count--
-//            }
-//        }
-//    }
     //save coordinates packmans and move packmans
     void movePackmans(){
         packmansList.each { i->
-            switch (1) {
+            switch (0) {
                 case 0:
                     i.moveRight()
                     break
@@ -114,7 +90,7 @@ class GameService {
             }
         }
     }
-
+//add coins in map
     void getCoins(){
         coins.each{
             it.generateCoins()
@@ -122,26 +98,14 @@ class GameService {
     }
 
 
-    //crash packman in borders
-//    void eatCoins(){
-//        COLUMN_COUNT_X.times { x->
-//            COLUMN_COUNT_Y.times { y->
-//                savePackmans.each{
-//                    if(map[it.x][it.y] == 3){
-//                        map[it.x][it.y] = 2
-//                        generateCoins()
-//
-//                   }
-//
-//                }
-//            }
-//        }
-//    }
+//add walls in map
     void CreateWalls(){
         walls.each{
-            it.createwalls()
+            it.createWallsX(5,5,10)
+            it.createWallsY(5,5,20)
         }
     }
+
     BattleState getCurrentState() {
         BattleState.NONE
     }

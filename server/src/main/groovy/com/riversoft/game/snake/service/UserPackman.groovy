@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service
 
 class UserPackman {
 
-    @Autowired Coins coinsList
+    @Autowired
+    Coins coinsList
 
 //const
     final BORDERS = 1
@@ -23,61 +24,80 @@ class UserPackman {
 
 //delete it
     private List<List> map
-    UserPackman(List<List> map, String name, int x,y) {
+
+    UserPackman(List<List> map, String name, int x, y) {
         this.map = map
         this.name = name
         this.x = x
         this.y = y
 
     }
-    def moveLeft () {
-        if( map[x][y - 1] != BORDERS ) {
+
+    def moveLeft() {
+        if (map[x][y - 1] != BORDERS) {
             map[x][y] = 0
             y -= 1
             map[x][y] = 2
-        }
-        if(map[x][y - 1] == 3){
-            map[x][y -1] = 2
+        } else if (map[x][y - 1] == 3) {
             map[x][y] = 0
+            coinsList.map.remove(map[x][y])
+            y -= 1
+            map[x][y] = 2
             rating++
         }
     }
-    def moveRight () {
-        if( map[x][y + 1] != BORDERS ) {
+
+    def moveRight() {
+        if (map[x][y + 1] != BORDERS) {
             map[x][y] = 0
             y += 1
             map[x][y] = 2
-        } else if (map[x][y + 1] == 3){
+        } else if (map[x][y + 1] == 3) {
             map[x][y] = 0
-            coinsList.map.remove(map[x][y])
-            y +=1
+            y += 1
             map[x][y] = 2
             rating++
         }
     }
-    def moveUp () {
-        if( map[x - 1][y] != BORDERS ) {
+
+    def moveUp() {
+        if (map[x - 1][y] != BORDERS) {
             map[x][y] = 0
             x -= 1
             map[x][y] = 2
-        }
-        if(map[x - 1][y] == 3){
-            map[x - 1][y] = 2
+        } else if (map[x - 1][y] == 3) {
             map[x][y] = 0
+            coinsList.map.remove(map[x][y])
+            x -= 1
+            map[x][y] = 2
             rating++
         }
+
     }
-    def moveDown () {
-        if( map[x + 1][y-1] != BORDERS ) {
+
+    def moveDown() {
+        if (map[x + 1][y - 1] != BORDERS) {
             map[x][y] = 0
             x += 1
             map[x][y] = 2
         }
-        if(map[x + 1][y] == 3){
+        if (map[x + 1][y] == 3) {
             map[x + 1][y] = 2
             map[x][y] = 0
             rating++
         }
-     }
+        if (map[x + 1][y] != BORDERS) {
+            map[x][y] = 0
+            x += 1
+            map[x][y] = 2
+        } else if (map[x + 1][y] == 3) {
+            map[x][y] = 0
+            coinsList.map.remove(map[x][y])
+            x += 1
+            map[x][y] = 2
+            rating++
+        }
 
- }
+    }
+
+}
