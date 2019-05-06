@@ -15,6 +15,7 @@ class GameService {
     private List<List> map = []
     private List<UserPackman> packmansList = []
     private List<Coins> coins = []
+    private List<walls> walls = []
 
     //constans
     final COLUMN_COUNT_X = 64
@@ -52,6 +53,7 @@ class GameService {
                     packmansList.add(new UserPackman(map, it.toString(), packmansX,packmansY))
                 }
         }
+        //create coins
         (0..29).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
@@ -59,7 +61,11 @@ class GameService {
                     coins.add(new Coins(map, coinsX, coinsY))
                 }
         }
-        getCoins()
+        (0..1).each{
+            walls.add(new walls (map,4,4))
+        }
+        getCoins()//add coins in map
+        CreateWalls()
     }
 
 
@@ -131,6 +137,11 @@ class GameService {
 //            }
 //        }
 //    }
+    void CreateWalls(){
+        walls.each{
+            it.createwalls()
+        }
+    }
     BattleState getCurrentState() {
         BattleState.NONE
     }
