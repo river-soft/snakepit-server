@@ -29,12 +29,8 @@ class UserService implements UserDetailsService {
                 .orElseThrow { throw new UsernameNotFoundException('') }
     }
 
-    List<UserDto> getAllUsers() {
-        userRepository.findAll().collect{new UserDto(
-         id:it.id,
-         username: it.username
-         )}
-        []
+  String getAllUsers() {
+       return "hello"
     }
  }
 

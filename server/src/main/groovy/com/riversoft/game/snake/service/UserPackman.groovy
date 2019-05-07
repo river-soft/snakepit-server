@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service
 
 class UserPackman {
 
-    @Autowired
-    Coins coinsList
 
 //const
     final BORDERS = 1
@@ -18,7 +16,7 @@ class UserPackman {
     String name
     int x
     int y
-    int rating = 0
+    public int rating = 0
     //--------------------------------
     //--------------------------------
 
@@ -38,10 +36,9 @@ class UserPackman {
             map[x][y] = 0
             y -= 1
             map[x][y] = 2
-        } else if (map[x][y - 1] == 3) {
+        }
+        if (map[x][y - 1] == 3) {
             map[x][y] = 0
-            coinsList.map.remove(map[x][y])
-            y -= 1
             map[x][y] = 2
             rating++
         }
@@ -52,9 +49,9 @@ class UserPackman {
             map[x][y] = 0
             y += 1
             map[x][y] = 2
-        } else if (map[x][y + 1] == 3) {
+        }
+        if(map[x][y + 1] == 3) {
             map[x][y] = 0
-            y += 1
             map[x][y] = 2
             rating++
         }
@@ -65,10 +62,9 @@ class UserPackman {
             map[x][y] = 0
             x -= 1
             map[x][y] = 2
-        } else if (map[x - 1][y] == 3) {
+        }
+        if (map[x - 1][y] == 3) {
             map[x][y] = 0
-            coinsList.map.remove(map[x][y])
-            x -= 1
             map[x][y] = 2
             rating++
         }
@@ -76,24 +72,13 @@ class UserPackman {
     }
 
     def moveDown() {
-        if (map[x + 1][y - 1] != BORDERS) {
+        if (map[x + 1][y] != BORDERS) {
             map[x][y] = 0
             x += 1
             map[x][y] = 2
         }
         if (map[x + 1][y] == 3) {
-            map[x + 1][y] = 2
             map[x][y] = 0
-            rating++
-        }
-        if (map[x + 1][y] != BORDERS) {
-            map[x][y] = 0
-            x += 1
-            map[x][y] = 2
-        } else if (map[x + 1][y] == 3) {
-            map[x][y] = 0
-            coinsList.map.remove(map[x][y])
-            x += 1
             map[x][y] = 2
             rating++
         }

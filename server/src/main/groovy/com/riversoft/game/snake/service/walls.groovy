@@ -16,16 +16,20 @@ class walls {
 
     def createWallsX(int x, y, count) {
         count.times {
-            map[x][y] = 1
-            x++
+            if(map[x][y] == 0) {
+                map[x][y] = 1
+                x++
+            }
 
         }
     }
 
     def createWallsY(int x, y, count) {
         count.times {
-            map[x][y] = 1
-            y++
+            if(map[x][y] == 0) {
+                map[x][y] = 1
+                y++
+            }
 
         }
     }
