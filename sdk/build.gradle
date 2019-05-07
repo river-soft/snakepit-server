@@ -1,0 +1,17 @@
+plugins {
+    id 'groovy'
+}
+
+apply plugin: 'groovy'
+
+group = 'com.riversoft.game'
+version = "$version-DEV"
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy:2.4.+'
+}

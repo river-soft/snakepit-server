@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service
 class GameService {
 
     @Autowired private UserRepository userRepository
+    @Autowired private SocketService socketService
+
     private List<List> map = []
     private List<UserPackman> packmansList = []
     private List<Coins> coins = []
@@ -27,7 +29,8 @@ class GameService {
 
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
-        movePackmans()
+        movePackmans(socketService.getClientAnswer(map))
+
         log.debug(packmansList.rating.toString())
     }
 
@@ -72,21 +75,24 @@ class GameService {
 
 
     //save coordinates packmans and move packmans
-    void movePackmans(){
+    void movePackmans(List<Map> answers) {
         packmansList.each { i->
-            switch (new Random().nextInt(3)) {
-                case 0:
+            def answer = answers.find { x -> x.client == i.name }
+            switch (answer?.data) {
+                case 'right':
                     i.moveRight()
                     break
-                case 1:
+                case 'left':
                     i.moveLeft()
                     break
-                case 2:
+                case 'down':
                     i.moveDown()
                     break
-                case 3:
+                case 'up':
                     i.moveUp()
                     break
+
+                default: i.moveLeft()
             }
         }
     }
