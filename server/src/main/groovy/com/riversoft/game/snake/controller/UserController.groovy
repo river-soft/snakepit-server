@@ -5,6 +5,7 @@ import com.riversoft.game.snake.service.UserService
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -17,7 +18,7 @@ class UserController {
     UserService userService
 
     @GetMapping
-    String getAllUsers(){
-        userService.getAllUsers()
+    String main(Model model){
+        return main
     }
 }

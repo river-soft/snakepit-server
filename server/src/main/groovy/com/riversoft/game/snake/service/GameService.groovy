@@ -74,7 +74,7 @@ class GameService {
     //save coordinates packmans and move packmans
     void movePackmans(){
         packmansList.each { i->
-            switch (0) {
+            switch (new Random().nextInt(3)) {
                 case 0:
                     i.moveRight()
                     break
@@ -123,6 +123,7 @@ class GameService {
             it.createWallsX(47, 5, 5)
             it.createWallsY(51, 5, 3)
             it.createWallsX(48  ,7, 2)
+            it.createWallsY(51, 6, 2)
             // круг правый верх
             it.createWallsY(12, 56, 3)
             it.createWallsX(14, 56, 2)
