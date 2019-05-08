@@ -1,6 +1,7 @@
 package com.riversoft.game.snake.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.riversoft.game.snake.dto.ClientMessage
 import org.springframework.stereotype.Service
 import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage
@@ -40,9 +41,9 @@ class SocketService extends TextWebSocketHandler {
         result.remove(sessions)
     }
 
-    List<Map> getClientAnswer(List<List<Integer>> map) {
+    List<Map> getClientAnswer(ClientMessage message) {
 
-        sessions*.sendMessage(new TextMessage(new ObjectMapper().writeValueAsBytes(map)))
+        sessions*.sendMessage(new TextMessage(new ObjectMapper().writeValueAsBytes(message)))
 
         result.collect {
             try {

@@ -14,4 +14,21 @@ repositories {
 
 dependencies {
     implementation 'org.codehaus.groovy:groovy:2.4.+'
+    // https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server
+    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
+//    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.18.v20190429'
+    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-core
+//    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-core', version: '9.0.0.M2'
+    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-api
+//    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-api', version: '9.4.18.v20190429'
+    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/javax-websocket-client-impl
+    compile group: 'org.eclipse.jetty.websocket', name: 'javax-websocket-client-impl', version: '9.4.18.v20190429'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
+
+
+
+
+
+
+
 }

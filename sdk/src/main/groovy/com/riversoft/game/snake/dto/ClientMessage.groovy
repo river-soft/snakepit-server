@@ -1,9 +1,8 @@
 package com.riversoft.game.snake.dto
 
-
 class ClientMessage {
 
-    MessageType type
+    List<List<Integer>> map = []
 
-    int[][] map
+    List<ClientPosition> positions = []
 }

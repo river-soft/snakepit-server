@@ -1,6 +1,8 @@
 package com.riversoft.game.snake.service
 
 import com.riversoft.game.snake.data.repository.UserRepository
+import com.riversoft.game.snake.dto.ClientMessage
+import com.riversoft.game.snake.dto.ClientPosition
 import com.riversoft.game.snake.model.BattleState
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -29,7 +31,15 @@ class GameService {
 
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
-        movePackmans(socketService.getClientAnswer(map))
+        movePackmans(socketService.getClientAnswer(
+                new ClientMessage(
+                        map: map,
+                        positions: packmansList.collect { x -> new ClientPosition(
+                                clientName  : x.name,
+                                posX        : x.getX(),
+                                posY        : x.getY())
+                        })
+        ))
 
         log.debug(packmansList.rating.toString())
     }
