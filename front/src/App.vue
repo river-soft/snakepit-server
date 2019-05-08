@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <GameMap />
     <h1>Main page</h1>
     <router-link to="/registration">regs</router-link>
+    <br>
+    <router-link to="/map">map</router-link>
     <router-view></router-view>
   </div>
 </template>+

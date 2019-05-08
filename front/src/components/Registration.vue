@@ -2,11 +2,14 @@
     <div id="form-reg">
         <h1>Зарегистрируйтесь что бы начать играть</h1>
         <form action="">
+            <img src="../assets/packman.png"/>
             <input type="text" placeholder="Имя" v-model="user.username" >
             <input type="password" placeholder="Пароль" v-model="user.password">
             <input type="password" placeholder="Повторите  Пароль" v-model="user.password">
             <input type="button" value ="Зарегистрироваться" @click="addToAPI" />
         </form>
+
+        <el-button type="primary">hello</el-button>s
     </div>
 </template>
 <script>
@@ -45,29 +48,34 @@ import axios from 'axios'
 </script>
 
 <style scoped>
-h1{
+    *{
+        margin:0;
+        padding:0;
+    }
+    h1{
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     font-size: 60px;
     color:#4682B4;
     text-align: center;
 }
-    *{
-        margin:0;
-        padding:0;
-    }
+    #form-reg{
+        width:100%;
+        height:auto;
+        position: relative;
+        display: block;
+     }
 form{
-    border:100px solid #20B2AA;
     padding-bottom:1%;
     display:flex;
     flex-direction:column;
     align-items: center;
     margin:5% auto;
     padding-top:2%;
-    width:40%;
+    width:60%;
     height:auto;
-    box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
 }
 form input{
+    text-align: center;
     position:relative;
     background-color:transparent;
     font-size:1.4em;

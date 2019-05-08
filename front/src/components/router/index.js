@@ -1,15 +1,20 @@
 import Vue from 'vue'
 import Vuerouter  from 'vue-router';
+import Registration from "../Registration";
+import GameMapView from "../GameMapView";
 
-let reg = require('@/components/HelloWorld.vue')
+
 Vue.use(Vuerouter);
 
 export default new Vuerouter({
     routes:[
         {
-            path:'/',
-            name:'registration',
-            component: reg,
+            path:'/registration',
+            component: Registration,
+        },
+        {
+            path:'/map',
+            component:GameMapView,
         }
     ]
 });
