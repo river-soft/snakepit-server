@@ -3,6 +3,7 @@
 </template>
 
 <script>
+
     import { gameMap } from "../api/gameRepository";
 
     export default {

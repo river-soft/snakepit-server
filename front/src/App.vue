@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     <GameMap />
+    <router-link to="/registration">regs</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -14,22 +16,6 @@ export default {
     GameMap,
     HelloWorld
   }
-}
-export default {
-  name: 'formData',
-  data()  {
-    return  {
-      User:{name:'',password:'',repeatPassword:''},
-    }
-  }, methods:  {
-    addToAPI(){
-      let newUser = {
-
-      }
-    }
-
-  }
-
 }
 </script>
 
