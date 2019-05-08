@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuerouter  from 'vue-router';
 
-let reg = require('@/components/Registration.vue')
+let reg = require('@/components/HelloWorld.vue')
 Vue.use(Vuerouter);
 
 export default new Vuerouter({

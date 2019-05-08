@@ -1,28 +1,26 @@
 <template>
   <div id="app">
     <GameMap />
+    <h1>Main page</h1>
     <router-link to="/registration">regs</router-link>
     <router-view></router-view>
   </div>
-</template>
+</template>+
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
 import GameMap from "./components/GameMapView";
 
 export default {
   name: 'app',
   components: {
-    GameMap,
-    HelloWorld
+    GameMap
+   // HelloWorld
   }
 }
 </script>
 
 <style>
-  body{
-    background-color: #333336;
-  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
