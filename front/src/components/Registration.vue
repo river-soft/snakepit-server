@@ -26,7 +26,7 @@ import axios from 'axios'
                    username:this.user.username,
                     password:this.user.password
                 }
-                // console.log(newuser);
+                console.log(newuser);
                 axios({
                     method:'post',
                     data: {
