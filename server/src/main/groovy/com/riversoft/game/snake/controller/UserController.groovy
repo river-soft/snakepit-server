@@ -1,6 +1,7 @@
 package com.riversoft.game.snake.controller
 
 import com.riversoft.game.snake.data.domain.User
+import com.riversoft.game.snake.data.repository.UserRepository
 import com.riversoft.game.snake.model.UserDto
 import com.riversoft.game.snake.service.UserService
 import groovy.util.logging.Slf4j
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
+
 @Slf4j
 @RestController
 @RequestMapping('/api/users')
@@ -20,15 +22,14 @@ class UserController {
 
     @Autowired
     UserService userService
-
+    UserRepository userRepository
     @GetMapping
     String main(Model model){
-        return main
+        return model
     }
-
     @PostMapping
-    String userData(@RequestBody() User username){
-        log.info(username.toString())
-        return 'ok'
+    String userData(@RequestBody() User user){
+        log.info(user.toString())
+        return user
     }
 }

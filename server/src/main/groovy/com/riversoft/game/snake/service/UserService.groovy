@@ -1,5 +1,6 @@
 package com.riversoft.game.snake.service
 
+import com.riversoft.game.snake.controller.UserController
 import com.riversoft.game.snake.data.repository.UserRepository
 import com.riversoft.game.snake.model.UserDto
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,12 +16,17 @@ class UserService implements UserDetailsService {
 
     @Autowired UserRepository userRepository
     @Autowired PasswordEncoder passwordEncoder
+    @Autowired UserController controller
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         userRepository.deleteAll()
         userRepository.save(new com.riversoft.game.snake.data.domain.User(
                 username: 'user',
                 passwordHash: passwordEncoder.encode('1234')
+        ))
+        userRepository.save(new com.riversoft.game.snake.data.domain.User(
+                username:controller.userData(),
+                passwordHash: controller.userData()
         ))
 
         userRepository
@@ -29,9 +35,6 @@ class UserService implements UserDetailsService {
                 .orElseThrow { throw new UsernameNotFoundException('') }
     }
 
-  String getAllUsers() {
-       return "hello"
-    }
  }
 
 
