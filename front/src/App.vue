@@ -1,15 +1,10 @@
 <template>
   <div id="app">
-    <h1>Main page</h1>
-    <router-link to="/registration">regs</router-link>
-    <br>
-    <router-link to="/map">map</router-link>
     <router-view></router-view>
   </div>
 </template>+
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import GameMap from "./components/GameMapView";
 
 export default {
@@ -22,6 +17,10 @@ export default {
 </script>
 
 <style>
+
+  body{
+    background-color: #333336;
+  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -30,8 +29,4 @@ export default {
   color: #4682B4;
   margin-top: 60px;
 }
-  a{
-    color:red;
-    font-size:20px;
-  }
 </style>

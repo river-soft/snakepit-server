@@ -1,15 +1,13 @@
 <template>
     <div id="form-reg">
-        <h1>Зарегистрируйтесь что бы начать играть</h1>
+        <h1>Пройдите регистрацию <br> чтобы начать играть</h1>
         <form action="">
-            <img src="../assets/packman.png"/>
+            <img src="../assets/user.png">
             <input type="text" placeholder="Имя" v-model="user.username" >
             <input type="password" placeholder="Пароль" v-model="user.password">
             <input type="password" placeholder="Повторите  Пароль" v-model="user.password">
             <input type="button" value ="Зарегистрироваться" @click="addToAPI" />
         </form>
-
-        <el-button type="primary">hello</el-button>s
     </div>
 </template>
 <script>
@@ -25,18 +23,16 @@ import axios from 'axios'
                 let newuser = {
                    username:this.user.username,
                     password:this.user.password
-                }
+                };
                 console.log(newuser);
-                axios({
-                    method:'post',
-                    data: {
-                        name: 'Siberian Husky'
-                    }
-                        // .then({
-                        //     console:log(newuser)
-                        // }).catch(function (e){
-                        //     console.log(e)
-                        // })
+                axios.post('/api/users', {
+                    username: this.user.username,
+                    passwordHash: this.user.password
+                })
+                    .then(function (response) {
+                    console.log(response);
+                }).catch(function(e){
+                    console.log(e)
                 })
             }
 
@@ -53,11 +49,14 @@ import axios from 'axios'
         padding:0;
     }
     h1{
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    font-size: 60px;
-    color:#4682B4;
-    text-align: center;
-}
+        width:30%;
+        margin: auto;
+        font-family: Ubuntu;
+        font-size: 2.5em;
+        color:white;
+        text-align: center;
+        border-right:4px solid #4682B4;
+    }
     #form-reg{
         width:100%;
         height:auto;
@@ -65,15 +64,21 @@ import axios from 'axios'
         display: block;
      }
 form{
+    background-color: #222226;
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
     padding-bottom:1%;
     display:flex;
     flex-direction:column;
     align-items: center;
     margin:5% auto;
     padding-top:2%;
-    width:60%;
+    width:50%;
     height:auto;
 }
+    form img{
+        width:30%;
+        margin: auto;
+    }
 form input{
     text-align: center;
     position:relative;
@@ -81,25 +86,30 @@ form input{
     font-size:1.4em;
     outline:0;
     border:none;
-    border-bottom:1px solid black;
+    border-bottom:2px solid #409EFF;
     width:50%;
     height:55px;
-    color:black;
+    color:white;
     margin: 3% auto;
+    padding-bottom: 1%;
+    box-shadow: 0px 3px 0px rgba(0,0,0,0.5);
 }
 
 
 form input:last-child:hover{
-    color:white;
-    transition:0.5s;
-    background-color:#20B2AA;
-    border-radius:20px;
+    border-color:#409EFF;
+    color:#252525;
+    transition:all 0.5s linear;
+    background-color:transparent;
 }
 form input:last-child{
-    margin-top:5%;
-    border:1px solid #20B2AA;
+    height:70px;
+    background-color: #409EFF;
+    margin-top:2%;
+    border:2px solid transparent;
     justify-self:center;
-    color:#20B2AA;
+    color:white;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
 
 </style>
