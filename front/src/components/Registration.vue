@@ -4,12 +4,12 @@
         <form action="">
             <img src="../assets/user.png">
             <input type="text" placeholder="Имя" v-model="user.username">
-             <span class="{:isActive,}"v-if="user.username === ''">Введите Имя</span>
-             <span class="error"v-else="user.username !== ''"></span>
+             <span class="error" v-if="user.username === ''">Введите Имя</span>
+             <span class="error" v-else="user.username !== ''"></span>
             <input type="password" placeholder="Пароль" v-model="user.password">
-            <span class="error"v-if="user.password === ''">Введите пароль</span>
-            <span class="error" v-else="user.password !== ''"></span>
-            <input type="button" value ="Зарегистрироваться" @click="addToAPI"/>
+            <span class="error"  v-if="user.password === ''">Введите пароль</span>
+            <span class="error"  v-else="user.password !== ''"></span>
+            <input type="button"   value ="Зарегистрироваться" @click="addToAPI"/>
         </form>
     </div>
 </template>
