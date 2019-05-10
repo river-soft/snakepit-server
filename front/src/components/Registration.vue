@@ -26,6 +26,7 @@ import axios from 'axios'
                 };
                 console.log(newuser);
                 axios.post('/api/users', {
+                    id:1,
                     username: this.user.username,
                     passwordHash: this.user.password
                 })
@@ -40,8 +41,11 @@ import axios from 'axios'
     }
 
 
-
 </script>
+
+//Validation form
+
+
 
 <style scoped>
     *{
@@ -77,7 +81,7 @@ form{
 }
     form img{
         width:30%;
-        margin: auto;
+        margin:auto;
     }
 form input{
     text-align: center;
@@ -93,12 +97,11 @@ form input{
     margin: 3% auto;
     padding-bottom: 1%;
     box-shadow: 0px 3px 0px rgba(0,0,0,0.5);
+    text-shadow:0px 3px 0px rgba(0,0,0,0.5);
 }
-
-
 form input:last-child:hover{
     border-color:#409EFF;
-    color:#252525;
+    color:white;
     transition:all 0.5s linear;
     background-color:transparent;
 }
@@ -111,5 +114,4 @@ form input:last-child{
     color:white;
     box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
-
 </style>

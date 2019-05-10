@@ -25,6 +25,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers('/api/game').permitAll()
+                .antMatchers('/api/users').permitAll()
                 .anyRequest().authenticated()
 
                 .and().formLogin()

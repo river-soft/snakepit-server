@@ -22,14 +22,13 @@ class UserController {
 
     @Autowired
     UserService userService
-    UserRepository userRepository
     @GetMapping
-    String main(Model model){
-        return model
+    String getRezult(){
+        return userService.getRezult()
     }
     @PostMapping
     String userData(@RequestBody() User user){
         log.info(user.toString())
-        return user
+        return user.username
     }
 }

@@ -14,27 +14,27 @@ import org.springframework.stereotype.Service
 @Service
 class UserService implements UserDetailsService {
 
-    @Autowired UserRepository userRepository
-    @Autowired PasswordEncoder passwordEncoder
-    @Autowired UserController controller
+    @Autowired
+    UserRepository userRepository
+    @Autowired
+    PasswordEncoder passwordEncoder
+    @Autowired
+    UserController controller
+
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        userRepository.deleteAll()
         userRepository.save(new com.riversoft.game.snake.data.domain.User(
-                username: 'user',
-                passwordHash: passwordEncoder.encode('1234')
+                username: controller.userData(),
         ))
-        userRepository.save(new com.riversoft.game.snake.data.domain.User(
-                username:controller.userData(),
-                passwordHash: controller.userData()
-        ))
-
         userRepository
                 .findByUsername(username)
-                .map { new User(it.username, it.passwordHash,[]) }
+                .map { new User(it.username, it.passwordHash, []) }
                 .orElseThrow { throw new UsernameNotFoundException('') }
     }
 
- }
+    String getRezult() {
+        userRepository.findAll()
+    }
+}
 
 
