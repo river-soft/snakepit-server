@@ -29,6 +29,12 @@ class UserController {
     @PostMapping
     String userData(@RequestBody() User user){
         log.info(user.toString())
-        return user.username
+
+        try {
+            return userService.addNewUser(user)
+        } catch(Exception e) {
+            throw new RuntimeException('Что-то пошло не так', e)
+        }
+
     }
 }

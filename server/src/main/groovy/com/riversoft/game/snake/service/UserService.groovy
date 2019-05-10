@@ -23,9 +23,6 @@ class UserService implements UserDetailsService {
 
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        userRepository.save(new com.riversoft.game.snake.data.domain.User(
-                username: controller.userData(),
-        ))
         userRepository
                 .findByUsername(username)
                 .map { new User(it.username, it.passwordHash, []) }
@@ -34,6 +31,10 @@ class UserService implements UserDetailsService {
 
     String getRezult() {
         userRepository.findAll()
+    }
+
+    com.riversoft.game.snake.data.domain.User addNewUser(com.riversoft.game.snake.data.domain.User user) {
+        userRepository.save(user)
     }
 }
 

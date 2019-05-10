@@ -3,13 +3,17 @@
         <h1>Пройдите регистрацию <br> чтобы начать играть</h1>
         <form action="">
             <img src="../assets/user.png">
-            <input type="text" placeholder="Имя" v-model="user.username" >
+            <input type="text" placeholder="Имя" v-model="user.username">
+             <span class="{:isActive,}"v-if="user.username === ''">Введите Имя</span>
+             <span class="error"v-else="user.username !== ''"></span>
             <input type="password" placeholder="Пароль" v-model="user.password">
-            <input type="password" placeholder="Повторите  Пароль" v-model="user.password">
-            <input type="button" value ="Зарегистрироваться" @click="addToAPI" />
+            <span class="error"v-if="user.password === ''">Введите пароль</span>
+            <span class="error" v-else="user.password !== ''"></span>
+            <input type="button" value ="Зарегистрироваться" @click="addToAPI"/>
         </form>
     </div>
 </template>
+
 <script>
 import axios from 'axios'
     export default {
@@ -17,33 +21,39 @@ import axios from 'axios'
         data(){
             return {
                 user: {username: '', password: ''},
+                isButtonDisabled: true,
+                error:''
              }
             },methods:{
-            addToAPI(){
+            addToAPI() {
                 let newuser = {
-                   username:this.user.username,
-                    password:this.user.password
+                    username: this.user.username,
+                    password: this.user.password
                 };
                 console.log(newuser);
-                axios.post('/api/users', {
-                    id:1,
-                    username: this.user.username,
-                    passwordHash: this.user.password
-                })
-                    .then(function (response) {
-                    console.log(response);
-                }).catch(function(e){
-                    console.log(e)
-                })
+                if(this.user.username !== '' && this.user.password !== '') {
+                    axios.post('/api/users', {
+                        username: this.user.username,
+                        passwordHash: this.user.password
+                    })
+                        .then(function (response) {
+                            console.log(response);
+                        }).catch(function (e) {
+                        alert(e.message);
+                        console.log(e)
+                    })
+                  }else{
+                    var spans = document.getElementsByClassName('error');
+                    alert(spans);
+                    spans.style.color = 'red';
+                  }
+                }
             }
-
-        }
     }
 
 
 </script>
 
-//Validation form
 
 
 
