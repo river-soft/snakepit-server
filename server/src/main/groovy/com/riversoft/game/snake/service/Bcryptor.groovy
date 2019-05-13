@@ -14,7 +14,8 @@ class Bcryptor {
     UserService userService
 
     com.riversoft.game.snake.data.domain.User HashPassword(com.riversoft.game.snake.data.domain.User user) {
-        passwordEncoder.encode(user.passwordHash)
+        def HashPassword = passwordEncoder.encode(user.getPasswordHash())
+        user.setPasswordHash(HashPassword)
         return  userService.addNewUser(user)
     }
 }
