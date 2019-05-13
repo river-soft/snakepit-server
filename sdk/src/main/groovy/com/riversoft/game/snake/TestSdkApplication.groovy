@@ -5,11 +5,9 @@ import com.riversoft.game.snake.dto.ClientMessage
 class TestSdkApplication {
 
     static void main(String[] args) {
-        def client = new PacManClient('localhost:8080/', 'user', '1234')
-
+        def client = new PacManClient('localhost:7000', 'Николай', '123')
         client.onRequest = { ClientMessage m ->
-
-            ['left', 'right', 'up', 'down'].get(new Random().nextInt(3))
+            ['right', 'left', 'up', 'down'].get(new Random().nextInt(0))
         }
     }
 }

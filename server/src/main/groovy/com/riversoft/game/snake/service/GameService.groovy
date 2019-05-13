@@ -211,7 +211,7 @@ class GameService {
             it.createWallsY(30,29,2)// left
             it.createWallsY(30,32,2)//right
             it.createWallsY(33,29,2)//left bottom
-            it.createWallsY(33,32,2)//rigth bottom
+            it.createWallsY(33,32,2)//right bottom
         }
     }
 

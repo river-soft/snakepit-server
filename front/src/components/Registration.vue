@@ -9,7 +9,7 @@
             <input type="password" placeholder="Пароль" v-model="user.password">
             <span class="error"  v-if="user.password === ''">Введите пароль</span>
             <span class="error"  v-else="user.password !== ''"></span>
-            <input type="button"   value ="Зарегистрироваться" @click="addToAPI"/>
+            <input type="button"   value ="Зарегистрироваться" @click="addToAPI">
         </form>
     </div>
 </template>
@@ -63,7 +63,7 @@ import axios from 'axios'
         padding:0;
     }
     h1{
-        width:30%;
+        width:50%;
         margin: auto;
         font-family: Ubuntu;
         font-size: 2.5em;
@@ -71,6 +71,7 @@ import axios from 'axios'
         text-align: center;
         border-right:4px solid #4682B4;
     }
+
     #form-reg{
         width:100%;
         height:auto;
