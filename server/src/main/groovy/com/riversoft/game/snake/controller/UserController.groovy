@@ -3,6 +3,7 @@ package com.riversoft.game.snake.controller
 import com.riversoft.game.snake.data.domain.User
 import com.riversoft.game.snake.data.repository.UserRepository
 import com.riversoft.game.snake.model.UserDto
+import com.riversoft.game.snake.service.Bcryptor
 import com.riversoft.game.snake.service.UserService
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,6 +23,8 @@ class UserController {
 
     @Autowired
     UserService userService
+    @Autowired
+    Bcryptor    bcryptor
     @GetMapping
     String getRezult(){
         return userService.getRezult()
@@ -31,7 +34,7 @@ class UserController {
         log.info(user.toString())
 
         try {
-            return userService.addNewUser(user)
+            return bcryptor.HashPassword(user)
         } catch(Exception e) {
             throw new RuntimeException('Что-то пошло не так', e)
         }
