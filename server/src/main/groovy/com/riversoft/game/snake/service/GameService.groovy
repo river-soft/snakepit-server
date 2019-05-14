@@ -6,6 +6,8 @@ import com.riversoft.game.snake.dto.ClientPosition
 import com.riversoft.game.snake.model.BattleState
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.event.ContextRefreshedEvent
+import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 //import com.riversoft.game.snake.service.Rating
@@ -20,6 +22,8 @@ class GameService {
     private UserRepository userRepository
     @Autowired
     private SocketService socketService
+    @Autowired
+    private UserService userService
 //    @Autowired private Rating rating
 
     private List<List> map = []
@@ -35,6 +39,7 @@ class GameService {
 
     @Scheduled(cron = '*/10 * * * * *')
     void resetMap() {
+        generateAll()
     }
 
     @Scheduled(cron = '* * * * * *')
@@ -59,9 +64,13 @@ class GameService {
     //CONSTRUCTOR FOR THIS CLASS
     GameService(){
        generateAll()
+
+        log.info("My Construct")
     }
 
-    def generateAll(){
+    def generateAll() {
+        map = []
+
         COLUMN_COUNT_X.times { x->
             def temp = []
             COLUMN_COUNT_Y.times{ y->
@@ -73,6 +82,7 @@ class GameService {
             }
             map.add(temp)
         }
+
 
         //create coins
         (0..50).each {
@@ -87,20 +97,30 @@ class GameService {
         }
         CreateWalls() //add walls in map
         getCoins() //add coins in map
+        start()
     }
 
     @PostConstruct
     def start() {
+        packmansList = []
         userRepository.findAll().each {
             //create coords for packmansList
             int packmansX = new Random().nextInt(COLUMN_COUNT_X)
             int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
-            packmansList.add(new UserPackman(map, it.username, packmansX,packmansY))
+            packmansList.add(new UserPackman(map, it.username, packmansX,packmansY, it.rating))
         }
+
+        packmansList*.onRating = { UserPackman packman ->
+
+            def user = userRepository.findByUsername(packman.name).get()
+            user.rating = packman.rating
+
+            log.info("Save rating ${packman.rating} for user ${packman.name}")
+            userRepository.save(user)
+        }
+
+        log.info("My PostConstruct")
     }
-
-
-
 
     //save coordinates packmans and move packmans
 

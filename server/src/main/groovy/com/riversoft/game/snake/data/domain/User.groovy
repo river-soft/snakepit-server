@@ -16,4 +16,5 @@ class User {
     String username
 
     String passwordHash
+    String rating
 }
