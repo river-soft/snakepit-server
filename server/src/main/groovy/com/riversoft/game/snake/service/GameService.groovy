@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 
+import javax.annotation.PostConstruct
+
 @Slf4j
 @Service
 class GameService {
 
     @Autowired private UserRepository userRepository
     @Autowired private SocketService socketService
+    @Autowired private Bcryptor id
 
     private List<List> map = []
     private List<UserPackman> packmansList = []
@@ -58,14 +61,11 @@ class GameService {
             }
             map.add(temp)
         }
-        (0..7).each {
-            //create coords for packmansList
-            int packmansX = new Random().nextInt(COLUMN_COUNT_X)
-            int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
-                if(packmansY > BORDERS && packmansX > BORDERS && packmansY < COLUMN_COUNT_Y && packmansX < COLUMN_COUNT_X) {
-                    packmansList.add(new UserPackman(map, it.toString(), packmansX,packmansY))
-                }
-        }
+
+        //Here try  to associate user with pacman
+//        (0..7).each {
+//           def id = id.HashPassword().id
+//        }
         //create coins
         (0..50).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
@@ -79,6 +79,18 @@ class GameService {
         }
         CreateWalls()
         getCoins()//add coins in map
+    }
+
+    @PostConstruct
+    def start() {
+        userRepository.findAll().each {
+            //create coords for packmansList
+            int packmansX = new Random().nextInt(COLUMN_COUNT_X)
+            int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
+            if(packmansY > BORDERS && packmansX > BORDERS && packmansY < COLUMN_COUNT_Y && packmansX < COLUMN_COUNT_X) {
+                packmansList.add(new UserPackman(map, it.username, packmansX,packmansY))
+            }
+        }
     }
 
 
@@ -102,7 +114,7 @@ class GameService {
                     i.moveUp()
                     break
 
-                default: i.moveLeft()
+                default: break
             }
         }
     }

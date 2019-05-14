@@ -29,6 +29,7 @@ class UserPackman {
         this.x = x
         this.y = y
 
+        this.map[this.x][this.y] = 2
     }
 
     def moveLeft() {
