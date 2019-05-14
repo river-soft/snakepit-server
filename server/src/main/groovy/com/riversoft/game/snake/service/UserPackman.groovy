@@ -9,6 +9,9 @@ class UserPackman {
 
 //const
     final BORDERS = 1
+    final EMPTYSPACE = 0
+    final PACMAN = 2
+    final COINS = 3
 
     //--------------------------------
     //--------------------------------
@@ -28,45 +31,52 @@ class UserPackman {
         this.name = name
         this.x = x
         this.y = y
-
-        this.map[this.x][this.y] = 2
+        if(this.map[this.x][this.y] == EMPTYSPACE ){
+            this.map[this.x][this.y] = PACMAN
+        }else {
+          while(this.map[this.x][this.y] != EMPTYSPACE){
+              this.y -=  1
+              this.x -=  1
+          }
+            this.map[this.x][this.y] = PACMAN
+        }
     }
 
     def moveLeft() {
         if (map[x][y - 1] != BORDERS) {
-            map[x][y] = 0
+            map[x][y] = EMPTYSPACE
             y -= 1
-            map[x][y] = 2
+            map[x][y] = PACMAN
         }
-        if (map[x][y - 1] == 3) {
-            map[x][y] = 0
-            map[x][y] = 2
+        if (map[x][y - 1] == COINS) {
+            map[x][y] = EMPTYSPACE
+            map[x][y] = PACMAN
             rating++
         }
     }
 
     def moveRight() {
         if (map[x][y + 1] != BORDERS) {
-            map[x][y] = 0
+            map[x][y] = EMPTYSPACE
             y += 1
-            map[x][y] = 2
+            map[x][y] = PACMAN
         }
-        if(map[x][y + 1] == 3) {
-            map[x][y] = 0
-            map[x][y] = 2
+        if(map[x][y + 1] == COINS) {
+            map[x][y] = EMPTYSPACE
+            map[x][y] = PACMAN
             rating++
         }
     }
 
     def moveUp() {
         if (map[x - 1][y] != BORDERS) {
-            map[x][y] = 0
+            map[x][y] = EMPTYSPACE
             x -= 1
-            map[x][y] = 2
+            map[x][y] = PACMAN
         }
-        if (map[x - 1][y] == 3) {
-            map[x][y] = 0
-            map[x][y] = 2
+        if (map[x - 1][y] == COINS) {
+            map[x][y] = EMPTYSPACE
+            map[x][y] = PACMAN
             rating++
         }
 
@@ -74,13 +84,13 @@ class UserPackman {
 
     def moveDown() {
         if (map[x + 1][y] != BORDERS) {
-            map[x][y] = 0
+            map[x][y] = EMPTYSPACE
             x += 1
-            map[x][y] = 2
+            map[x][y] = PACMAN
         }
-        if (map[x + 1][y] == 3) {
-            map[x][y] = 0
-            map[x][y] = 2
+        if (map[x + 1][y] == COINS) {
+            map[x][y] = EMPTYSPACE
+            map[x][y] = PACMAN
             rating++
         }
 

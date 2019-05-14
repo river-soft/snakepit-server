@@ -8,6 +8,7 @@ import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
+//import com.riversoft.game.snake.service.Rating
 
 import javax.annotation.PostConstruct
 
@@ -15,9 +16,11 @@ import javax.annotation.PostConstruct
 @Service
 class GameService {
 
-    @Autowired private UserRepository userRepository
-    @Autowired private SocketService socketService
-    @Autowired private Bcryptor id
+    @Autowired
+    private UserRepository userRepository
+    @Autowired
+    private SocketService socketService
+//    @Autowired private Rating rating
 
     private List<List> map = []
     private List<UserPackman> packmansList = []
@@ -30,30 +33,39 @@ class GameService {
     final BORDERS = 1
 
 
-
+    @Scheduled(cron = '*/10 * * * * *')
+    void resetMap() {
+    }
 
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
         movePackmans(socketService.getClientAnswer(
                 new ClientMessage(
                         map: map,
-                        positions: packmansList.collect { x -> new ClientPosition(
-                                clientName  : x.name,
-                                posX        : x.getX(),
-                                posY        : x.getY())
+                        positions: packmansList.collect { x ->
+                            new ClientPosition(
+                                    clientName: x.name,
+                                    posX: x.getX(),
+                                    posY: x.getY())
                         })
         ))
 
         log.debug(packmansList.rating.toString())
+//        log.debug(rating.points.toString())
+
     }
 
 
     //CONSTRUCTOR FOR THIS CLASS
     GameService(){
+       generateAll()
+    }
+
+    def generateAll(){
         COLUMN_COUNT_X.times { x->
             def temp = []
             COLUMN_COUNT_Y.times{ y->
-                if (y > 0  && x > 0 && y < ( COLUMN_COUNT_Y - 1 ) && x < ( COLUMN_COUNT_X - 1 ) ) {
+                if (y > 0  && x > 0 && y <( COLUMN_COUNT_Y -1 ) && x <( COLUMN_COUNT_X -1) ) {
                     temp.add(0)
                 } else {
                     temp.add(BORDERS)
@@ -62,23 +74,19 @@ class GameService {
             map.add(temp)
         }
 
-        //Here try  to associate user with pacman
-//        (0..7).each {
-//           def id = id.HashPassword().id
-//        }
         //create coins
         (0..50).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
-                if(coinsY > BORDERS && coinsX > BORDERS && coinsY < COLUMN_COUNT_Y && coinsX < COLUMN_COUNT_X) {
-                    coins.add(new Coins(map, coinsX, coinsY))
-                }
+            if(coinsY > BORDERS && coinsX > BORDERS && coinsY < COLUMN_COUNT_Y && coinsX < COLUMN_COUNT_X) {
+                coins.add(new Coins(map, coinsX, coinsY))
+            }
         }
         (0..3).each{
             walls.add(new walls (map,2,2))
         }
-        CreateWalls()
-        getCoins()//add coins in map
+        CreateWalls() //add walls in map
+        getCoins() //add coins in map
     }
 
     @PostConstruct
@@ -87,9 +95,7 @@ class GameService {
             //create coords for packmansList
             int packmansX = new Random().nextInt(COLUMN_COUNT_X)
             int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
-            if(packmansY > BORDERS && packmansX > BORDERS && packmansY < COLUMN_COUNT_Y && packmansX < COLUMN_COUNT_X) {
-                packmansList.add(new UserPackman(map, it.username, packmansX,packmansY))
-            }
+            packmansList.add(new UserPackman(map, it.username, packmansX,packmansY))
         }
     }
 
@@ -97,6 +103,7 @@ class GameService {
 
 
     //save coordinates packmans and move packmans
+
     void movePackmans(List<Map> answers) {
         packmansList.each { i->
             def answer = answers.find { x -> x.client == i.name }
