@@ -44,6 +44,13 @@ changeBuildType(RelativeId("BuildServer")) {
                 param("dockerImage.platform", "linux")
             }
         }
+        insert(3) {
+            dockerCommand {
+                commandType = push {
+                    namesAndTags = "799238304447.dkr.ecr.eu-central-1.amazonaws.com/snakepit/server:%build.number%"
+                }
+            }
+        }
     }
 
     triggers {
