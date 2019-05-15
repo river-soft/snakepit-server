@@ -2,6 +2,7 @@ package patches.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.v2018_2.*
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.GradleBuildStep
+import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.gradle
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.v2018_2.triggers.vcs
@@ -28,6 +29,19 @@ changeBuildType(RelativeId("BuildServer")) {
             script {
                 workingDir = "server"
                 scriptContent = "rm -rf build"
+            }
+        }
+        insert(2) {
+            dockerCommand {
+                commandType = build {
+                    source = path {
+                        path = "server/Dockerfile"
+                    }
+                    contextDir = "server"
+                    namesAndTags = "server:%build.number%"
+                    commandArgs = "--pull"
+                }
+                param("dockerImage.platform", "linux")
             }
         }
     }
