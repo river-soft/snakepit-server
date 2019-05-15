@@ -51,7 +51,7 @@ create(DslContext.projectId, BuildType({
         }
         dockerCommand {
             commandType = push {
-                namesAndTags = "snakepit.azurecr.io/front:%build.number%"
+                namesAndTags = "799238304447.dkr.ecr.eu-central-1.amazonaws.com/snakepit/front:%build.number%"
             }
         }
     }
