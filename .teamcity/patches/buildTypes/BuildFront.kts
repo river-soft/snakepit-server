@@ -45,7 +45,10 @@ create(DslContext.projectId, BuildType({
                     path = "front/Dockerfile"
                 }
                 contextDir = "front"
-                namesAndTags = "front:%build.number%"
+                namesAndTags = """
+                    799238304447.dkr.ecr.eu-central-1.amazonaws.com/snakepit/front:%build.number%
+                    799238304447.dkr.ecr.eu-central-1.amazonaws.com/snakepit/server:latest
+                """.trimIndent()
                 commandArgs = "--pull"
             }
             param("dockerImage.platform", "linux")
