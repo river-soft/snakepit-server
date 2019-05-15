@@ -41,9 +41,10 @@ class PacManClient {
         void onMessage(String data) {
 
             def message = new ObjectMapper().readValue(data, ClientMessage)
+            showMap(message.map)
+
             def answer = onRequest(message)
 
-            showMap(message.map)
             println "answer $answer"
             session.getRemote().sendString(answer)
         }

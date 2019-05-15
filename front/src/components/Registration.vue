@@ -4,26 +4,41 @@
         <form action="">
             <img src="../assets/user.png">
             <input type="text" placeholder="Имя" v-model="user.username">
-             <span class="error" v-if="user.username === ''">Введите Имя</span>
-             <span class="error" v-else="user.username !== ''"></span>
+             <span class="error" v-if="!nameIsValid">Введите Имя</span>
+             <span class="error" v-else="nameIsValid"></span>
+            <span v-if="error">{{error}}</span>
             <input type="password" placeholder="Пароль" v-model="user.password">
-            <span class="error"  v-if="user.password === ''">Введите пароль</span>
-            <span class="error"  v-else="user.password !== ''"></span>
-            <input type="button"   value ="Зарегистрироваться" @click="addToAPI">
+            <span class="error"  v-if="!passIsValid">Введите пароль</span>
+            <span class="error"  v-else="passIsValid"></span>
+            <button :disabled="!formIsValid"  @click="addToAPI">Зарегистрироваться</button>
         </form>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import swal from 'sweetalert'
     export default {
         name: "form-reg",
         data(){
             return {
                 user: {username: '', password: ''},
                 isButtonDisabled: true,
-                error:''
+                error: ''
+
              }
+            },computed:{
+                nameIsValid(){
+                    return this.user.username;
+                },
+
+            passIsValid(){
+                    return this.user.password;
+              },
+            formIsValid(){
+                return this.nameIsValid && this.passIsValid
+             }
+
             },methods:{
             addToAPI() {
                 let newuser = {
@@ -31,21 +46,20 @@ import axios from 'axios'
                     password: this.user.password
                 };
                 console.log(newuser);
-                if(this.user.username !== '' && this.user.password !== '') {
+
+                if(this.formIsValid) {
+                    this.error = '';
                     axios.post('/api/users', {
                         username: this.user.username,
                         passwordHash: this.user.password
                     })
-                        .then(function (response) {
-                            console.log(response);
-                        }).catch(function (e) {
-                        alert(e.message);
-                        console.log(e)
+                        .then((response) => {
+                           console.log(response);
+                        }).catch((e)  => {
+                            this.error = 'Имя занято';
+                        // swal('Ты не уникален');
+                      //  console.log(e)
                     })
-                  }else{
-                    var spans = document.getElementsByClassName('error');
-                    alert(spans);
-                    spans.style.color = 'red';
                   }
                 }
             }
@@ -110,19 +124,25 @@ form input{
     box-shadow: 0px 3px 0px rgba(0,0,0,0.5);
     text-shadow:0px 3px 0px rgba(0,0,0,0.5);
 }
-form input:last-child:hover{
+button:hover{
     border-color:#409EFF;
     color:white;
     transition:all 0.5s linear;
     background-color:transparent;
 }
-form input:last-child{
+button{
+    text-align: center;
+    position:relative;
+    font-size:1.4em;
+    outline:0;
+    width:50%;
+    color:white;
+    margin: 3% auto;
+    padding-bottom: 1%;
     height:70px;
     background-color: #409EFF;
-    margin-top:2%;
     border:2px solid transparent;
     justify-self:center;
-    color:white;
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+
 }
 </style>

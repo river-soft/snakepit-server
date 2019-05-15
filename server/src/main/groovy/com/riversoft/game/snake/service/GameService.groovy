@@ -127,21 +127,24 @@ class GameService {
     void movePackmans(List<Map> answers) {
         packmansList.each { i->
             def answer = answers.find { x -> x.client == i.name }
-            switch (answer?.data) {
-                case 'right':
-                    i.moveRight()
-                    break
-                case 'left':
-                    i.moveLeft()
-                    break
-                case 'down':
-                    i.moveDown()
-                    break
-                case 'up':
-                    i.moveUp()
-                    break
+            if (answer) {
+                log.debug("Answer from user ${answer.client} - ${answer.data}")
+                switch (answer?.data) {
+                    case 'right':
+                        i.moveRight()
+                        break
+                    case 'left':
+                        i.moveLeft()
+                        break
+                    case 'down':
+                        i.moveDown()
+                        break
+                    case 'up':
+                        i.moveUp()
+                        break
 
-                default: break
+                    default: break
+                }
             }
         }
     }

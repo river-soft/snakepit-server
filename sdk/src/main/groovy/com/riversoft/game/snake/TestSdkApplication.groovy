@@ -9,11 +9,12 @@ class TestSdkApplication {
             def myPacman = m.positions.find { x -> x.clientName == 'Николай' }
             def map = m.getMap()
             def count = 0
-                myPacman.posX++
-                myPacman.posY++
-               while(myPacman.posX != 1  && myPacman.posY != 1){
-                   ['left','right','up','down'].get(1)
-               }
+            println "my position ${myPacman.posY} x ${myPacman.posX}"
+            if (map[myPacman.posX][myPacman.posY - 1] == 1) {
+                return ['left', 'right', 'up', 'down'].get(2)
+            } else {
+                return ['left', 'right', 'up', 'down'].get(0)
+            }
+                }
             }
         }
-    }

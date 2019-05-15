@@ -43,6 +43,10 @@ class SocketService extends TextWebSocketHandler {
 
     List<Map> getClientAnswer(ClientMessage message) {
 
+        for (def r : result) {
+            r.value = new CompletableFuture()
+        }
+
         sessions*.sendMessage(new TextMessage(new ObjectMapper().writeValueAsBytes(message)))
 
         result.collect {
