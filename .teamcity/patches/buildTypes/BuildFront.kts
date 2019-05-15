@@ -51,7 +51,7 @@ create(DslContext.projectId, BuildType({
         }
         dockerCommand {
             commandType = push {
-                namesAndTags = "front:%build.number%"
+                namesAndTags = "snakepit.azurecr.io/front:%build.number%"
             }
         }
     }
