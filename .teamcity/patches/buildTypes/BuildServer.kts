@@ -3,6 +3,7 @@ package patches.buildTypes
 import jetbrains.buildServer.configs.kotlin.v2018_2.*
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.GradleBuildStep
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.gradle
+import jetbrains.buildServer.configs.kotlin.v2018_2.triggers.vcs
 import jetbrains.buildServer.configs.kotlin.v2018_2.ui.*
 
 /*
@@ -21,6 +22,15 @@ changeBuildType(RelativeId("BuildServer")) {
     steps {
         update<GradleBuildStep>(0) {
             tasks = "clean :server:build"
+        }
+    }
+
+    triggers {
+        add {
+            vcs {
+                triggerRules = "+:server/**"
+                branchFilter = ""
+            }
         }
     }
 }
