@@ -1,0 +1,22 @@
+server {
+    listen ${NGINX_PORT};
+    root /app;
+    index index.html;
+
+    proxy_intercept_errors on;
+    keepalive_timeout   0;
+    client_max_body_size 10M;
+
+    location / {
+        try_files ${DOLLAR}uri ${DOLLAR}uri/ @rewrites;
+    }
+    location @rewrites {
+        rewrite ^(.+)${DOLLAR} /index.html last;
+    }
+    location ~* \.(?:ico|css|js|gif|jpe?g|png)${DOLLAR} {
+    # Some basic cache-control for static files to be sent to the browser
+    expires max;
+    add_header Pragma public;
+    add_header Cache-Control "public, must-revalidate, proxy-revalidate";
+}
+}
