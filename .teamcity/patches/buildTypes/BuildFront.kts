@@ -49,6 +49,11 @@ create(DslContext.projectId, BuildType({
             }
             param("dockerImage.platform", "linux")
         }
+        dockerCommand {
+            commandType = push {
+                namesAndTags = "front:%build.number%"
+            }
+        }
     }
 
     triggers {
