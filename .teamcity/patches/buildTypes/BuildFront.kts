@@ -44,7 +44,7 @@ create(DslContext.projectId, BuildType({
                     path = "front/Dockerfile"
                 }
                 contextDir = "front"
-                namesAndTags = "front"
+                namesAndTags = "front:%build.number%"
                 commandArgs = "--pull"
             }
             param("dockerImage.platform", "linux")
