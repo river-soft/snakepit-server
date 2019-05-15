@@ -1,0 +1,23 @@
+version: '2'
+services:
+  gateway:
+    image: nginx
+    network_mode: host
+    restart: always
+    volumes:
+      - ./gateway.nginx:/etc/nginx/conf.d/default.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf
+
+  mongo:
+    image: mongo:latest
+    network_mode: host
+    volumes:
+      - ./data/mongo:/data/db
+
+  server:
+    image: server:latest
+    network_mode: host
+
+  front:
+    image: front:latest
+    network_mode: host

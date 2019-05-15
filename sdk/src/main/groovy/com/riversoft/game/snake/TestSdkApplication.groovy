@@ -15,6 +15,6 @@ class TestSdkApplication {
             } else {
                 return ['left', 'right', 'up', 'down'].get(0)
             }
-                }
-            }
         }
+    }
+}
