@@ -37,7 +37,7 @@ class GameService {
     final BORDERS = 1
 
 
-    @Scheduled(cron = '*/10 * * * * *')
+    @Scheduled(cron = ' */30 * * * * *')
     void resetMap() {
         generateAll()
     }
