@@ -33,7 +33,7 @@ create(DslContext.projectId, BuildType({
                 yarn build
                 #yarn build-storybook
             """.trimIndent()
-            dockerImage = "ode:latest"
+            dockerImage = "node:latest"
             dockerImagePlatform = ScriptBuildStep.ImagePlatform.Linux
             dockerPull = true
         }
