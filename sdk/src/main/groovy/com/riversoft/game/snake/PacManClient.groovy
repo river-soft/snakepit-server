@@ -62,7 +62,7 @@ class PacManClient {
         def request = new ClientUpgradeRequest();
         request.setHeader("Authorization","Basic ${"$username:$password".bytes.encodeBase64()}")
 
-        session = socket.connect(new ClientSocket(), ('ws://' + url).toURI(), request).get(1, TimeUnit.SECONDS)
+        session = socket.connect(new ClientSocket(), ('ws://' + url + '/pacman-game').toURI(), request).get(1, TimeUnit.SECONDS)
     }
 
     Map symbol = [

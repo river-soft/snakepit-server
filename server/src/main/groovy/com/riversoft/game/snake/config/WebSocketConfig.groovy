@@ -33,6 +33,6 @@ class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(socketService, '/')
+        registry.addHandler(socketService, '/pacman-game')
     }
 }

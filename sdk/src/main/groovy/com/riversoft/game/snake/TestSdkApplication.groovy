@@ -4,9 +4,9 @@ import com.riversoft.game.snake.dto.ClientMessage
 class TestSdkApplication {
 
     static void main(String[] args) {
-        def client = new PacManClient('localhost:8080', 'Николай', 'coly26341')
+        def client = new PacManClient('snakepit.westeurope.cloudapp.azure.com/api/users', 'yvshvets', 'crjhjgthdjtfghtkz')
         client.onRequest = { ClientMessage m ->
-            def myPacman = m.positions.find { x -> x.clientName == 'Николай' }
+            def myPacman = m.positions.find { x -> x.clientName == 'yvshvets' }
             def map = m.getMap()
             def count = 0
             println "my position ${myPacman.posY} x ${myPacman.posX}"
