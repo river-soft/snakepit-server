@@ -23,14 +23,14 @@ changeBuildType(RelativeId("BuildServer")) {
         }
     }
     steps {
-        update<GradleBuildStep>(0) {
-            tasks = "clean :server:build"
-        }
-        insert(1) {
+        insert(0) {
             script {
                 workingDir = "server"
                 scriptContent = "rm -rf build"
             }
+        }
+        update<GradleBuildStep>(1) {
+            tasks = "clean :server:build"
         }
         insert(2) {
             dockerCommand {
