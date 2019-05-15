@@ -16,7 +16,7 @@ changeProject(DslContext.projectId) {
                 type = "OAuthProvider"
                 id = "PROJECT_EXT_8"
                 param("displayName", "Azure DevOps")
-                param("serverUrl", "https://snakepit.azurecr.io")
+                param("serverUrl", "https://dev.azure.com/snakepit")
                 param("type", "token")
                 param("providerType", "tfs")
                 param("secure:accessToken", "credentialsJSON:75903c56-3b59-478d-8b28-003042310c70")
