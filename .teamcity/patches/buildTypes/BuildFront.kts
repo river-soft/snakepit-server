@@ -15,6 +15,8 @@ create(DslContext.projectId, BuildType({
     id("BuildFront")
     name = "Build front"
 
+    artifactRules = "front/dist/* => front.zip"
+
     vcs {
         root(DslContext.settingsRoot)
     }
