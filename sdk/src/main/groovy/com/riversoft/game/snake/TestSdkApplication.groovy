@@ -4,7 +4,7 @@ import com.riversoft.game.snake.dto.ClientMessage
 class TestSdkApplication {
 
     static void main(String[] args) {
-        def client = new PacManClient('snakepit.westeurope.cloudapp.azure.com/api/users', 'yvshvets', 'crjhjgthdjtfghtkz')
+        def client = new PacManClient('snakepit.westeurope.cloudapp.azure.com', 'yvshvets', 'crjhjgthdjtfghtkz')
         client.onRequest = { ClientMessage m ->
             def myPacman = m.positions.find { x -> x.clientName == 'yvshvets' }
             def map = m.getMap()
