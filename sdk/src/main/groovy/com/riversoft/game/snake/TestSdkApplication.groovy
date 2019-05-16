@@ -1,20 +1,33 @@
 package com.riversoft.game.snake
 
 import com.riversoft.game.snake.dto.ClientMessage
+import com.riversoft.game.snake.dto.Direction
+
+class MyPackmanClient extends PacManClient {
+
+    MyPackmanClient(String host, String username, String password) {
+        super(host, username, password)
+    }
+
+    @Override
+    Direction onRequest(ClientMessage message) {
+
+        // Мое положение на карте
+        def mePosition = this.me
+        // Список обьектов на карте с их координатами (пекмены, монеты)
+        def objects = getAllObjects(message.map)
+
+        if (message.map[me.posX][me.posY - 1] == 1) {
+            return Direction.UP
+        }
+
+        return Direction.RIGHT
+    }
+}
+
 class TestSdkApplication {
 
     static void main(String[] args) {
-        def client = new PacManClient('snakepit.westeurope.cloudapp.azure.com', 'yvshvets', 'crjhjgthdjtfghtkz')
-        client.onRequest = { ClientMessage m ->
-            def myPacman = m.positions.find { x -> x.clientName == 'yvshvets' }
-            def map = m.getMap()
-            def count = 0
-            println "my position ${myPacman.posY} x ${myPacman.posX}"
-            if (map[myPacman.posX][myPacman.posY - 1] == 1) {
-                return ['left', 'right', 'up', 'down'].get(2)
-            } else {
-                return ['left', 'right', 'up', 'down'].get(0)
-            }
-        }
+        new MyPackmanClient('snakepit.westeurope.cloudapp.azure.com', 'yvshvets', 'crjhjgthdjtfghtkz')
     }
 }
