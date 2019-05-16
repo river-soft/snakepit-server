@@ -25,7 +25,7 @@
             srcByCellCode(code) {
 
                 if (code === 3) {
-                    return require('../../assets/arena/coin.png')
+                    return require('../../assets/arena/bitcoin.png')
                 } else if (code === 2) {
                     return require('../../assets/arena/pacman.png')
                 } else if (code === 1) {
