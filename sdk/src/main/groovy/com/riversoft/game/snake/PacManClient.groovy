@@ -2,6 +2,10 @@ package com.riversoft.game.snake
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.riversoft.game.snake.dto.ClientMessage
+import com.riversoft.game.snake.dto.ClientPosition
+import com.riversoft.game.snake.dto.Direction
+import com.riversoft.game.snake.dto.Element
+import com.riversoft.game.snake.dto.ElementType
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations.*
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest
@@ -9,15 +13,18 @@ import org.eclipse.jetty.websocket.client.WebSocketClient
 
 import java.util.concurrent.TimeUnit
 
-class PacManClient {
+abstract class PacManClient {
 
-    private WebSocketClient socket
-    private String url = 'localhost:8080'
-    private String username
-    private String password
-    private Session session
+    protected WebSocketClient socket
+    protected String host = 'localhost:8080'
+    protected String username
+    protected String password
+    protected Session session
 
-    def onRequest = {ClientMessage x -> }
+    boolean showMap = true
+    ClientPosition me
+
+    abstract Direction onRequest(ClientMessage message)
 
     @WebSocket
     class ClientSocket {
@@ -41,18 +48,23 @@ class PacManClient {
         void onMessage(String data) {
 
             def message = new ObjectMapper().readValue(data, ClientMessage)
-            showMap(message.map)
+
+            if (showMap) {
+                showMap(message.map)
+            }
+
+            me = message.positions.find { it.clientName == username }
 
             def answer = onRequest(message)
 
             println "answer $answer"
-            session.getRemote().sendString(answer)
+            session.getRemote().sendString(answer.toString().toLowerCase())
         }
     }
 
-    PacManClient(String url, String username, String password) {
+    PacManClient(String host, String username, String password) {
 
-        this.url        = url
+        this.host       = host
         this.username   = username
         this.password   = password
 
@@ -62,7 +74,7 @@ class PacManClient {
         def request = new ClientUpgradeRequest();
         request.setHeader("Authorization","Basic ${"$username:$password".bytes.encodeBase64()}")
 
-        session = socket.connect(new ClientSocket(), ('ws://' + url + '/pacman-game').toURI(), request).get(1, TimeUnit.SECONDS)
+        session = socket.connect(new ClientSocket(), ('ws://' + this.host + '/pacman-game').toURI(), request).get(1, TimeUnit.SECONDS)
     }
 
     Map symbol = [
@@ -72,7 +84,24 @@ class PacManClient {
             2: 'O'
     ]
 
-    def showMap(ArrayList<List<Integer>> lists) {
+    List<Element> getAllObjects(List<List> map) {
+        List<Element> result = []
+        map.eachWithIndex { List entry, int x ->
+            entry.eachWithIndex{ Object cell, int y ->
+                switch (cell) {
+                    case 2:
+                        result.add(new Element(type: ElementType.PACMAN, x: x, y: y))
+                        break
+                    case 3:
+                        result.add(new Element(type: ElementType.COIN, x: x, y: y))
+                        break
+                }
+            }
+        }
+        result
+    }
+
+    private void showMap(ArrayList<List<Integer>> lists) {
 
         lists.each {x ->
             x.each {y ->
