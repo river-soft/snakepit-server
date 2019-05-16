@@ -29,7 +29,7 @@ class UserPackman {
 
     private List<List> map
 
-    UserPackman(List<List> map, String name, int x, y,glrating) {
+    UserPackman(List<List> map, String name, int x, y,rating) {
         this.rating = 0
         this.glrating += rating
         this.map = map

@@ -28,6 +28,6 @@ class MyPackmanClient extends PacManClient {
 class TestSdkApplication {
 
     static void main(String[] args) {
-        new MyPackmanClient('snakepit.westeurope.cloudapp.azure.com', 'yvshvets', 'crjhjgthdjtfghtkz')
+        new MyPackmanClient('localhost:8080', '123', '123')
     }
 }
