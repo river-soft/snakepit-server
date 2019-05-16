@@ -20,16 +20,18 @@ class UserPackman {
     int x
     int y
     public int rating = 0
+    public  int glrating = 0
     // --------------------------------
     // --------------------------------
 
 
     def onRating = {UserPackman pacman}
-//delete it
+
     private List<List> map
 
     UserPackman(List<List> map, String name, int x, y,rating) {
-        this.rating = rating
+        this.rating = 0
+        this.glrating += rating
         this.map = map
         this.name = name
         this.x = x
@@ -55,6 +57,7 @@ class UserPackman {
             map[x][y] = EMPTYSPACE
             map[x][y] = PACMAN
             rating++
+            glrating ++
             onRating(this)
         }
     }
@@ -69,6 +72,7 @@ class UserPackman {
             map[x][y] = EMPTYSPACE
             map[x][y] = PACMAN
             rating++
+            glrating ++
             onRating(this)
         }
     }
@@ -83,6 +87,7 @@ class UserPackman {
             map[x][y] = EMPTYSPACE
             map[x][y] = PACMAN
             rating++
+            glrating ++
             onRating(this)
         }
 
@@ -98,6 +103,7 @@ class UserPackman {
             map[x][y] = EMPTYSPACE
             map[x][y] = PACMAN
             rating++
+            glrating ++
             onRating(this)
         }
 
