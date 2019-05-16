@@ -1,13 +1,18 @@
 <template>
-    <pre class="maps">{{mapData}}</pre>
+    <div>
+        <draw-map />
+        <pre class="maps">{{mapData}}</pre>
+    </div>
 </template>
 
 <script>
 
     import { gameMap } from "../api/gameRepository";
+    import DrawMap from "./DrawMap";
 
     export default {
         name: 'GameMap',
+        components: {DrawMap},
         data() {
             return {
                 intervalHandle: null,
@@ -15,6 +20,8 @@
             }
         },
         created() {
+            let objectsUrl = [];
+            objectsUrl[1]= 'http://imagesait.ru/photos/aHR0cDovL3N0LnN0cmFuYW1hbS5ydS9kYXRhL2NhY2hlLzIwMTJtYXIvMDkvMTEvMzk1NzMzNV8xNzg1Nm5vdGh1bWI1MDAuanBn/odnotonnyj-kvadrat-na-avatarku.jpg'
             this.intervalHandle = setInterval(() => {
                 gameMap().then((response) => {
                     this.mapData = '';
