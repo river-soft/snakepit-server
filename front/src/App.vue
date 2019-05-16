@@ -2,7 +2,7 @@
   <div id="app">
     <router-view></router-view>
   </div>
-</template>+
+</template>
 
 <script>
 import GameMap from "./components/GameMapView";

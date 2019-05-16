@@ -21,7 +21,7 @@ class MyPackmanClient extends PacManClient {
             return Direction.UP
         }
 
-        return Direction.RIGHT
+        return Direction.LEFT
     }
 }
 
