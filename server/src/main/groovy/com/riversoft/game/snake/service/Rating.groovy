@@ -9,20 +9,20 @@ class Rating {
     private UserPackman packmans
 
     //Rangs
-    int PlayerTitle
-    int junior = 5
-    int midler = 10
-    int higher = 15
-    int boss = 20
-    int killer = 30
-    int god = 39
-    int titan = 40
+    String PlayerTitle
+    String junior = "Junior"
+    String midler = "Midler"
+    String higher = "Higher"
+    String boss = "Boss"
+    String killer = "Killer"
+    String god = "God"
+    String titan = "Titan"
 
     //------------------------------------------
 
     //local variable
 
-    int points = packmans.rating
+    int points = packmans.glrating
     int x
     int y
     List<List> map

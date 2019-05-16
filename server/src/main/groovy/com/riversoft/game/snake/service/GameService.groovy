@@ -24,7 +24,7 @@ class GameService {
     private SocketService socketService
     @Autowired
     private UserService userService
-//    @Autowired private Rating rating
+//   @Autowired private Rating glrating
 
     private List<List> map = []
     private List<UserPackman> packmansList = []
@@ -113,9 +113,9 @@ class GameService {
         packmansList*.onRating = { UserPackman packman ->
 
             def user = userRepository.findByUsername(packman.name).get()
-            user.rating = packman.rating
+            user.rating = packman.glrating
 
-            log.info("Save rating ${packman.rating} for user ${packman.name}")
+            log.info("Save rating ${packman.glrating} for user ${packman.name}")
             userRepository.save(user)
         }
 
