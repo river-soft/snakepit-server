@@ -39,7 +39,7 @@ class GameService {
 
     int time = 600
 
-    @Scheduled(cron = '* */10 * * * *')
+    @Scheduled(fixedDelay = 600000L)
     void resetMap() {
         generateAll()
     }
