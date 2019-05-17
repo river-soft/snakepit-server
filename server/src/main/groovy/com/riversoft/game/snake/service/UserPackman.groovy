@@ -50,14 +50,18 @@ class UserPackman {
 
 
 //      def checkCoins(int x, int y, int xNext, int yNext){
+//
 //               map[x][y] = EMPTYSPACE
 //               map[xNext][yNext] = PACMAN
 //
-//      }
-//    def moveLeft(){
-//        checkCoins(x,y,x,(y - 1))
-//    }
+//            }
 //
+//    def moveLeft(){
+//
+//              checkCoins(x,y,x,(y - 1))
+//
+//            }
+
 
     def moveLeft() {
         if (map[x][y-1] == COINS) {

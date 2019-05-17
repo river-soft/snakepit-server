@@ -2,7 +2,9 @@
     <div>
         <div class="timeContainer">
             <p>Время : {{time}}</p>
+            <p>Ваше имя : {{username}}</p>
         </div>
+        <br>
         <arena :cells="mapData"/>
     </div>
 </template>
@@ -19,6 +21,7 @@
                 mapData: [],
                 intervalHandle: null,
                 time:'Ожидание игроков',
+                username:'',
             }
         },
         created() {
@@ -26,6 +29,7 @@
                 gameMap().then((response) => {
                     this.time = moment.unix(response.data.time).format('mm:ss');
                     this.mapData = response.data.map;
+                    this.username = response.data.username;
                     console.log("Response new data");
                 });
             }, 1000);

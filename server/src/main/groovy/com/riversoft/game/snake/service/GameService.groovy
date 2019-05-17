@@ -1,11 +1,13 @@
 package com.riversoft.game.snake.service
 
+import com.riversoft.game.snake.controller.UserController
 import com.riversoft.game.snake.data.repository.UserRepository
 import com.riversoft.game.snake.dto.ClientMessage
 import com.riversoft.game.snake.dto.ClientPosition
 import com.riversoft.game.snake.model.BattleState
 import com.riversoft.game.snake.model.GameRezultModel
 import groovy.util.logging.Slf4j
+import org.apache.tomcat.jni.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.context.event.EventListener
@@ -25,6 +27,8 @@ class GameService {
     private SocketService socketService
     @Autowired
     private UserService userService
+    @Autowired
+    private Bcryptor bcryptor
 //   @Autowired private Rating glrating
 
     private List<List> map = []
@@ -275,9 +279,5 @@ class GameService {
 //get ready array for return into gameController
     GameRezultModel getResult() {
        return  new GameRezultModel(time:time,map:map)
-    }
-    //return timer
-    int getTime(){
-        return time
     }
 }
