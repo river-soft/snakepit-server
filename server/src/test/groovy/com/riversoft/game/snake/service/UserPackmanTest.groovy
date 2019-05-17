@@ -18,6 +18,17 @@ class UserPackmanTest extends Specification {
         pacman.rating == 1
         rating == 2
     }
+    def 'Пекмен двигается влево'(){
+        given:'карта, пекмен'
+        def rating = 1
+        def pacman = new UserPackman([[0,0,0], [0,0,0], [0,0,0]], 'test', 1, 1, rating)
+        when: 'Делаем шаг в лево'
+        pacman.moveLeft()
+
+        then:
+        pacman.y == 0
+
+    }
 
     def 'Если пекмен перемещается вверх на монету, то рейтинг повышается на 1'() {
 

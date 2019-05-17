@@ -21,13 +21,13 @@ class MyPackmanClient extends PacManClient {
             return Direction.UP
         }
 
-        return Direction.LEFT
+        return Direction.RIGHT
     }
 }
 
 class TestSdkApplication {
 
     static void main(String[] args) {
-        new MyPackmanClient('localhost:8080', '123', '123')
+        new MyPackmanClient('localhost:8080', 'Николай', 'coly26341')
     }
 }

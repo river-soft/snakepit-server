@@ -26,8 +26,10 @@
 
                 if (code === 3) {
                     return require('../../assets/arena/bitcoin.png')
-                } else if (code === 2) {
+                } else if (code === 20) {
                     return require('../../assets/arena/pacman.png')
+                }else if (code === 21) {
+                    return require('../../assets/arena/pacman-right.png')
                 } else if (code === 1) {
                     return require('../../assets/arena/tile.png')
                 } else {

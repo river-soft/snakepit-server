@@ -1,6 +1,8 @@
 <template>
     <div>
-        <draw-map />
+        <div v-for="i in ObjectsUrl">
+            <img v-for="p in ObjectsUrl" :src="p" />
+        </div>
         <pre class="maps">{{mapData}}</pre>
     </div>
 </template>
@@ -16,12 +18,16 @@
         data() {
             return {
                 intervalHandle: null,
-                mapData: 'test'
+                mapData: 'test',
+                time: gameMap().data.time,
+                ObjectsUrl: [
+
+                    'http://i.stack.imgur.com/NGQbN.png'
+                ]
             }
         },
+
         created() {
-            let objectsUrl = [];
-            objectsUrl[1]= 'http://imagesait.ru/photos/aHR0cDovL3N0LnN0cmFuYW1hbS5ydS9kYXRhL2NhY2hlLzIwMTJtYXIvMDkvMTEvMzk1NzMzNV8xNzg1Nm5vdGh1bWI1MDAuanBn/odnotonnyj-kvadrat-na-avatarku.jpg'
             this.intervalHandle = setInterval(() => {
                 gameMap().then((response) => {
                     this.mapData = '';
@@ -41,6 +47,7 @@
                             if (cell === 3) {
                                 this.mapData += '@'
                             }
+
                         }
                         this.mapData += '\n'
                     }

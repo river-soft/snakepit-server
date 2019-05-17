@@ -4,6 +4,7 @@ import com.riversoft.game.snake.data.repository.UserRepository
 import com.riversoft.game.snake.dto.ClientMessage
 import com.riversoft.game.snake.dto.ClientPosition
 import com.riversoft.game.snake.model.BattleState
+import com.riversoft.game.snake.model.GameRezultModel
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.event.ContextRefreshedEvent
@@ -36,8 +37,9 @@ class GameService {
     final COLUMN_COUNT_Y = 64
     final BORDERS = 1
 
+    int time = 600
 
-    @Scheduled(cron = ' */30 * * * * *')
+    @Scheduled(cron = '* */10 * * * *')
     void resetMap() {
         generateAll()
     }
@@ -54,6 +56,12 @@ class GameService {
                                     posY: x.getY())
                         })
         ))
+        if(time > 0){
+            time--
+        }else{
+
+            this.time = 600
+        }
 
         log.debug(packmansList.rating.toString())
 //        log.debug(rating.points.toString())
@@ -85,7 +93,7 @@ class GameService {
 
 
         //create coins
-        (0..1050).each {
+        (0..100).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
             if(coinsY > BORDERS && coinsX > BORDERS && coinsY < COLUMN_COUNT_Y && coinsX < COLUMN_COUNT_X) {
@@ -265,7 +273,11 @@ class GameService {
 
 
 //get ready array for return into gameController
-   List<List> getResult() {
-          return map
-   }
+    GameRezultModel getResult() {
+       return  new GameRezultModel(time:time,map:map)
+    }
+    //return timer
+    int getTime(){
+        return time
+    }
 }

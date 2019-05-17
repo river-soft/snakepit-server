@@ -10,13 +10,13 @@ class UserPackman {
 //const
     final BORDERS = 1
     final EMPTYSPACE = 0
-    final PACMAN = 2
     final COINS = 3
 
     // --------------------------------
     // --------------------------------
 
     String name
+    int PACMAN = 20
     int x
     int y
     public int rating = 0
@@ -47,64 +47,83 @@ class UserPackman {
         }
     }
 
+
+//      def checkCoins(List<List> map){
+//              map[x][y] = EMPTYSPACE
+//              y -= 1
+//              map[x][y] = PACMAN
+//      }
+//    def moveLeft(){
+//        checkCoins(map)
+//    }
+
+
     def moveLeft() {
-        if (map[x][y - 1] != BORDERS) {
+        if (map[x][y-1] == COINS) {
+            map[x][y] = EMPTYSPACE
+            map[x][y- 1]
+            map[x][y] = PACMAN
+            rating++
+            glrating ++
+            onRating(this)
+        } else if (map[x][y - 1] == BORDERS) {
+            map[x][y] = PACMAN
+        }else{
             map[x][y] = EMPTYSPACE
             y -= 1
             map[x][y] = PACMAN
         }
-        if (map[x][y - 1] == COINS) {
+    }
+
+    def moveRight() {
+        if (map[x][y + 1] == COINS) {
             map[x][y] = EMPTYSPACE
+            map[x][y + 1]
             map[x][y] = PACMAN
             rating++
             glrating ++
             onRating(this)
-        }
-    }
-
-    def moveRight() {
-        if (map[x][y + 1] != BORDERS) {
+        } else if (map[x][y + 1] == BORDERS) {
+            map[x][y] = PACMAN
+        }else{
             map[x][y] = EMPTYSPACE
             y += 1
             map[x][y] = PACMAN
         }
-        if(map[x][y + 1] == COINS) {
-            map[x][y] = EMPTYSPACE
-            map[x][y] = PACMAN
-            rating++
-            glrating ++
-            onRating(this)
-        }
     }
 
     def moveUp() {
-        if (map[x - 1][y] != BORDERS) {
-            map[x][y] = EMPTYSPACE
-            x -= 1
-            map[x][y] = PACMAN
-        }
         if (map[x - 1][y] == COINS) {
             map[x][y] = EMPTYSPACE
+            map[x - 1][y]
             map[x][y] = PACMAN
             rating++
             glrating ++
             onRating(this)
+        } else if (map[x - 1][y] == BORDERS) {
+            map[x][y] = PACMAN
+        }else{
+            map[x][y] = EMPTYSPACE
+            x -= 1
+            map[x][y] = PACMAN
         }
 
     }
 
     def moveDown() {
-        if (map[x + 1][y] != BORDERS) {
-            map[x][y] = EMPTYSPACE
-            x += 1
-            map[x][y] = PACMAN
-        }
         if (map[x + 1][y] == COINS) {
             map[x][y] = EMPTYSPACE
+            map[x + 1][y]
             map[x][y] = PACMAN
             rating++
             glrating ++
             onRating(this)
+        } else if (map[x][y + 1] == BORDERS) {
+            map[x][y] = PACMAN
+        }else{
+            map[x][y] = EMPTYSPACE
+            x += 1
+            map[x][y] = PACMAN
         }
 
     }

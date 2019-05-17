@@ -10,7 +10,7 @@
             <input type="password" placeholder="Пароль" v-model="user.password">
             <span class="error"  v-if="!passIsValid">Введите пароль</span>
             <span class="error"  v-else="passIsValid"></span>
-            <button :disabled="!formIsValid"  @click="addToAPI">Зарегистрироваться</button>
+            <button :disabled="!formIsValid"  @click="addToAPI"><router-link to="/map" :disabled="!formIsValid">Зарегистрироваться</router-link></button>
         </form>
     </div>
 </template>
@@ -145,4 +145,8 @@ button{
     justify-self:center;
 
 }
+    a{
+        color:white;
+        text-decoration: none;
+    }
 </style>

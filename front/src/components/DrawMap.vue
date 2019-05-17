@@ -27,7 +27,7 @@
                     let cell = ObjectsUrl[row][col];
 
                     if (cell === 0) {
-                        this.mapData +='-'
+                        this.mapData += '-'
                     }
                     if (cell === 1) {
                         this.mapData += '&'

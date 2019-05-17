@@ -19,7 +19,7 @@ export default {
 <style>
 
   body{
-    background-color: #edeef0;
+    background-color: #333336;
   }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -27,6 +27,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #4682B4;
-  margin-top: 60px;
 }
 </style>
