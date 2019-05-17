@@ -18,7 +18,7 @@
             return {
                 mapData: [],
                 intervalHandle: null,
-                time:1,
+                time:'Ожидание игроков',
             }
         },
         created() {
@@ -37,12 +37,13 @@
 </script>
 <style>
 
-    /*.timeContainer{*/
-    /*    width:100%;*/
-    /*    height:100px;*/
-    /*    color:white;*/
-    /*    font-size: 4em;*/
-    /*    position: relative;*/
-    /*    display:block;*/
-    /*}*/
+    .timeContainer{
+        width:100%;
+        height:100px;
+        color:#4682B4;
+        font-size: 3em;
+        position: relative;
+        display:block;
+       font-family:Roboto;
+    }
 </style>

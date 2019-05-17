@@ -3,6 +3,7 @@ package com.riversoft.game.snake.service
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import sun.invoke.empty.Empty
 
 class UserPackman {
 
@@ -48,15 +49,15 @@ class UserPackman {
     }
 
 
-//      def checkCoins(List<List> map){
-//              map[x][y] = EMPTYSPACE
-//              y -= 1
-//              map[x][y] = PACMAN
+//      def checkCoins(int x, int y, int xNext, int yNext){
+//               map[x][y] = EMPTYSPACE
+//               map[xNext][yNext] = PACMAN
+//
 //      }
 //    def moveLeft(){
-//        checkCoins(map)
+//        checkCoins(x,y,x,(y - 1))
 //    }
-
+//
 
     def moveLeft() {
         if (map[x][y-1] == COINS) {
