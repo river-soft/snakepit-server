@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Scheduled
+import org.springframework.security.config.annotation.SecurityConfigurer
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 //import com.riversoft.game.snake.service.Rating
 
@@ -278,6 +280,7 @@ class GameService {
 
 //get ready array for return into gameController
     GameRezultModel getResult() {
-       return  new GameRezultModel(time:time,map:map)
+        def currentUserName = SecurityContextHolder.getContext().authentication?.name ?: 'Unknown'
+        return  new GameRezultModel(time:time,map:map,username: currentUserName)
     }
 }

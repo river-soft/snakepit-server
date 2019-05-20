@@ -1,7 +1,12 @@
 <template>
     <div class="arena-container">
         <div class="arena-row" v-for="row in cells">
-            <img class="arena-cell" :src="srcByCellCode(cell)" v-for="cell in row" />
+            <span v-for="cell in row">
+                <span class="player-name">{{srcByCellCode(cell).name}}</span>
+                <img class="arena-cell" :src="srcByCellCode(cell).url"/>
+            </span>
+
+
         </div>
     </div>
 </template>
@@ -19,21 +24,39 @@
                     [1,2,0,0,0,1],
                     [1,1,1,1,1,1]
                 ]
+            },
+            name:{
+                type:String,
+                default: 'Unknow'
             }
         },
         methods: {
             srcByCellCode(code) {
 
                 if (code === 3) {
-                    return require('../../assets/arena/bitcoin.png')
+                    return {
+                       url:require('../../assets/arena/bitcoin.png')
+                    }
                 } else if (code === 20) {
-                    return require('../../assets/arena/pacman.png')
+                    return{
+                        url: require('../../assets/arena/pacman.png'),
+                        name:this.name
+
+                    }
                 }else if (code === 21) {
-                    return require('../../assets/arena/pacman-right.png')
+                    return {
+                        url: require('../../assets/arena/pacman-right.png'),
+                        name:this.name
+                    }
+
                 } else if (code === 1) {
-                    return require('../../assets/arena/tile.png')
+                    return {
+                        url: require('../../assets/arena/tile.png')
+                    }
                 } else {
-                    return require('../../assets/arena/selector-square-border.png')
+                    return {
+                        url: require('../../assets/arena/selector-square-border.png')
+                    }
                 }
             }
         }
@@ -42,12 +65,27 @@
 
 <style>
     .arena-row {
+        position: relative;
         margin: 1px;
         padding: 0;
         height: 16px;
     }
     .arena-cell {
-        margin: 1px;
+        position: relative;
+        margin:2px;
         padding: 0;
+    }
+    .player-name {
+        width:auto;
+        height:10px;
+        position:absolute;
+        z-index:99;
+        text-align: center;
+        font-size: 10px;
+        top:25px;
+        border-bottom: 1px solid #4682B4;
+        color:white;
+        margin-left:-1.5%;
+        padding-bottom:3px;
     }
 </style>

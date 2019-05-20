@@ -5,7 +5,7 @@
             <p>Ваше имя : {{username}}</p>
         </div>
         <br>
-        <arena :cells="mapData"/>
+        <arena :cells="mapData" :name="username"/>
     </div>
 </template>
 <script>
