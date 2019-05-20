@@ -19,6 +19,10 @@ class MyPackmanClient extends PacManClient {
 
         if (message.map[me.posX][me.posY + 1] == 1) {
             return Direction.UP
+        } else if (message.map[me.posX][me.posY - 1] == 1){
+            return Direction.DOWN
+        }else if(message.map[me.posX - 1][me.posY] == 1){
+            return Direction.RIGHT
         }
 
         return Direction.RIGHT

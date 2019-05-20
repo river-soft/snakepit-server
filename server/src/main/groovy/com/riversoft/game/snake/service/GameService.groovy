@@ -44,7 +44,6 @@ class GameService {
     final BORDERS = 1
 
     int time = 600
-    def currentUserName
 
     @Scheduled(fixedDelay = 600000L)
     void resetMap() {
@@ -69,9 +68,7 @@ class GameService {
 
             this.time = 600
         }
-        userRepository.findAll().each {
-            currentUserName = SecurityContextHolder.getContext().authentication?.name ?: 'Unknown'
-        }
+
         log.debug(packmansList.rating.toString())
         log.debug(packmansList.glrating.toString())
 //        log.debug(rating.points.toString())
@@ -103,7 +100,7 @@ class GameService {
 
 
         //create coins
-        (0..500).each {
+        (0..700).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
             if(coinsY > BORDERS && coinsX > BORDERS && coinsY < COLUMN_COUNT_Y && coinsX < COLUMN_COUNT_X) {
@@ -284,6 +281,10 @@ class GameService {
 
 //get ready array for return into gameController
     GameRezultModel getResult() {
-        return  new GameRezultModel(time:time,map:map,username: currentUserName,rating:packmansList.rating.toString())
+        def currentUserName = SecurityContextHolder.getContext().authentication?.name ?: 'Unknown'
+        def pacmanRating = packmansList.find {
+            it.name == currentUserName
+        }
+        return  new GameRezultModel(time:time,map:map,username: currentUserName,rating:pacmanRating?.rating ?:0)
     }
 }
