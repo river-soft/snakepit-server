@@ -1,8 +1,11 @@
 <template>
     <div>
-        <div class="timeContainer">
-            <p>Время : {{time}}</p>
-            <p>Ваше имя : {{username}}</p>
+        <div class="data-container">
+            <ul>
+                <li><p>Время : {{time}}</p></li>
+                <li><p>Ваше имя : {{username}}</p></li>
+                <li><p>Ваш рейтинг: {{rating}}</p></li>
+            </ul>
         </div>
         <br>
         <arena :cells="mapData" :name="username"/>
@@ -22,12 +25,14 @@
                 intervalHandle: null,
                 time:'Ожидание игроков',
                 username:'',
+                rating:'',
             }
         },
         created() {
             this.intervalHandle = setInterval(() => {
                 gameMap().then((response) => {
                     this.time = moment.unix(response.data.time).format('mm:ss');
+                    this.rating = response.data.rating;
                     this.mapData = response.data.map;
                     this.username = response.data.username;
                     console.log("Response new data");
@@ -40,14 +45,31 @@
     }
 </script>
 <style>
+    *{
+        margin:0;
+        padding: 0;
+    }
 
-    .timeContainer{
-        width:100%;
-        height:100px;
+    .data-container{
+        width:15%;
+        height:auto;
         color:#4682B4;
-        font-size: 3em;
-        position: relative;
+        position: absolute;
         display:block;
-       font-family:Roboto;
+        right:1%;
+        top:2%;
+    }
+    ul{
+        list-style: none;
+    }
+    .data-container li{
+        width:100%;
+        background-color: #222226;
+        box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+        padding-bottom: 2%;
+        padding-top: 2%;
+        margin:3% auto;
+        font-size: 1.3em;
+        height:auto;
     }
 </style>

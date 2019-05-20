@@ -3,4 +3,5 @@ class GameRezultModel {
     List<List> map = []
     int time = 600
     String username
+    String rating
 }

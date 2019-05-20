@@ -17,7 +17,7 @@ class UserPackman {
     // --------------------------------
 
     String name
-    int PACMAN = 20
+    int PACMAN = 2
     int x
     int y
     public int rating = 0
@@ -66,7 +66,7 @@ class UserPackman {
     def moveLeft() {
         if (map[x][y-1] == COINS) {
             map[x][y] = EMPTYSPACE
-            map[x][y- 1]
+            y -=1
             map[x][y] = PACMAN
             rating++
             glrating ++
@@ -83,7 +83,8 @@ class UserPackman {
     def moveRight() {
         if (map[x][y + 1] == COINS) {
             map[x][y] = EMPTYSPACE
-            map[x][y + 1]
+            this.PACMAN = 21
+            y +=1
             map[x][y] = PACMAN
             rating++
             glrating ++
@@ -100,7 +101,7 @@ class UserPackman {
     def moveUp() {
         if (map[x - 1][y] == COINS) {
             map[x][y] = EMPTYSPACE
-            map[x - 1][y]
+            x -=1
             map[x][y] = PACMAN
             rating++
             glrating ++
@@ -118,7 +119,7 @@ class UserPackman {
     def moveDown() {
         if (map[x + 1][y] == COINS) {
             map[x][y] = EMPTYSPACE
-            map[x + 1][y]
+            x +=1
             map[x][y] = PACMAN
             rating++
             glrating ++

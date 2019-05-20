@@ -37,7 +37,7 @@
                     return {
                        url:require('../../assets/arena/bitcoin.png')
                     }
-                } else if (code === 20) {
+                } else if (code === 2) {
                     return{
                         url: require('../../assets/arena/pacman.png'),
                         name:this.name
@@ -85,7 +85,7 @@
         top:25px;
         border-bottom: 1px solid #4682B4;
         color:white;
-        margin-left:-1.5%;
+        margin-left:-1%;
         padding-bottom:3px;
     }
 </style>

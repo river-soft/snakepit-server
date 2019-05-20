@@ -17,7 +17,7 @@ class MyPackmanClient extends PacManClient {
         // Список обьектов на карте с их координатами (пекмены, монеты)
         def objects = getAllObjects(message.map)
 
-        if (message.map[me.posX][me.posY - 1] == 1) {
+        if (message.map[me.posX][me.posY + 1] == 1) {
             return Direction.UP
         }
 
