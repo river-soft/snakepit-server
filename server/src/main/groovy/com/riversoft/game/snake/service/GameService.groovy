@@ -100,10 +100,20 @@ class GameService {
 
 
         //create coins
-        (0..700).each {
+        (0..100).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
             if(coinsY > BORDERS && coinsX > BORDERS && coinsY < COLUMN_COUNT_Y && coinsX < COLUMN_COUNT_X) {
+                coins.add(new Coins(map, coinsX, coinsY))
+            }else{
+                while(map[coinsX][coinsY] != 0){
+                    coinsY +=  1
+                    coinsX +=  1
+                    if(map[coinsX][coinsY] == BORDERS){
+                        coinsY -=  1
+                        coinsX -=  1
+                    }
+                }
                 coins.add(new Coins(map, coinsX, coinsY))
             }
         }
@@ -120,9 +130,13 @@ class GameService {
         packmansList = []
         userRepository.findAll().each {
             //create coords for packmansList
-            int packmansX = new Random().nextInt(COLUMN_COUNT_X)
-            int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
-            packmansList.add(new UserPackman(map, it.username, packmansX,packmansY, it.rating))
+            try {
+                int packmansX = new Random().nextInt(COLUMN_COUNT_X)
+                int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
+                packmansList.add(new UserPackman(map, it.username, packmansX, packmansY, it.rating))
+            }catch(Exception e){
+                log.info(e.message,e)
+            }
         }
 
         packmansList*.onRating = { UserPackman packman ->

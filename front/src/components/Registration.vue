@@ -55,6 +55,7 @@ import swal from 'sweetalert'
                     })
                         .then((response) => {
                            console.log(response);
+                           // this.$router('/arena');
                         }).catch((e)  => {
                             this.error = 'Имя занято';
                         // swal('Ты не уникален');
