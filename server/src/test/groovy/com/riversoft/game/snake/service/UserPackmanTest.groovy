@@ -8,7 +8,7 @@ class UserPackmanTest extends Specification {
 
         given: 'Карта с монетой слева от пекмена. Глобальный рейтинг пользователя 1'
         def rating = 1
-        def pacman = new UserPackman([[0,0,0], [3,0,0], [0,0,0]], 'test', 1, 1, rating)
+        def pacman = new UserPackman([[3,0,0], [0,0,0], [0,0,0]], 'test', 0, 1, rating)
         pacman.onRating = { UserPackman x -> rating = x.glrating }
 
         when: 'Делаем шаг в лево'

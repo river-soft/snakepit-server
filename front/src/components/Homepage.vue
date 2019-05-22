@@ -1,7 +1,7 @@
 <template>
         <div id="main-block">
           <h1>Packman Arena</h1>
-          <img src="../assets/packman.gif">
+          <img alt="" src="../assets/packman.gif">
           <ul>
             <li></li>
             <li></li>

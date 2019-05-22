@@ -21,7 +21,6 @@
                 mapData: 'test',
                 time: gameMap().data.time,
                 ObjectsUrl: [
-
                     'http://i.stack.imgur.com/NGQbN.png'
                 ]
             }
@@ -63,8 +62,8 @@
 
 <style>
     .maps {
-        font-size: 10px;
-        line-height: 10px;
-        letter-spacing: 10px;
+        font-size: 5px;
+        line-height: 5px;
+        letter-spacing: 5px;
     }
 </style>
