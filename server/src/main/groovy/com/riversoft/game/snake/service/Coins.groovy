@@ -27,6 +27,7 @@ class Coins {
         this.map = map
         this.coinsX = coinsX
         this.coinsY = coinsY
+        generateCoins()
     }
 
     def generateCoins() {
@@ -38,11 +39,11 @@ class Coins {
                 coinsX -= 1
 
             }
+            if (map[coinsX][coinsY] == BORDERS) {
+                coinsY += 1
+                coinsX += 1
+            }
             map[coinsX][coinsY] = COINS
-        }
-        if (map[coinsX][coinsY] == BORDERS) {
-            coinsY += 1
-            coinsX += 1
         }
     }
 

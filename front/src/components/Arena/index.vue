@@ -79,13 +79,17 @@
         width:auto;
         height:10px;
         position:absolute;
-        z-index:99;
+        z-index:105;
         text-align: center;
         font-size: 10px;
-        top:25px;
+        top:20px;
         border-bottom: 1px solid #4682B4;
         color:white;
-        margin-left:-1%;
+        margin-left:-1.75%;
         padding-bottom:3px;
+    }
+    .arena-container{
+       width:70%;
+        margin:0% 15% auto;
     }
 </style>

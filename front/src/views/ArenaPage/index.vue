@@ -52,11 +52,10 @@
 
     .data-container{
         width:15%;
-        height:auto;
         color:#4682B4;
         position: absolute;
         display:block;
-        right:1%;
+        left:1%;
         top:2%;
     }
     ul{
@@ -64,12 +63,14 @@
     }
     .data-container li{
         width:100%;
-        background-color: #222226;
+        background-color:transparent;
+        border: 1px solid white;
         box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
-        padding-bottom: 2%;
+        padding-bottom: 4%;
         padding-top: 2%;
         margin:3% auto;
         font-size: 1.3em;
         height:auto;
+        color:white;
     }
 </style>

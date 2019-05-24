@@ -102,19 +102,19 @@ class GameService {
         (0..100).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
-            if(coinsY > BORDERS && coinsX > BORDERS && coinsY < COLUMN_COUNT_Y && coinsX < COLUMN_COUNT_X) {
+//            if(coinsY > BORDERS && coinsX > BORDERS && coinsY < COLUMN_COUNT_Y && coinsX < COLUMN_COUNT_X) {
                 coins.add(new Coins(map, coinsX, coinsY))
-            }else{
-                while(map[coinsX][coinsY] != 0){
-                    coinsY +=  1
-                    coinsX +=  1
-                    if(map[coinsX][coinsY] == BORDERS){
-                        coinsY -=  1
-                        coinsX -=  1
-                    }
-                }
-                coins.add(new Coins(map, coinsX, coinsY))
-            }
+//            }else{
+//                while(map[coinsX][coinsY] != 0){
+//                    coinsY +=  1
+//                    coinsX +=  1
+//                    if(map[coinsX][coinsY] == BORDERS){
+//                        coinsY -=  1
+//                        coinsX -=  1
+//                    }
+//                }
+//                coins.add(new Coins(map, coinsX, coinsY))
+//            }
         }
         (0..3).each{
             walls.add(new walls (map,2,2))

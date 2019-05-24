@@ -10,7 +10,7 @@
             <input type="password" placeholder="Пароль" v-model="user.password">
             <span class="error"  v-if="!passIsValid">Введите пароль</span>
             <span class="error"  v-else="passIsValid"></span>
-            <router-link class="link-to-arena" to="/arena"><button :disabled="!formIsValid"  @click="addToAPI">Зарегистрироваться</button></router-link>
+            <router-link class="link-to-arena" to="/arena"><button :disabled="!formIsValid"  @click="registration">Зарегистрироваться</button></router-link>
         </form>
     </div>
 </template>
@@ -40,7 +40,7 @@ import swal from 'sweetalert'
              }
 
             },methods:{
-            addToAPI() {
+            registration() {
                 let newuser = {
                     username: this.user.username,
                     password: this.user.password
@@ -59,7 +59,7 @@ import swal from 'sweetalert'
                         }).catch((e)  => {
                             this.error = 'Имя занято';
                         // swal('Ты не уникален');
-                      //  console.log(e)
+                      console.log(e)
                     })
                   }
                 }

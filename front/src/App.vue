@@ -19,7 +19,7 @@ export default {
 <style>
 
   body{
-    background-color: #708090;
+    background-color:#778899;
   }
 #app {
   position: relative;

@@ -1,6 +1,5 @@
 <template>
-    <div id="form-sing">
-        <h1>Зайдите <br> чтобы начать играть</h1>
+    <div id="form-reg">
         <form action="">
             <img src="../assets/user.png">
             <input type="text" placeholder="Имя" v-model="user.username">
@@ -10,7 +9,7 @@
             <input type="password" placeholder="Пароль" v-model="user.password">
             <span class="error"  v-if="!passIsValid">Введите пароль</span>
             <span class="error"  v-else="passIsValid"></span>
-            <router-link class="link-to-arena" to="/arena"><button :disabled="!formIsValid"  @click="addToAPI">Вход</button></router-link>
+           <button :disabled="!formIsValid"  @click="login">Войти</button>
         </form>
     </div>
 </template>
@@ -19,11 +18,10 @@
     import axios from 'axios'
     import swal from 'sweetalert'
     export default {
-        name: "form-sing",
+        name: "login",
         data(){
             return {
                 user: {username: '', password: ''},
-                isButtonDisabled: true,
                 error: ''
 
             }
@@ -37,10 +35,10 @@
             },
             formIsValid(){
                 return this.nameIsValid && this.passIsValid
-            }
+            },
 
         },methods:{
-            addToAPI() {
+            login() {
                 let newuser = {
                     username: this.user.username,
                     password: this.user.password
@@ -49,17 +47,18 @@
 
                 if(this.formIsValid) {
                     this.error = '';
-                    axios.post('/api/users', {
+                    axios.post('localhost:8080/login', {
                         username: this.user.username,
                         passwordHash: this.user.password
-                                            })
+                    })
                         .then((response) => {
                             console.log(response);
-                            // this.$router('/arena');
+                            let accessToken = response.data.auth;
+                            alert(accessToken);
+                            this.$router('/arena');
                         }).catch((e)  => {
-                        this.error = 'Имя занято';
-
-                        //  console.log(e)
+                            console.log(e);
+                            alert(22)
                     })
                 }
             }
@@ -87,7 +86,7 @@
         border-right:4px solid #4682B4;
     }
 
-    #form-sing{
+    #form-reg{
         width:100%;
         height:auto;
         position: relative;
