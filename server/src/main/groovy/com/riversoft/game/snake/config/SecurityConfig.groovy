@@ -22,20 +22,19 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http
                 .authorizeRequests()
-                .antMatchers('/api/game').permitAll()
+                .antMatchers('/api/login').permitAll()
                 .antMatchers('/api/users').permitAll()
                 .anyRequest().authenticated()
 
-                .and().formLogin()
+                .and().formLogin().loginProcessingUrl('/api/login')
                 .successHandler { req, res, e ->  res.setStatus(200) }
                 .failureHandler { req, res, e -> res.setStatus(401) }
+                .and()
 
-//                .and()
-//                .exceptionHandling()
-//                .authenticationEntryPoint { req, res, e -> res.setStatus(401) }
+                .exceptionHandling()
+                .authenticationEntryPoint { req, res, e -> res.setStatus(401) }
 
                 .and()
                 .logout()

@@ -133,7 +133,7 @@ class GameService {
                 int packmansX = new Random().nextInt(COLUMN_COUNT_X)
                 int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
                 packmansList.add(new UserPackman(map, it.username, packmansX, packmansY, it.rating))
-            }catch(Exception e){
+            }catch(Exception e) {
                 log.info(e.message,e)
             }
         }
@@ -292,12 +292,15 @@ class GameService {
 
 
 
-//get ready array for return into gameController
+//get ready array for return into gameControllers
     GameRezultModel getResult() {
+
         def currentUserName = SecurityContextHolder.getContext().authentication?.name ?: 'Unknown'
+
         def pacmanRating = packmansList.find {
             it.name == currentUserName
         }
-        return  new GameRezultModel(time:time,map:map,username: currentUserName,rating:pacmanRating?.rating ?:0)
+
+        return  new GameRezultModel(time:time,map:map,username: currentUserName,rating:pacmanRating?.rating ?:0,usernames: userRepository.findAll().username,glratings: userRepository.findAll().rating)
     }
 }

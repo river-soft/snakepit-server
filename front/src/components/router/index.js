@@ -5,6 +5,7 @@ import GameMapView from "../GameMapView";
 import Homepage from "../Homepage";
 import ArenaPage from '../../views/ArenaPage';
 import Login from "../Login";
+import statistic from "../statistic";
 
 
 Vue.use(Vuerouter);
@@ -30,6 +31,10 @@ export default new Vuerouter({
         {
             path: '/login',
             component: Login
+        },
+        {
+            path:'/statistic',
+            component:statistic,
         }
     ]
 });

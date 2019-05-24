@@ -4,4 +4,6 @@ class GameRezultModel {
     int time = 600
     String username
     String rating
+    def usernames = []
+    def glratings = []
 }

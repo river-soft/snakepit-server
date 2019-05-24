@@ -39,26 +39,15 @@
 
         },methods:{
             login() {
-                let newuser = {
-                    username: this.user.username,
-                    password: this.user.password
-                };
-                console.log(newuser);
 
                 if(this.formIsValid) {
                     this.error = '';
-                    axios.post('localhost:8080/login', {
-                        username: this.user.username,
-                        passwordHash: this.user.password
-                    })
+                    axios.post(`/api/login?username=${this.user.username}&password=${this.user.password}`)
                         .then((response) => {
                             console.log(response);
-                            let accessToken = response.data.auth;
-                            alert(accessToken);
-                            this.$router('/arena');
+                            this.$router.push('/arena');
                         }).catch((e)  => {
-                            console.log(e);
-                            alert(22)
+                            console.log(e.message);
                     })
                 }
             }
