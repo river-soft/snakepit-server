@@ -1,7 +1,8 @@
 <template>
     <div class="main-container">
-        <p>Имена :{{username}}</p>
-        <p>Рейтинг :{{rating}}</p>
+        <div v-for="user in users">
+            <h5>{{user.name}} -> {{user.rating}}</h5>
+        </div>
     </div>
 </template>
 
@@ -10,15 +11,15 @@
     export default {
         name: "statistics",
         data(){
-            return{
-                username:[],
-                rating:[],
+            return {
+                users: [
+                    { name: null, rating: 0 }
+                ]
             }
         },
         created (){
                 gameMap().then((response) => {
-                    this.username = response.data.usernames;
-                    this.rating = response.data.glratings;
+                    this.users = response.data.users;
                 })
             }
     }

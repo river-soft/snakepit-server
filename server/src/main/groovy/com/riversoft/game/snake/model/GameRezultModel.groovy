@@ -2,8 +2,6 @@ package com.riversoft.game.snake.model
 class GameRezultModel {
     List<List> map = []
     int time = 600
-    String username
-    String rating
-    def usernames = []
-    def glratings = []
+    UserInfo currentUser
+    List<UserInfo> users = []
 }

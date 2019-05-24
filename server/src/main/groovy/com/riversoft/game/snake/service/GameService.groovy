@@ -6,6 +6,7 @@ import com.riversoft.game.snake.dto.ClientMessage
 import com.riversoft.game.snake.dto.ClientPosition
 import com.riversoft.game.snake.model.BattleState
 import com.riversoft.game.snake.model.GameRezultModel
+import com.riversoft.game.snake.model.UserInfo
 import groovy.util.logging.Slf4j
 import org.apache.tomcat.jni.User
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,9 +16,11 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.security.config.annotation.SecurityConfigurer
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
-//import com.riversoft.game.snake.service.Rating
 
 import javax.annotation.PostConstruct
+
+//import com.riversoft.game.snake.service.Rating
+
 
 @Slf4j
 @Service
@@ -295,12 +298,29 @@ class GameService {
 //get ready array for return into gameControllers
     GameRezultModel getResult() {
 
-        def currentUserName = SecurityContextHolder.getContext().authentication?.name ?: 'Unknown'
+        def currentUserName =  SecurityContextHolder.getContext().authentication?.name ?: 'Unknown'
 
-        def pacmanRating = packmansList.find {
-            it.name == currentUserName
+        def pacmanData = packmansList.find {
+            it.name == currentUserName.toString()
         }
 
-        return  new GameRezultModel(time:time,map:map,username: currentUserName,rating:pacmanRating?.rating ?:0,usernames: userRepository.findAll().username,glratings: userRepository.findAll().rating)
+        return  new GameRezultModel(
+                time        : time,
+                map         : map,
+                currentUser : new UserInfo(
+                        rating: pacmanData.rating,
+                        name: currentUserName,
+                        x: pacmanData.x,
+                        y: pacmanData.y,
+                        global: userRepository.findByUsername(currentUserName).get().rating
+                ),
+                users       : packmansList.collect { new UserInfo(
+
+                        name: it.name,
+                        rating: it.rating,
+                        x: it.x,
+                        y: it.y,
+                        global: userRepository.findByUsername(it.name).get().rating
+                )})
     }
 }

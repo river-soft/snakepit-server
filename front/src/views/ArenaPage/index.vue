@@ -8,7 +8,7 @@
             </ul>
         </div>
         <br>
-        <arena :cells="mapData" :name="username"/>
+        <arena :cells="mapData" :users="usersData"/>
     </div>
 </template>
 <script>
@@ -22,6 +22,7 @@
         data() {
             return {
                 mapData: [],
+                usersData: [],
                 intervalHandle: null,
                 time:'Ожидание игроков',
                 username:'',
@@ -32,9 +33,11 @@
             this.intervalHandle = setInterval(() => {
                 gameMap().then((response) => {
                     this.time = moment.unix(response.data.time).format('mm:ss');
-                    this.rating = response.data.rating;
+                    this.rating = response.data.currentUser.rating;
                     this.mapData = response.data.map;
-                    this.username = response.data.username;
+                    this.usersData = response.data.users;
+                    this.usersData.unshift(response.data.currentUser);
+                    this.username = response.data.currentUser.name;
                     console.log("Response new data");
                 });
             }, 1000);

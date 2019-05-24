@@ -1,9 +1,9 @@
 <template>
     <div class="arena-container">
-        <div class="arena-row" v-for="row in cells">
-            <span v-for="cell in row">
-                <span class="player-name">{{srcByCellCode(cell).name}}</span>
-                <img class="arena-cell" :src="srcByCellCode(cell).url"/>
+        <div class="arena-row" v-for="(row, x) in cells">
+            <span v-for="(cell, y) in row">
+                <span class="player-name">{{srcByCellCode(cell, x, y).name}}</span>
+                <img class="arena-cell" :src="srcByCellCode(cell, x, y).url"/>
             </span>
 
 
@@ -25,14 +25,15 @@
                     [1,1,1,1,1,1]
                 ]
             },
-            name:{
-                type:String,
-                default: 'Unknow'
+            users:{
+                type:Array,
+                default: []
             }
         },
         methods: {
-            srcByCellCode(code) {
+            srcByCellCode(code, x, y) {
 
+                console.log(x);
                 if (code === 3) {
                     return {
                        url:require('../../assets/arena/bitcoin.png')
@@ -40,13 +41,13 @@
                 } else if (code === 2) {
                     return{
                         url: require('../../assets/arena/pacman.png'),
-                        name:this.name
+                        name: this.users[0].name
 
                     }
                 }else if (code === 21) {
                     return {
                         url: require('../../assets/arena/pacman-right.png'),
-                        name:this.name
+                        name: this.users[0].name
                     }
 
                 } else if (code === 1) {
