@@ -11,7 +11,7 @@
           </ul>
           <div class="buttons-panel">
            <button><router-link to="/registration">Регистрация</router-link></button>
-            <button>Войти</button>
+              <button><router-link to="/singin">Вход</router-link></button>
             <router-view></router-view>
           </div>
         </div>

@@ -2,6 +2,8 @@ package com.riversoft.game.snake.service
 
 import spock.lang.Specification
 
+import javax.annotation.PostConstruct
+
 class UserPackmanTest extends Specification {
 
     def 'Если пекмен перемещается на монету, то рейтинг повышается на 1'() {
@@ -44,7 +46,17 @@ class UserPackmanTest extends Specification {
         pacman.rating == 1
         rating == 2
     }
+    def 'Если пекмен появляется на углу сверху, то пакмен появляется ниже на 1'() {
+        given: 'Пакмен появляется ниже'
+        def mapBord = new GameService()
+        def pacman = new UserPackman([[1,1,1,1,1], [1,3,3,3,1], [1,0,0,0,1], [1,0,0,0,1], [1,1,1,1,1]], 'test', 1, 1, 0)
+        when: 'Пакмен генерится на монете'
+        mapBord.start()
 
+        then: 'Глобальный рейтинг должен стать 2, а локальный 1'
+        ([[1,1,1,1,1], [1,3,3,3,1], [1,2,2,2,1], [1,2,2,2,1], [1,1,1,1,1]])
+
+    }
     def 'Если на пути пекмена есть стена, он не должен менять свою позицию'() {
 
         given: 'Карта с стеной слева от пекмена. Положение пекмена по центру карты'

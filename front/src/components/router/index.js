@@ -4,6 +4,7 @@ import Registration from "../Registration";
 import GameMapView from "../GameMapView";
 import Homepage from "../Homepage";
 import ArenaPage from '../../views/ArenaPage';
+import Singin from '../Singin';
 
 
 Vue.use(Vuerouter);
@@ -26,6 +27,9 @@ export default new Vuerouter({
             path: '/arena',
             component: ArenaPage
         },
-
+        {
+            path: '/singin',
+            component: Singin
+        }
     ]
 });

@@ -40,12 +40,17 @@ class UserPackman {
         if(this.map[this.x][this.y] == EMPTYSPACE ){
             this.map[this.x][this.y] = PACMAN
         }else {
-          while(this.map[this.x][this.y] != EMPTYSPACE){
-              this.y -=  1
-              this.x -=  1
-          }
+            while (this.map[this.x][this.y] != EMPTYSPACE) {
+                this.y -= 1
+                this.x -= 1
+            }
+//            this.map[this.x][this.y] = PACMAN
+            while(this.map[this.x][this.y] == COINS | this.map[this.x][this.y] == PACMAN | this.map[this.x][this.y] == BORDERS){
+                this.x+=1
+            }
             this.map[this.x][this.y] = PACMAN
         }
+
     }
 
 

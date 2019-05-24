@@ -79,7 +79,6 @@ class GameService {
     //CONSTRUCTOR FOR THIS CLASS
     GameService(){
        generateAll()
-
         log.info("My Construct")
     }
 
