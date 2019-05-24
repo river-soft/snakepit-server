@@ -76,9 +76,9 @@ class UserPackman {
             rating++
             glrating ++
             onRating(this)
-        } else if (map[x][y - 1] == BORDERS) {
-            map[x][y] = PACMAN
-        }else{
+        }else if (map[x][y - 1] == BORDERS) {
+            map[x][y] = 0
+        }else {
             map[x][y] = EMPTYSPACE
             y -= 1
             map[x][y] = PACMAN
@@ -94,8 +94,8 @@ class UserPackman {
             rating++
             glrating ++
             onRating(this)
-        } else if (map[x][y + 1] == BORDERS) {
-            map[x][y] = PACMAN
+        }else if (map[x][y + 1] == BORDERS) {
+            map[x][y] = 0
         }else{
             map[x][y] = EMPTYSPACE
             y += 1
@@ -111,8 +111,8 @@ class UserPackman {
             rating++
             glrating ++
             onRating(this)
-        } else if (map[x - 1][y] == BORDERS) {
-            map[x][y] = PACMAN
+        }else if (map[x - 1][y] == BORDERS) {
+            map[x][y] = 0
         }else{
             map[x][y] = EMPTYSPACE
             x -= 1
@@ -129,8 +129,8 @@ class UserPackman {
             rating++
             glrating ++
             onRating(this)
-        } else if (map[x][y + 1] == BORDERS) {
-            map[x][y] = PACMAN
+        }else if (map[x + 1][y] == BORDERS) {
+            map[x][y] = 0
         }else{
             map[x][y] = EMPTYSPACE
             x += 1
