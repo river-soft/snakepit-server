@@ -19,7 +19,7 @@ export default {
 <style>
 
   body{
-    background-color:#778899;
+    background-color:white;
   }
 #app {
   position: relative;
@@ -29,4 +29,5 @@ export default {
   text-align: center;
   color: #4682B4;
 }
+
 </style>

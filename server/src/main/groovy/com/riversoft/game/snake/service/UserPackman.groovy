@@ -78,9 +78,13 @@ class UserPackman {
             onRating(this)
         }else if (map[x][y - 1] == BORDERS) {
             map[x][y] = 0
-        }else {
+        }else if(map[x][y - 1] != PACMAN){
             map[x][y] = EMPTYSPACE
             y -= 1
+            map[x][y] = PACMAN
+        }else{
+            map[x][y] = EMPTYSPACE
+            y -= 2
             map[x][y] = PACMAN
         }
     }
@@ -88,17 +92,23 @@ class UserPackman {
     def moveRight() {
         if (map[x][y + 1] == COINS) {
             map[x][y] = EMPTYSPACE
-            this.PACMAN = 21
             y +=1
+            this.PACMAN = 21
             map[x][y] = PACMAN
             rating++
             glrating ++
             onRating(this)
         }else if (map[x][y + 1] == BORDERS) {
+            this.PACMAN = 21
             map[x][y] = 0
-        }else{
+        }else if(map[x][y + 1] != PACMAN){
             map[x][y] = EMPTYSPACE
             y += 1
+            this.PACMAN = 21
+            map[x][y] = PACMAN
+        }else{
+            map[x][y] = EMPTYSPACE
+            y += 2
             map[x][y] = PACMAN
         }
     }
@@ -113,9 +123,14 @@ class UserPackman {
             onRating(this)
         }else if (map[x - 1][y] == BORDERS) {
             map[x][y] = 0
-        }else{
+        }else if(map[x - 1][y] != PACMAN){
             map[x][y] = EMPTYSPACE
             x -= 1
+            this.PACMAN = 21
+            map[x][y] = PACMAN
+        }else{
+            map[x][y] = EMPTYSPACE
+            x -= 2
             map[x][y] = PACMAN
         }
 
@@ -131,9 +146,12 @@ class UserPackman {
             onRating(this)
         }else if (map[x + 1][y] == BORDERS) {
             map[x][y] = 0
-        }else{
+        }else if(map[x + 1][y] != PACMAN){
             map[x][y] = EMPTYSPACE
             x += 1
+            this.PACMAN = 21
+            map[x][y] = PACMAN
+        }else{
             map[x][y] = PACMAN
         }
 

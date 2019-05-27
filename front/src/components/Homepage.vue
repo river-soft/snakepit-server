@@ -1,7 +1,13 @@
 <template>
         <div id="main-block">
-          <h1>Packman Arena</h1>
-          <img alt="" src="../assets/packman.gif">
+            <h1>Packman Arena</h1>
+              <br>
+                <hr>
+                  <h2>Зарегистрируйся и начни играть !</h2>
+                    <br>
+            <p>Аркадная игра, созданная для любителей программирования  Проверь свои алгоритмы на оптимальность и быстройдествие</p>
+            <img alt="" src="../assets/packman.gif">
+            <img class="second-img" alt="" src="../assets/packman.gif">
           <ul>
             <li></li>
             <li></li>
@@ -9,11 +15,11 @@
             <li></li>
             <li></li>
           </ul>
-          <div class="buttons-panel">
-           <button><router-link to="/registration">Регистрация</router-link></button>
-              <button><router-link to="/login">Вход</router-link></button>
-            <router-view></router-view>
-          </div>
+            <div class="buttons-panel">
+                <button><router-link to="/registration">Регистрация</router-link></button>
+                <button><router-link to="/login">Вход</router-link></button>
+                <router-view></router-view>
+            </div>
         </div>
 </template>
 
@@ -24,33 +30,70 @@
 </script>
 
 <style scoped>
+    hr{
+        width:25%;
+        display: block;
+        margin: auto;
+        height:5px;
+        background-color: #00BFFF;
+        outline: 0;
+        border: none;
+        margin-bottom: 3%;
+    }
     ul{
         width:50%;
         margin:10% auto;
     }
     ul li{
         margin:1%;
-        width:20px;
+        width:30px;
         border-radius:50%;
-        height:20px;
-        background-color:#4682B4 ;
+        height:30px;
         display: inline-block;
+        animation:fade-out-1 3s;
+        transform: translateY(50px);
+        background-image: url("../assets/coins-homepage.png");
+        background-size: cover;
     }
-    h1{
+    ul li:nth-child(2){
+        animation:fade-out-2 3.4s  ;
+    }
+    ul li:nth-child(3){
+        animation:fade-out-3 3.8s  ;
+    }
+    ul li:nth-child(4){
+        animation:fade-out-4 4.2s  ;
+    }
+    ul li:nth-child(5){
+        animation:fade-out-5 4.4s  ;
+    }
+    h1 {
         font-size: 150px;
         font-family:Roboto;
+    }
+    h2{
+        font-size: 40px;
+        font-family: century;
     }
 
     #main-block{
         width:70%;
-        margin: 1% auto;
+        margin:auto;
         height:auto;
     }
 
     #main-block img{
-        width:35%;
+        z-index: 106;
+        width:25%;
         float:left;
-        margin: 0 5%;
+        margin: 0% 5%;
+        animation-duration: 1.6s;
+        animation:slidein 1.6s  ease-in-out;
+    }
+    #main-block .second-img{
+        transform: scale(-1, 1);
+        float:right;
+        animation:none;
     }
     .buttons-panel{
         width:100%;
@@ -83,5 +126,74 @@
         text-decoration: none;
         font-style:normal;
         color:white;
+    }
+    p {
+        font-size: 1.9em;
+        text-align:center;
+        width:70%;
+        display:block;
+        margin: 3% auto;
+        line-height: 1.5;
+        font-family:century;
+    }
+
+    @keyframes slidein {
+        from {
+            transform: translateX(0%);
+        }
+        to{
+            transform: translateX(150%);
+            z-index: 102;
+        }
+
+    }
+    @keyframes fade-out-1{
+        from{
+            opacity: 1;
+        }
+        to{
+            opacity:-1;
+            z-index: 0;
+        }
+    }
+
+    @keyframes fade-out-2{
+        from{
+            opacity: 1;
+        }
+        to{
+            opacity:-1;
+            z-index: 0;
+        }
+    }
+
+    @keyframes fade-out-3{
+        from{
+            opacity: 1;
+        }
+        to{
+            opacity:-1;
+            z-index: 0;
+        }
+    }
+
+    @keyframes fade-out-4{
+        from{
+            opacity: 1;
+        }
+        to{
+            opacity:-1;
+            z-index: 0;
+        }
+    }
+
+    @keyframes fade-out-5{
+        from{
+            opacity: 1;
+        }
+        to{
+            opacity:-1;
+            z-index: 0;
+        }
     }
 </style>

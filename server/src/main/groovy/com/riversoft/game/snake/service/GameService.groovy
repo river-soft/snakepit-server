@@ -105,7 +105,7 @@ class GameService {
         CreateWalls() //add walls in map
 
         //create coins
-        (0..2).each {
+        (0..100).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
 //            if(coinsY > BORDERS && coinsX > BORDERS && coinsY < COLUMN_COUNT_Y && coinsX < COLUMN_COUNT_X) {
@@ -173,8 +173,12 @@ class GameService {
                         i.moveUp()
                         break
 
-                    default: break
+                    default:
+                        i.moveUp()
+                        break
                 }
+            }else{
+                i.moveUp()
             }
         }
     }

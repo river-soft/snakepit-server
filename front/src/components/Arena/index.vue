@@ -51,9 +51,16 @@
                         }
                     }
                 }else if (code === 21) {
-                    return {
-                        url: require('../../assets/arena/pacman-right.png'),
-                        name: this.users[0].name
+                    if(this.users[0].x === x && this.users[0].y === y){
+                        return {
+                            url: require('../../assets/arena/pacman-right.png'),
+                            name: this.users[0].name
+                        }
+                    }else{
+                        return {
+                            url: require('../../assets/arena/pacman-right.png'),
+                            name: ''
+                        }
                     }
 
                 } else if (code === 1) {
