@@ -16,10 +16,10 @@ class Coins {
     final BORDERS = 1
     final EMPTYSPACE = 0
     final COINS = 3
+    final PACMAN = 2
 
     int coinsX
     int coinsY
-    int countCoins = 0
 
     public List<List> map
 
@@ -27,25 +27,27 @@ class Coins {
         this.map = map
         this.coinsX = coinsX
         this.coinsY = coinsY
-        generateCoins()
-    }
-
-    def generateCoins() {
-        if (map[coinsX][coinsY] == EMPTYSPACE) {
-            map[coinsX][coinsY] = COINS
-        } else {
-            while (map[coinsX][coinsY] != EMPTYSPACE) {
-                coinsY -= 1
-                coinsX -= 1
-
+        if(this.map[this.coinsX][this.coinsY] == EMPTYSPACE ){
+            this.map[this.coinsX][this.coinsY] = COINS
+        }else if(this.map[this.coinsX][this.coinsY] != EMPTYSPACE) {
+            while (this.map[this.coinsX][this.coinsY] != EMPTYSPACE) {
+                this.coinsY -= 1
+                this.coinsX -= 1
             }
-            if (map[coinsX][coinsY] == BORDERS) {
-                coinsY += 1
-                coinsX += 1
+
+            this.map[this.coinsX][this.coinsY] = COINS
+
+        }else{
+            while (this.map[this.coinsX][this.coinsY] == COINS | this.map[this.coinsX][this.coinsY] == PACMAN | this.map[this.coinsX][this.coinsY] == BORDERS) {
+                this.coinsX += 1
             }
-            map[coinsX][coinsY] = COINS
+
+            this.map[this.coinsX][this.coinsY] = COINS
         }
+
     }
+
+
 
 //    def addCoins(){
 //        def result  = 30 - map.count(3)

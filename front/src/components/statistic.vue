@@ -1,7 +1,7 @@
 <template>
     <div class="main-container">
         <div v-for="user in users">
-            <h5>{{user.name}} -> {{user.rating}}</h5>
+            <h5>{{user.name}} -> {{user.global}}</h5>
         </div>
     </div>
 </template>
@@ -13,13 +13,14 @@
         data(){
             return {
                 users: [
-                    { name: null, rating: 0 }
+                    { name: '', global: 0 }
                 ]
             }
         },
         created (){
                 gameMap().then((response) => {
                     this.users = response.data.users;
+                    console.log(response)
                 })
             }
     }

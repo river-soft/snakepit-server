@@ -99,10 +99,13 @@ class GameService {
             }
             map.add(temp)
         }
-
+        (0..3).each{
+            walls.add(new walls (map,2,2))
+        }
+        CreateWalls() //add walls in map
 
         //create coins
-        (0..100).each {
+        (0..2).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
 //            if(coinsY > BORDERS && coinsX > BORDERS && coinsY < COLUMN_COUNT_Y && coinsX < COLUMN_COUNT_X) {
@@ -119,11 +122,7 @@ class GameService {
 //                coins.add(new Coins(map, coinsX, coinsY))
 //            }
         }
-        (0..3).each{
-            walls.add(new walls (map,2,2))
-        }
-        CreateWalls() //add walls in map
-        getCoins() //add coins in map
+//        getCoins() //add coins in map
         start()
     }
 
@@ -180,11 +179,11 @@ class GameService {
         }
     }
 //add coins in map
-    void getCoins(){
-        coins.each{
-            it.generateCoins()
-        }
-    }
+//    void getCoins(){
+//        coins.each{
+//            it.generateCoins()
+//        }
+//    }
 
 
 //add walls in map

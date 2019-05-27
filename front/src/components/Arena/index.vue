@@ -39,10 +39,16 @@
                        url:require('../../assets/arena/bitcoin.png')
                     }
                 } else if (code === 2) {
-                    return{
-                        url: require('../../assets/arena/pacman.png'),
-                        name: this.users[0].name
-
+                    if(this.users[0].x === x && this.users[0].y === y) {
+                        return {
+                            url: require('../../assets/arena/pacman.png'),
+                            name: this.users[0].name
+                        }
+                    }else{
+                        return{
+                            url: require('../../assets/arena/pacman.png'),
+                            name:''
+                        }
                     }
                 }else if (code === 21) {
                     return {

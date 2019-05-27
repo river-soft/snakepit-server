@@ -16,22 +16,21 @@ class MyPackmanClient extends PacManClient {
         def mePosition = this.me
         // Список обьектов на карте с их координатами (пекмены, монеты)
         def objects = getAllObjects(message.map)
-        return Direction.DOWN
-//        if (message.map[me.posX][me.posY + 1] == 1) {
-//            return Direction.UP
-//        } else if (message.map[me.posX][me.posY - 1] == 1){
-//            return Direction.DOWN
-//        }else if(message.map[me.posX - 1][me.posY] == 1){
-//            return Direction.RIGHT
-//        }
-//
-//        return Direction.RIGHT
+       if (message.map[me.posX][me.posY + 1] == 1) {
+         return Direction.UP
+       } else if (message.map[me.posX][me.posY - 1] == 1){
+            return Direction.DOWN
+        }else if(message.map[me.posX - 1][me.posY] == 1){
+            return Direction.RIGHT
+        }
+
+        return Direction.RIGHT
     }
 }
 
 class TestSdkApplication {
 
     static void main(String[] args) {
-        new MyPackmanClient('localhost:8080', 'Николай', 'coly26341')
+        new MyPackmanClient('localhost:8080', 'игарь', '123')
     }
 }
