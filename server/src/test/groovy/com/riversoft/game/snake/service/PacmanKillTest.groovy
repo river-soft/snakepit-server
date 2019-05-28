@@ -1,7 +1,6 @@
 package com.riversoft.game.snake.service
 
 import com.riversoft.game.snake.dto.ElementType
-import spock.lang.PendingFeature
 import spock.lang.Specification
 
 class PacmanKillTest extends Specification {
@@ -14,12 +13,14 @@ class PacmanKillTest extends Specification {
             [0, 0, 0, 0, 0]
     ]
 
-    @PendingFeature
     def 'Пекмен с меньшим рейтингом должен погибнуть когда ходит первым'() {
 
         given: 'два пекмена расположены под углом друг к другу, у второго рейтинга больше'
         def pac1 = new UserPackman(map, 'pac1', 1, 1,0)
         def pac2 = new UserPackman(map, 'pac2', 2, 0,0)
+        [pac1, pac2]*.getPacmanByCoordinate = {x, y ->
+            [pac2, pac1].find { it.x == x && it.y == y}
+        }
         pac2.rating = 1
 
         when: 'первый делает шаг вверх, второй делает шаг влево'
@@ -30,12 +31,14 @@ class PacmanKillTest extends Specification {
         pac1.isDead()
     }
 
-    @PendingFeature
     def 'Пекмен с меньшим рейтингом должен погибнуть когда ходит вторым'() {
 
         given: 'два пекмена расположены под углом друг к другу, у второго рейтинга больше'
         def pac1 = new UserPackman(map, 'pac1', 1, 1,0)
         def pac2 = new UserPackman(map, 'pac2', 2, 0,0)
+        [pac1, pac2]*.getPacmanByCoordinate = {x, y ->
+            [pac2, pac1].find { it.x == x && it.y == y}
+        }
         pac2.rating = 1
 
         when: 'второй делает шаг влево, первый делает шаг вверх'
@@ -46,12 +49,14 @@ class PacmanKillTest extends Specification {
         pac1.isDead()
     }
 
-    @PendingFeature
-    def 'Если пекмены с одинаковым рейтингом, то должен погибнуть тот кто ходит вторым'() {
+    def 'Если пекмены с одинаковым рейтингом, то должен погибнуть тот кто ходит первым'() {
 
-        given: 'два пекмена расположены под углом дкруг к другу'
+        given: 'два пекмена расположены под углом друг к другу'
         def pac1 = new UserPackman(map, 'pac1', 1, 1,0)
         def pac2 = new UserPackman(map, 'pac2', 2, 0,0)
+        [pac1, pac2]*.getPacmanByCoordinate = {x, y ->
+            [pac2, pac1].find { it.x == x && it.y == y}
+        }
 
         when: 'первый делает шаг вверх, второй делает шаг влево'
         pac1.moveUp()
@@ -61,20 +66,23 @@ class PacmanKillTest extends Specification {
         pac1.isDead()
     }
 
-    @PendingFeature
-    def 'Если есть монета на место столкновения то забирает ее выживший пекмен'() {
+    def 'Если есть монета на месте столкновения то забирает ее выживший пекмен'() {
 
-        given: 'два пекмена расположены под углом дкруг к другу и монета на месте куда прийдут пекмены'
+        given: 'два пекмена расположены под углом друг к другу и монета на месте куда прийдут пекмены'
         def pac1 = new UserPackman(map, 'pac1', 1, 1,0)
         def pac2 = new UserPackman(map, 'pac2', 2, 0,0)
-        map[1][0] = ElementType.COIN.value
+        [pac1, pac2]*.getPacmanByCoordinate = {x, y ->
+            [pac2, pac1].find { it.x == x && it.y == y}
+        }
+        map[0][1] = ElementType.COIN.value
+        pac2.rating = 1
 
         when: 'первый делает шаг вверх, второй делает шаг влево'
         pac1.moveUp()
         pac2.moveLeft()
 
         then:
-        pac2.isDead()
-        pac1.rating == 1
+        pac1.isDead()
+        pac2.rating == 1
     }
 }

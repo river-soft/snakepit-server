@@ -26,14 +26,10 @@ import javax.annotation.PostConstruct
 @Service
 class GameService {
 
-    @Autowired
-    private UserRepository userRepository
-    @Autowired
-    private SocketService socketService
-    @Autowired
-    private UserService userService
-    @Autowired
-    private Bcryptor bcryptor
+    @Autowired UserRepository userRepository
+    @Autowired private SocketService socketService
+    @Autowired UserService userService
+    @Autowired private Bcryptor bcryptor
 //   @Autowired private Rating glrating
 
     private List<List> map = []
@@ -147,6 +143,9 @@ class GameService {
 
             log.info("Save rating ${packman.glrating} for user ${packman.name}")
             userRepository.save(user)
+        }
+        packmansList*.getPacmanByCoordinate = { x, y ->
+            packmansList.find { it.x == x && it.y == y }
         }
 
         log.info("My PostConstruct")
