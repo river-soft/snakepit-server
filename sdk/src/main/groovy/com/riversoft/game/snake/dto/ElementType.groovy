@@ -3,10 +3,12 @@ package com.riversoft.game.snake.dto
 enum ElementType {
     BORDER(1),
     EMPTY(0),
-    PACMAN(2),
+    PACMAN(20),
+    PACMANRIGHT(21),
     COIN(3)
 
     int value
+
 
     ElementType(int value) {
         this.value = value
@@ -17,5 +19,9 @@ enum ElementType {
         ElementType
                 .values()
                 .find { it.value == value }
+    }
+
+    static boolean isPacman (ElementType type) {
+        [PACMAN,PACMANRIGHT].contains(type)
     }
 }

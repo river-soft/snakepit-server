@@ -92,7 +92,12 @@ class UserPackman {
                 break
 
             case ElementType.PACMAN:
+            case ElementType.PACMANRIGHT:
                 def opponent = getPacmanByCoordinate(x1, y1) as UserPackman
+
+                if (ElementType.isPacman(ElementType.fromValue(map[1][2] as int))) {
+
+                }
 
                 if (opponent.rating > this.rating) {
                     dead = true

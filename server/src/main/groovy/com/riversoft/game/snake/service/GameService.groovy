@@ -19,18 +19,17 @@ import org.springframework.stereotype.Service
 
 import javax.annotation.PostConstruct
 
-//import com.riversoft.game.snake.service.Rating
 
 
 @Slf4j
 @Service
 class GameService {
 
+
     @Autowired UserRepository userRepository
     @Autowired private SocketService socketService
     @Autowired UserService userService
     @Autowired private Bcryptor bcryptor
-//   @Autowired private Rating glrating
 
     private List<List> map = []
     private List<UserPackman> packmansList = []
@@ -42,12 +41,8 @@ class GameService {
     final COLUMN_COUNT_Y = 64
     final BORDERS = 1
 
-    int time = 600
+    int time = 0
 
-    @Scheduled(fixedDelay = 600000L)
-    void resetMap() {
-        generateAll()
-    }
 
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
@@ -61,25 +56,29 @@ class GameService {
                                     posY: x.getY())
                         })
         ))
-        if(time > 0){
-            time--
-        }else{
 
-            this.time = 600
+        if (!packmansList.any { !it.isDead() }) {
+            generateAll()
+        }
+
+        if (--time < 0) {
+            generateAll()
         }
 
         log.debug(packmansList.rating.toString())
         log.debug(packmansList.glrating.toString())
-//        log.debug(rating.points.toString())
 
     }
 
-    //CONSTRUCTOR FOR THIS CLASS
     GameService() {
        generateAll()
     }
 
     def generateAll() {
+
+        // set timer
+        this.time = 600
+
         map = []
 
         COLUMN_COUNT_X.times { x->
@@ -102,21 +101,9 @@ class GameService {
         (0..100).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
-//            if(coinsY > BORDERS && coinsX > BORDERS && coinsY < COLUMN_COUNT_Y && coinsX < COLUMN_COUNT_X) {
                 coins.add(new Coins(map, coinsX, coinsY))
-//            }else{
-//                while(map[coinsX][coinsY] != 0){
-//                    coinsY +=  1
-//                    coinsX +=  1
-//                    if(map[coinsX][coinsY] == BORDERS){
-//                        coinsY -=  1
-//                        coinsX -=  1
-//                    }
-//                }
-//                coins.add(new Coins(map, coinsX, coinsY))
-//            }
         }
-//        getCoins() //add coins in map
+
         start()
     }
 
@@ -124,7 +111,6 @@ class GameService {
     def start() {
         packmansList = []
         userRepository.findAll().each {
-            //create coords for packmansList
             try {
                 int packmansX = new Random().nextInt(COLUMN_COUNT_X)
                 int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
@@ -149,7 +135,6 @@ class GameService {
         log.info("My PostConstruct")
     }
 
-    //save coordinates packmans and move packmans
 
     void movePackmans(List<Map> answers) {
         packmansList.each { i->
@@ -179,12 +164,7 @@ class GameService {
             }
         }
     }
-//add coins in map
-//    void getCoins(){
-//        coins.each{
-//            it.generateCoins()
-//        }
-//    }
+
 
 
 //add walls in map
@@ -289,15 +269,15 @@ class GameService {
     }
 
 
+
     BattleState getCurrentState() {
         BattleState.NONE
     }
 
 
 
-//get ready array for return into gameControllers
+//get ready data for return into gameControllers
     GameRezultModel getResult() {
-
         def currentUserName =  SecurityContextHolder.getContext().authentication?.name ?: 'Unknown'
 
         def pacmanData = packmansList.find {

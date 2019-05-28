@@ -3,7 +3,6 @@
             <h1>Packman Arena</h1>
               <br>
                 <hr>
-                  <h2>Зарегистрируйся и начни играть !</h2>
                     <br>
             <p>Аркадная игра, созданная для любителей программирования  Проверь свои алгоритмы на оптимальность и быстройдествие</p>
             <img alt="" src="../assets/packman.gif">
@@ -30,6 +29,9 @@
 </script>
 
 <style scoped>
+    body{
+
+    }
     hr{
         width:25%;
         display: block;
@@ -70,10 +72,14 @@
     h1 {
         font-size: 150px;
         font-family:Roboto;
+        text-shadow:1px 4px 1px rgba(0,0,0,0.5);
+        color:white;
     }
     h2{
         font-size: 40px;
         font-family: century;
+        text-shadow:1px 4px 1px rgba(0,0,0,0.5);
+        color:#dcdcdc;
     }
 
     #main-block{
@@ -86,7 +92,7 @@
         z-index: 106;
         width:25%;
         float:left;
-        margin: 0% 5%;
+        margin: 0% 8% ;
         animation-duration: 1.6s;
         animation:slidein 1.6s  ease-in-out;
     }
@@ -103,7 +109,8 @@
         justify-content: center;
     }
     button{
-        margin: 1%;
+        display: block;
+        margin:1%;
         width:20%;
         height:55px;
         background-color: transparent;
@@ -114,6 +121,7 @@
         font-size: 1.5em;
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+        border-radius:30px;
     }
     button:first-child{
         background-color: #409eff;
@@ -130,11 +138,14 @@
     p {
         font-size: 1.9em;
         text-align:center;
-        width:70%;
+        width:60%;
         display:block;
         margin: 3% auto;
         line-height: 1.5;
+        padding: 0% 5% 0% 5%;
         font-family:century;
+        text-shadow:1px 4px 1px rgba(0,0,0,0.5);
+        color:#dcdcdc;
     }
 
     @keyframes slidein {

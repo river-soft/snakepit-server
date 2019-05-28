@@ -12,14 +12,18 @@ class MyPackmanClient extends PacManClient {
     @Override
     Direction onRequest(ClientMessage message) {
 
-        // Мое положение на карте
-//        return Direction.RIGHT
+        if(message.map[me.posX][me.posY - 1] == 1){
+            return Direction.DOWN
+        }else{
+            return Direction.RIGHT
+        }
     }
 }
 
 class TestSdkApplication {
 
     static void main(String[] args) {
-        new MyPackmanClient('snakepit.westeurope.cloudapp.azure.com', 'yvshvets', 'crjhjgthdjtfghtkz')
+        new MyPackmanClient('localhost:8080', 'Николай', 'coly26341')
     }
+    //snakepit.westeurope.cloudapp.azure.com
 }

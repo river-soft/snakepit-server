@@ -39,7 +39,6 @@
 
         },methods:{
             login() {
-
                 if(this.formIsValid) {
                     this.error = '';
                     axios.post(`/api/login?username=${this.user.username}&password=${this.user.password}`)

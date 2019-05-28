@@ -8,6 +8,7 @@ import Login from "../Login";
 import statistic from "../statistic";
 
 
+
 Vue.use(Vuerouter);
 
 export default new Vuerouter({
@@ -21,12 +22,11 @@ export default new Vuerouter({
             component: Registration,
         },
         {
-            path:'/map',
-            component:GameMapView,
-        },
-        {
             path: '/arena',
-            component: ArenaPage
+            component: ArenaPage,
+            meta:{
+                requiresAuth:true,
+            }
         },
         {
             path: '/login',
@@ -36,5 +36,5 @@ export default new Vuerouter({
             path:'/statistic',
             component:statistic,
         }
-    ]
+    ],
 });

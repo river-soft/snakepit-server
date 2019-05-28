@@ -8,10 +8,15 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.18",
+    "@fortawesome/free-solid-svg-icons": "^5.8.2",
+    "@fortawesome/vue-fontawesome": "^0.1.6",
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
     "element-ui": "^2.8.2",
+    "i": "^0.3.6",
     "moment": "^2.24.0",
+    "npm": "^6.9.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6"
   },
@@ -19,9 +24,11 @@
     "@vue/cli-plugin-babel": "^3.6.0",
     "@vue/cli-plugin-eslint": "^3.6.0",
     "@vue/cli-service": "^3.6.0",
+    "awesome": "0.0.7",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "font": "0.0.4",
     "sweetalert": "^2.1.2",
     "vue-template-compiler": "^2.5.21"
   },
