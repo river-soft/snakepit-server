@@ -52,7 +52,7 @@
         display: inline-block;
         animation:fade-out-1 3s;
         transform: translateY(50px);
-        background-image: url("../assets/coins-homepage.png");
+        /*background-image: url("../assets/coins-homepage.png");*/
         background-size: cover;
     }
     ul li:nth-child(2){

@@ -74,11 +74,9 @@ class GameService {
 
     }
 
-
     //CONSTRUCTOR FOR THIS CLASS
-    GameService(){
+    GameService() {
        generateAll()
-        log.info("My Construct")
     }
 
     def generateAll() {
@@ -310,10 +308,10 @@ class GameService {
                 time        : time,
                 map         : map,
                 currentUser : new UserInfo(
-                        rating: pacmanData.rating,
+                        rating: pacmanData?.rating ?: 0,
                         name: currentUserName,
-                        x: pacmanData.x,
-                        y: pacmanData.y,
+                        x: pacmanData?.x ?: 0,
+                        y: pacmanData?.y ?: 0,
                         global: userRepository.findByUsername(currentUserName).get().rating
                 ),
                 users       : packmansList.collect { new UserInfo(
