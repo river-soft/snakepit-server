@@ -1,8 +1,7 @@
 package com.riversoft.game.snake.service
 
+import com.riversoft.game.snake.dto.ElementType
 import spock.lang.Specification
-
-import javax.annotation.PostConstruct
 
 class UserPackmanTest extends Specification {
 
@@ -20,7 +19,8 @@ class UserPackmanTest extends Specification {
         pacman.rating == 1
         rating == 2
     }
-    def 'Пекмен двигается влево'(){
+
+    def 'Пекмен двигается влево'() {
         given:'карта, пекмен'
         def rating = 1
         def pacman = new UserPackman([[0,0,0], [0,0,0], [0,0,0]], 'test', 1, 1, rating)
@@ -70,12 +70,25 @@ class UserPackmanTest extends Specification {
         pacman.getX() == 1
     }
 
-    def 'Единица должна равнятся единице'() {
-        when:
-        def a = 1
+    def 'Если на пути пекмена есть стена, он должен умереть'() {
 
-        then:
-        a == 1
+        given: 'Карта с стеной слева от пекмена. Положение пекмена по центру карты'
+        def map = [[1,0,0], [1,0,0], [1,0,0]]
+        def pacman = new UserPackman(map, 'test', 1, 1, 0)
+
+        when: 'Делаем шаг влево'
+        pacman.moveLeft()
+
+        then: 'Положение пекмена должно остатся по центру, пекмен должен исчезнуть из карты'
+        pacman.getY() == 1
+        pacman.getX() == 1
+        map[1][1] == ElementType.EMPTY.value
+
+        when: 'Детаем шаг вверх'
+        pacman.moveUp()
+
+        then: 'Пекмен не должен появится на карте'
+        map[1][0] == ElementType.EMPTY.value
     }
 //    def 'Пакмен видя что в последующей клетке находиться пекмен не есть его, тоесть не перезаписывает его ,  а они просто розходяться'(){
 //        given: 'Карта  с двумя пекменами напротив друг друга'

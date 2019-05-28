@@ -1,12 +1,8 @@
 package com.riversoft.game.snake.service
 
-import groovy.util.logging.Slf4j
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-import sun.invoke.empty.Empty
-
 class UserPackman {
 
+    boolean dead
 
 //const
     final BORDERS = 1
