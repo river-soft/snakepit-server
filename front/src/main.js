@@ -6,15 +6,15 @@ import 'element-ui/lib/theme-chalk/index.css';
 import {AxiosProxyConfig as auth} from "axios";
 
 
-router.beforeEach((to, from, next) => {
-  if(to.meta.requiresAuth){
-    next({
-      path:'/'
-    })
-  }else if(store.state.auth){
-    next()
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   if(to.meta.requiresAuth){
+//     next({
+//       path:'/'
+//     })
+//   }else if(store.state.auth){
+//     next()
+//   }
+// });
 Vue.use(ui);
 new Vue({
   router,
