@@ -1,6 +1,7 @@
 package com.riversoft.game.snake.service
 
 import com.riversoft.game.snake.controller.UserController
+import com.riversoft.game.snake.data.repository.FightData
 import com.riversoft.game.snake.data.repository.UserRepository
 import com.riversoft.game.snake.dto.ClientMessage
 import com.riversoft.game.snake.dto.ClientPosition
@@ -30,6 +31,7 @@ class GameService {
     @Autowired private SocketService socketService
     @Autowired UserService userService
     @Autowired private Bcryptor bcryptor
+    @Autowired FightData fightData
 
     private List<List> map = []
     private List<UserPackman> packmansList = []
@@ -69,7 +71,10 @@ class GameService {
         log.debug(packmansList.glrating.toString())
 
     }
-
+        //check fight repository
+    def check(){
+        fightData.save(1,250,'Серафима')
+    }
     GameService() {
        generateAll()
     }
@@ -144,19 +149,24 @@ class GameService {
                 switch (answer?.data) {
                     case 'right':
                         i.moveRight()
+                        log.debug('i go to the right')
                         break
                     case 'left':
                         i.moveLeft()
+                        log.debug('i go to the left')
                         break
                     case 'down':
                         i.moveDown()
+                        log.debug('i go to the bottom')
                         break
                     case 'up':
                         i.moveUp()
+                        log.debug('i go to the top')
                         break
 
                     default:
                         i.moveUp()
+                        log.debug('i go to the top')
                         break
                 }
             }else{

@@ -24,9 +24,9 @@ export default new Vuerouter({
         {
             path: '/arena',
             component: ArenaPage,
-            // meta:{
-            //     requiresAuth:true,
-            // }
+            meta: {
+                requiresAuth:true
+            }
         },
         {
             path: '/login',

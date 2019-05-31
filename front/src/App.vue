@@ -20,7 +20,6 @@ export default {
 
   body{
     background: url("assets/bg-2.png")100% 100%;
-    background-size: cover;
   }
 #app {
   position: relative;

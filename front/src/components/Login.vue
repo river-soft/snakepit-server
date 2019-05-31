@@ -16,13 +16,14 @@
 
 <script>
     import axios from 'axios'
-    import swal from 'sweetalert'
     export default {
         name: "login",
         data(){
             return {
                 user: {username: '', password: ''},
-                error: ''
+                error: '',
+                loggedIn :false,
+                userData:'',
 
             }
         },computed:{
@@ -39,17 +40,26 @@
 
         },methods:{
             login() {
+                console.log(this.loggedIn);
                 if(this.formIsValid) {
+                    let user = {
+                        name: this.user.username,
+                        pass:this.user.password
+                    };
                     this.error = '';
                     axios.post(`/api/login?username=${this.user.username}&password=${this.user.password}`)
                         .then((response) => {
                             console.log(response);
-                            this.$router.push('/arena');
+                            if(response.status === 200){
+                                localStorage.setItem('currentUser',JSON.stringify(user));
+                                this.$router.push('/arena');
+                            }
+                            console.log(this.loggedIn)
                         }).catch((e)  => {
                             console.log(e.message);
                     })
                 }
-            }
+            },
         }
     }
 
@@ -81,7 +91,8 @@
         display: block;
     }
     form{
-        background-color: #222226;
+        background-color: #008080;
+        opacity: 0.9;
         box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
         padding-bottom:1%;
         display:flex;
@@ -106,11 +117,12 @@
         border-bottom:2px solid #409EFF;
         width:50%;
         height:55px;
-        color:white;
         margin: 3% auto;
         padding-bottom: 1%;
-        box-shadow: 0px 3px 0px rgba(0,0,0,0.5);
-        text-shadow:0px 3px 0px rgba(0,0,0,0.5);
+        box-shadow: 0px 5px 0px rgba(0,0,0,0.5);
+    }
+    input::placeholder{
+        color:white;
     }
     button:hover{
         border-color:#409EFF;
@@ -137,7 +149,7 @@
         color:white;
         text-decoration: none;
     }
-    .link-to-arena{
-        width:100%;
+    span{
+        color: #dcdcdc;
     }
 </style>
