@@ -32,13 +32,13 @@
         },
         methods: {
             srcByCellCode(code, x, y) {
-
+                console.log('my name is ' + this.users[0].name)
                 console.log(x);
                 if (code === 3) {
                     return {
                        url:require('../../assets/arena/bitcoin.png')
                     }
-                } else if (code === 2) {
+                } else if (code === 20) {
                     if(this.users[0].x === x && this.users[0].y === y) {
                         return {
                             url: require('../../assets/arena/pacman.png'),

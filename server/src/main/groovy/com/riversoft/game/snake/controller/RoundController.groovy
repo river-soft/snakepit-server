@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController
 
 @Slf4j
 @RestController
-@RequestMapping('/api/game')
-class GameController {
+@RequestMapping('/api/game/rounds')
+class RoundController {
 
     @Autowired private GameService gameService
 
     @GetMapping
-    GameRezultModel  getResult(){
-        gameService.getResult()
+    String  getRounds(){
+        gameService.getRounds()
     }
 
 }

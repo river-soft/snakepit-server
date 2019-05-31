@@ -1,20 +1,16 @@
 package com.riversoft.game.snake.service
 
-import com.riversoft.game.snake.controller.UserController
-import com.riversoft.game.snake.data.repository.FightData
+import com.riversoft.game.snake.data.repository.RoundDataRepository
 import com.riversoft.game.snake.data.repository.UserRepository
 import com.riversoft.game.snake.dto.ClientMessage
 import com.riversoft.game.snake.dto.ClientPosition
 import com.riversoft.game.snake.model.BattleState
 import com.riversoft.game.snake.model.GameRezultModel
+import com.riversoft.game.snake.data.domain.Round
 import com.riversoft.game.snake.model.UserInfo
 import groovy.util.logging.Slf4j
-import org.apache.tomcat.jni.User
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.event.ContextRefreshedEvent
-import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Scheduled
-import org.springframework.security.config.annotation.SecurityConfigurer
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
@@ -31,7 +27,7 @@ class GameService {
     @Autowired private SocketService socketService
     @Autowired UserService userService
     @Autowired private Bcryptor bcryptor
-    @Autowired FightData fightData
+    @Autowired RoundDataRepository roundDataRepository
 
     private List<List> map = []
     private List<UserPackman> packmansList = []
@@ -44,8 +40,7 @@ class GameService {
     final BORDERS = 1
 
     int time = 0
-
-
+    //save rounds data
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
         movePackmans(socketService.getClientAnswer(
@@ -71,15 +66,14 @@ class GameService {
         log.debug(packmansList.glrating.toString())
 
     }
-        //check fight repository
-    def check(){
-        fightData.save(1,250,'Серафима')
-    }
+
     GameService() {
        generateAll()
     }
 
+
     def generateAll() {
+        //save round data
 
         // set timer
         this.time = 600
@@ -108,8 +102,25 @@ class GameService {
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
                 coins.add(new Coins(map, coinsX, coinsY))
         }
+        saveRounds()
 
         start()
+
+    }
+    @PostConstruct
+    def saveRounds() {
+        def roundId = 1
+        def usersRound = packmansList.each{
+            roundDataRepository.save(
+                    new Round(
+                            roundId: roundId,
+                            localRating: it.rating,
+                            pacmanNames: it.name
+                    )
+            )
+            roundId ++
+        }
+        return usersRound
     }
 
     @PostConstruct
@@ -276,6 +287,7 @@ class GameService {
             it.createWallsY(33,29,2)//left bottom
             it.createWallsY(33,32,2)//right bottom
         }
+
     }
 
 
@@ -285,6 +297,13 @@ class GameService {
     }
 
 
+    String getRounds(){
+        roundDataRepository.findAll()
+    }
+
+    def sort(){
+
+    }
 
 //get ready data for return into gameControllers
     GameRezultModel getResult() {
@@ -313,4 +332,8 @@ class GameService {
                         global: userRepository.findByUsername(it.name).get().rating
                 )})
     }
+
+
+
 }
+

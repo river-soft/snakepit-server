@@ -7,3 +7,4 @@ import org.springframework.security.core.userdetails.UserDetails
 interface UserRepository extends MongoRepository<User, String> {
     Optional<User> findByUsername(String username)
 }
+
