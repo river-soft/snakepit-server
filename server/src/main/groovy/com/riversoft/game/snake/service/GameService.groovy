@@ -1,15 +1,20 @@
 package com.riversoft.game.snake.service
 
-import com.riversoft.game.snake.data.repository.RoundDataRepository
+import com.riversoft.game.snake.data.domain.UserRoundInformation
+import com.riversoft.game.snake.data.repository.RoundRepository
 import com.riversoft.game.snake.data.repository.UserRepository
 import com.riversoft.game.snake.dto.ClientMessage
 import com.riversoft.game.snake.dto.ClientPosition
+import com.riversoft.game.snake.dto.ElementType
 import com.riversoft.game.snake.model.BattleState
 import com.riversoft.game.snake.model.GameRezultModel
 import com.riversoft.game.snake.data.domain.Round
 import com.riversoft.game.snake.model.UserInfo
 import groovy.util.logging.Slf4j
+import org.joda.time.DateTime
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
@@ -27,7 +32,7 @@ class GameService {
     @Autowired private SocketService socketService
     @Autowired UserService userService
     @Autowired private Bcryptor bcryptor
-    @Autowired RoundDataRepository roundDataRepository
+    @Autowired RoundRepository roundDataRepository
 
     private List<List> map = []
     private List<UserPackman> packmansList = []
@@ -39,10 +44,19 @@ class GameService {
     final COLUMN_COUNT_Y = 64
     final BORDERS = 1
 
+
+    int roundId
+    boolean roundStarted = false
     int time = 0
     //save rounds data
+
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
+        if (!roundStarted) {
+            log.debug("Round don't started")
+            return
+        }
+
         movePackmans(socketService.getClientAnswer(
                 new ClientMessage(
                         map: map,
@@ -54,26 +68,29 @@ class GameService {
                         })
         ))
 
-        if (!packmansList.any { !it.isDead() }) {
+        saveRound()
+
+        if (!packmansList.any { !it.isDead() } && packmansList.size() > 0) {
+            roundStarted = false
             generateAll()
         }
 
         if (--time < 0) {
+            roundStarted = false
             generateAll()
         }
-
-        log.debug(packmansList.rating.toString())
-        log.debug(packmansList.glrating.toString())
-
     }
 
-    GameService() {
+    @PostConstruct
+    void init() {
        generateAll()
     }
 
-
     def generateAll() {
         //save round data
+        def lastRound = roundDataRepository.findAll(new PageRequest(1, 1, new Sort(Sort.Direction.DESC, ['roundId'])))
+        roundId = lastRound.content.find()?.roundId + 1 ?: 0
+        log.info("Start new round $roundId")
 
         // set timer
         this.time = 600
@@ -102,28 +119,45 @@ class GameService {
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
                 coins.add(new Coins(map, coinsX, coinsY))
         }
-        saveRounds()
 
         start()
-
+        roundStarted = true
     }
-    @PostConstruct
-    def saveRounds() {
-        def roundId = 1
-        def usersRound = packmansList.each{
-            roundDataRepository.save(
-                    new Round(
-                            roundId: roundId,
-                            localRating: it.rating,
-                            pacmanNames: it.name
-                    )
+
+    def saveRound() {
+
+        def round = roundDataRepository
+                .findByRoundId(roundId)
+                .orElse(new Round(
+                    roundId: roundId,
+                    startPacmanCount: packmansList.size(),
+                    startRoundDate: new Date()
+        ))
+
+        round.endPackmanCount = packmansList.findAll { !it.isDead() }.size()
+        round.endCoinsCount = calcCoinsByMap(map)
+        round.userRoundInformations = packmansList.collect {
+            new UserRoundInformation(
+                    name: it.name,
+                    localRating: it.rating,
+                    globalRating: it.glrating,
+                    lifeTime: 0,
+                    dead: it.isDead()
             )
-            roundId ++
         }
-        return usersRound
+
+        log.debug("Save round ${roundId} info ${round}")
+        roundDataRepository.save(round)
     }
 
-    @PostConstruct
+    private int calcCoinsByMap(List<List> lists) {
+        lists
+                .collect {
+                    it.findAll { x -> x == ElementType.COIN.value }.size()
+                }
+                .sum() as int
+    }
+
     def start() {
         packmansList = []
         userRepository.findAll().each {
@@ -131,7 +165,7 @@ class GameService {
                 int packmansX = new Random().nextInt(COLUMN_COUNT_X)
                 int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
                 packmansList.add(new UserPackman(map, it.username, packmansX, packmansY, it.rating))
-            }catch(Exception e) {
+            } catch(Exception e) {
                 log.info(e.message,e)
             }
         }
@@ -147,10 +181,7 @@ class GameService {
         packmansList*.getPacmanByCoordinate = { x, y ->
             packmansList.find { it.x == x && it.y == y }
         }
-
-        log.info("My PostConstruct")
     }
-
 
     void movePackmans(List<Map> answers) {
         packmansList.each { i->
@@ -160,24 +191,24 @@ class GameService {
                 switch (answer?.data) {
                     case 'right':
                         i.moveRight()
-                        log.debug('i go to the right')
+                        log.debug("${i.name} go to the right")
                         break
                     case 'left':
                         i.moveLeft()
-                        log.debug('i go to the left')
+                        log.debug ("${i.name} go to the left")
                         break
                     case 'down':
                         i.moveDown()
-                        log.debug('i go to the bottom')
+                        log.debug("${i.name} go to the bottom")
                         break
                     case 'up':
                         i.moveUp()
-                        log.debug('i go to the top')
+                        log.debug("${i.name} go to the top")
                         break
 
                     default:
                         i.moveUp()
-                        log.debug('i go to the top')
+                        log.debug("${i.name} go to the top")
                         break
                 }
             }else{
@@ -185,8 +216,6 @@ class GameService {
             }
         }
     }
-
-
 
 //add walls in map
     void CreateWalls(){
@@ -290,19 +319,8 @@ class GameService {
 
     }
 
-
-
-    BattleState getCurrentState() {
-        BattleState.NONE
-    }
-
-
     String getRounds(){
         roundDataRepository.findAll()
-    }
-
-    def sort(){
-
     }
 
 //get ready data for return into gameControllers
@@ -329,11 +347,9 @@ class GameService {
                         rating: it.rating,
                         x: it.x,
                         y: it.y,
-                        global: userRepository.findByUsername(it.name).get().rating
-                )})
+                        global: userRepository.findByUsername(it.name).get().rating)
+                }
+        )
     }
-
-
-
 }
 
