@@ -80,14 +80,15 @@
 
 <style>
     .arena-row {
+        width:100%;
         position: relative;
-        margin: 1px;
+        margin: 2px;
         padding: 0;
         height: 16px;
     }
     .arena-cell {
         position: relative;
-        margin:2px;
+        margin:0px 0px 0px 7px;
         padding: 0;
     }
     .player-name {
@@ -99,12 +100,8 @@
         font-size: 10px;
         top:20px;
         border-bottom: 1px solid #4682B4;
-        color:white;
+        color:#252525;
         margin-left:-1.75%;
         padding-bottom:3px;
-    }
-    .arena-container{
-        width:70%;
-        margin:0% 15% auto;
     }
 </style>

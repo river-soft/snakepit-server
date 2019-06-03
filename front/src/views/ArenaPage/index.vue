@@ -1,14 +1,16 @@
 <template>
-    <div>
+    <div class="main-wrapper">
         <div class="data-container">
             <ul>
-                <li><p>Время : {{time}}</p></li>
-                <li><p>Ваше имя : {{username}}</p></li>
-                <li><p>Ваш рейтинг: {{rating}}</p></li>
+                <li><p> <i class="material-icons av_timer">av_timer</i>{{time}}</p></li>
+                <li><p> <i class="material-icons people">people</i>{{username}}</p></li>
+                <li><p> <i class="material-icons people attach_money">attach_money</i>{{rating}}</p></li>
             </ul>
         </div>
         <br>
-        <arena :cells="mapData" :users="usersData"/>
+        <div class="content-arena">
+            <arena :cells="mapData" :users="usersData"/>
+        </div>
     </div>
 </template>
 <script>
@@ -48,32 +50,62 @@
     }
 </script>
 <style>
+    @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
     *{
         margin:0;
         padding: 0;
     }
-
+    .main-wrapper{
+        width:100%;
+        display:flex;
+        flex-wrap: wrap;
+        height:auto;
+    }
     .data-container{
+        flex-direction: column;
+        float:left;
         width:15%;
         color:#4682B4;
-        position: absolute;
+        position: sticky;
+        top:0;
+        bottom:0;
         display:block;
-        left:1%;
-        top:2%;
+        height:100vh;
+        background-color: #c7d6e2;
     }
     ul{
         list-style: none;
     }
     .data-container li{
+        border-bottom: 1px solid #252525;
         width:100%;
         background-color:transparent;
-        border: 1px solid white;
-        box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
         padding-bottom: 4%;
         padding-top: 2%;
-        margin:3% auto;
+        margin:10% auto;
         font-size: 1.3em;
         height:auto;
         color:white;
+    }
+    .data-container li:first-child{
+        margin-top:70%;
+    }
+    .data-container li p{
+        color:#252525;
+        font-size: 1.1em;
+        padding-right: 20%;
+        text-align: center;
+    }
+    .content-arena{
+        width:80%;
+        flex-direction: column;
+        float:left;
+        height:auto;
+    }
+    .material-icons{
+        float:left;
+        padding-left:10%;
+        font-size: 30px;
     }
 </style>

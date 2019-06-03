@@ -11,7 +11,7 @@ class MyPackmanClient extends PacManClient {
 
     @Override
     Direction onRequest(ClientMessage message) {
-    return Direction.LEFT
+    return Direction.RIGHT
 
     }
 }
@@ -21,5 +21,6 @@ class TestSdkApplication {
     static void main(String[] args) {
         new MyPackmanClient('localhost:8080', 'Николай', 'coly26341')
     }
+
     //snakepit.westeurope.cloudapp.azure.com
 }

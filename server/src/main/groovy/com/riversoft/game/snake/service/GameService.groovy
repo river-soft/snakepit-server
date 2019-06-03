@@ -96,7 +96,7 @@ class GameService {
         log.info("Start new round $roundId")
 
         // set timer
-        this.time = 600
+        this.time = 120
 
         map = []
 

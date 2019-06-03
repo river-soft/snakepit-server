@@ -79,7 +79,7 @@ import swal from 'sweetalert'
     }
     span {
 
-        color:#DCDCDC;
+        color:#333336;
     }
 
     h1{
@@ -87,9 +87,9 @@ import swal from 'sweetalert'
         margin:5% auto;
         font-family: -apple-system;
         font-size: 1.5em;
-        color:#DCDCDC;
+        color:#252525;
         text-align: center;
-        border-right:2px solid #DCDCDC;
+        border-right:2px solid #252525;
     }
 
     #form-reg{
@@ -99,7 +99,7 @@ import swal from 'sweetalert'
         display: block;
      }
     form{
-        background-color: #008080;
+        background-color:  #c7d6e2;
         opacity: 0.9;
         box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
         padding-bottom:1%;
@@ -127,7 +127,7 @@ import swal from 'sweetalert'
         height:55px;
         margin: 3% auto;
         padding-bottom: 1%;
-        box-shadow: 0px 5px 0px rgba(0,0,0,0.5);
+        box-shadow: 0px 2px 0px rgba(0,0,0,0.5);
     }
     input::placeholder{
         color:white;
