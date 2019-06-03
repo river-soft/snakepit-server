@@ -216,7 +216,7 @@ class GameService {
                         break
                 }
             } else {
-                i.moveRight()
+                i.moveUp()
                 log.debug("${i.name} go to the right")
             }
         }

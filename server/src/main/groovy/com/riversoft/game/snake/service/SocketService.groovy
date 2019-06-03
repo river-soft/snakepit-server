@@ -38,7 +38,7 @@ class SocketService extends TextWebSocketHandler {
     @Override
     void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         sessions.remove(session)
-        result.remove(sessions)
+        result.remove(session)
     }
 
     List<Map> getClientAnswer(ClientMessage message) {
