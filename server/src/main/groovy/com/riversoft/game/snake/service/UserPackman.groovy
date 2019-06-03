@@ -65,7 +65,7 @@ class UserPackman {
             return false
         }
 
-        if (x1 < 0 || y1 < 0 || x1 >= 63 || y1 >= 63) {
+        if (x1 < 0 || y1 < 0 || x1 >= 64 || y1 >= 64) {
             return false
         }
 
@@ -78,15 +78,15 @@ class UserPackman {
             case ElementType.EMPTY:
                 map[y][x] = ElementType.EMPTY.value
                 map[y1][x1] = pacman.value
-                this.x = x1
                 this.y = y1
+                this.x = x1
                 break
 
             case ElementType.COIN:
                 map[y][x] = ElementType.EMPTY.value
                 map[y1][x1] = pacman.value
-                this.x = x1
                 this.y = y1
+                this.x = x1
                 rating++
                 glrating ++
                 onRating(this)
@@ -101,7 +101,7 @@ class UserPackman {
 
             case ElementType.PACMAN:
             case ElementType.PACMANRIGHT:
-                def opponent = getPacmanByCoordinate(x1, y1) as UserPackman
+                def opponent = getPacmanByCoordinate(y1, x1) as UserPackman
 
 //                if (ElementType.isPacman(ElementType.fromValue(map[1][2] as int))) {
 //
@@ -117,7 +117,6 @@ class UserPackman {
                 }
                 break
         }
-
         true
     }
 

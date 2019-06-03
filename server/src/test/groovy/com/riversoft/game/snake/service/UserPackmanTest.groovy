@@ -94,7 +94,7 @@ class UserPackmanTest extends Specification {
 
     def 'Пытаемся заселить пекемена на стену'() {
         given: 'Карта со стеной по центру'
-        def map = [[1, 0, 0], [0, 1, 0], [0, 0, 0]]
+        def map = [[1, 0, 0], [0, 1, 0], [0, 0, 0] , [0,0,0]]
 
         when: 'Создаем пекмена там где есть стена'
         def pac = new UserPackman(map, 'test', 1, 1, 0)
@@ -102,8 +102,8 @@ class UserPackmanTest extends Specification {
         then: 'Пекмен должен переместится по диагонали вверх-влево'
         map[1][1] == ElementType.BORDER.value
         map[0][0] == ElementType.BORDER.value
-        pac.x == 2
-        pac.y == 2
+        pac.x == 3
+        pac.y == 3
     }
 }
 
