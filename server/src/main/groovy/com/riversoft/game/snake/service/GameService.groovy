@@ -89,7 +89,7 @@ class GameService {
     def generateAll() {
         //save round data
         def lastRound = roundDataRepository.findAll(new PageRequest(1, 1, new Sort(Sort.Direction.DESC, ['roundId'])))
-        roundId = lastRound.content.find()?.roundId + 1 ?: 0
+        roundId = (lastRound.content.find()?.roundId ?: 0) + 1
         log.info("Start new round $roundId")
 
         // set timer
