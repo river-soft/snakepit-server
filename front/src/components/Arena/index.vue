@@ -30,48 +30,26 @@
                 default: []
             }
         },
+        data() {
+            return {
+                assetsMap: {
+                    0: require('../../assets/arena/selector-square-border.png'),
+                    1: require('../../assets/arena/tile.png'),
+                    20: require('../../assets/arena/pacman.png'),
+                    21: require('../../assets/arena/pacman-right.png'),
+                    3: require('../../assets/arena/bitcoin.png'),
+                }
+            }
+        },
         methods: {
             srcByCellCode(code, x, y) {
-                console.log('my name is ' + this.users[0].name);
-                console.log(x,y);
-                console.log('me pos x : ' +  this.users[0].x + 'me pos y' + this.users[0].y);
-                if (code === 3) {
-                    return {
-                       url:require('../../assets/arena/bitcoin.png')
-                    }
-                } else if (code === 20) {
-                    if (this.users[0].x - 1 === x - 1 ) {
-                        return {
-                            url: require('../../assets/arena/pacman.png'),
-                            name: this.users[0].name
-                        }
-                    } else {
-                        return{
-                            url: require('../../assets/arena/pacman.png'),
-                            name:''
-                        }
-                    }
-                }else if (code === 21) {
-                    if (this.users[0].x + 1 === x + 1 ) {
-                        return {
-                            url: require('../../assets/arena/pacman-right.png'),
-                            name: this.users[0].name
-                        }
-                    } else {
-                        return {
-                            url: require('../../assets/arena/pacman-right.png'),
-                            name: ''
-                        }
-                    }
 
-                } else if (code === 1) {
-                    return {
-                        url: require('../../assets/arena/tile.png')
-                    }
-                } else {
-                    return {
-                        url: require('../../assets/arena/selector-square-border.png')
-                    }
+                let name = (this.users[0].x === x && this.users[0].y === y) ? this.users[0].name : '';
+                let url = this.assetsMap[code];
+
+                return {
+                    url: url,
+                    name: name
                 }
             }
         }
