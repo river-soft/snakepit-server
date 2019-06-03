@@ -2,7 +2,7 @@
     <div>
         <h3>Турнирная таблица</h3>
     <div class="main-container">
-        <span class="container-data-users" v-for="user of filterUser">
+        <span class="container-data-users" v-for="user in users">
             <img src="../assets/user-table.png" alt="">
                 <p>{{user.name}} : </p>
                 <p>  {{user.global}} очков </p>
@@ -30,16 +30,6 @@
                 console.log(response)
             })
         },
-        sort(){
-
-            this.users.sort( (a,b) => a.rating > b.rating ? 1:-1);
-        },
-        computed:{
-            filteredUsers(){
-                let filter = new RegExp(this.filterUser,'i');
-                return this.users.rating.filter(el => el.title.match(filter))
-            }
-        }
     }
 </script>
 

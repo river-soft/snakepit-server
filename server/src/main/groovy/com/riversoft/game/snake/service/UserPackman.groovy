@@ -1,7 +1,9 @@
 package com.riversoft.game.snake.service
 
 import com.riversoft.game.snake.dto.ElementType
+import groovy.util.logging.Slf4j
 
+@Slf4j
 class UserPackman {
 
     boolean dead
@@ -74,16 +76,18 @@ class UserPackman {
 
             case ElementType.BORDER:
                 dead = true
+                log.info('i dead')
                 map[y][x] = ElementType.EMPTY.value
+                log.info('i am empty')
                 break
 
             case ElementType.PACMAN:
             case ElementType.PACMANRIGHT:
                 def opponent = getPacmanByCoordinate(x1, y1) as UserPackman
 
-                if (ElementType.isPacman(ElementType.fromValue(map[1][2] as int))) {
-
-                }
+//                if (ElementType.isPacman(ElementType.fromValue(map[1][2] as int))) {
+//
+//                }
 
                 if (opponent.rating > this.rating) {
                     dead = true
@@ -108,7 +112,9 @@ class UserPackman {
     }
 
     def moveUp() {
-        move(x, y, x, y - 1)
+          move(x, y, x, y - 1)
+          log.debug('i move up')
+
     }
 
     def moveDown() {

@@ -100,7 +100,7 @@ class GameService {
         COLUMN_COUNT_X.times { x->
             def temp = []
             COLUMN_COUNT_Y.times{ y->
-                if (y > 0  && x > 0 && y <( COLUMN_COUNT_Y -1 ) && x <( COLUMN_COUNT_X -1) ) {
+                if (y > 0  && x > 0 && y <= ( COLUMN_COUNT_Y ) && x <= ( COLUMN_COUNT_X ) ) {
                     temp.add(0)
                 } else {
                     temp.add(BORDERS)
@@ -166,6 +166,7 @@ class GameService {
                 int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
                 packmansList.add(new UserPackman(map, it.username, packmansX, packmansY, it.rating))
             } catch(Exception e) {
+                log.info('something  go wrong in generation pacman')
                 log.info(e.message,e)
             }
         }
@@ -207,7 +208,7 @@ class GameService {
                         break
 
                     default:
-                        i.moveUp()
+                        i.moveRight()
                         log.debug("${i.name} go to the top")
                         break
                 }
