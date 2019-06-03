@@ -92,7 +92,7 @@ class GameService {
                 .findAll(new PageRequest(1, 1, new Sort(Sort.Direction.DESC, ['roundId'])))
                 .content
                 .find()
-        roundId = lastRound ? lastRound.roundId + 1 : 0
+        roundId = lastRound ? lastRound.roundId + 1 : 1
         log.info("Start new round $roundId")
 
         // set timer
