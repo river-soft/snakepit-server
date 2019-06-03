@@ -45,8 +45,17 @@ class UserPackman {
         } else  {
             while (map[y][x] != EMPTYSPACE) {
 
-                y -= 1
-                x -= 1
+                if (y > 0) {
+                    y -= 1
+                } else {
+                    y = map.size() - 1
+                }
+
+                if (x > 0) {
+                    x -= 1
+                } else {
+                    x = map[0].size() - 1
+                }
             }
 
             this.y = y
@@ -98,11 +107,7 @@ class UserPackman {
 
             case ElementType.PACMAN:
             case ElementType.PACMANRIGHT:
-                def opponent = getPacmanByCoordinate(y1, x1) as UserPackman
-
-//                if (ElementType.isPacman(ElementType.fromValue(map[1][2] as int))) {
-//
-//                }
+                def opponent = getPacmanByCoordinate(x1, y1) as UserPackman
 
                 if (opponent.rating > this.rating) {
                     dead = true
