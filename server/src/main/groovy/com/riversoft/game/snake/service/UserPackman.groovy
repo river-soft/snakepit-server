@@ -65,9 +65,9 @@ class UserPackman {
             return false
         }
 
-        if (x1 < 0 || y1 < 0 || x1 >= 64 || y1 >= 64) {
-            return false
-        }
+//        if (y1 < 0 || x1 < 0 || y1 > 64 || x1 > 64) {
+//            return false
+//        }
 
         def element = ElementType.fromValue(map[y1][x1] as int)
 
