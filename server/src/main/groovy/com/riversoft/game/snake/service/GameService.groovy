@@ -89,7 +89,7 @@ class GameService {
     def generateAll() {
         //save round data
         def lastRound = roundDataRepository
-                .findAll(new PageRequest(1, 1, new Sort(Sort.Direction.DESC, ['roundId'])))
+                .findAll(new PageRequest(0, 1, new Sort(Sort.Direction.DESC, ['roundId'])))
                 .content
                 .find()
         roundId = lastRound ? lastRound.roundId + 1 : 1
