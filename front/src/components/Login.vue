@@ -2,6 +2,7 @@
     <div id="form-reg">
         <form action="">
             <img src="../assets/user.png">
+            <h1>Авторизируйтесь для доступа к карте</h1>
             <input type="text" placeholder="Имя" v-model="user.username">
             <span class="error" v-if="!nameIsValid">Введите Имя</span>
             <span class="error" v-else="nameIsValid"></span>
@@ -11,6 +12,7 @@
             <span class="error"  v-else="passIsValid"></span>
            <button :disabled="!formIsValid"  @click="login">Войти</button>
         </form>
+        <span>Еще нет аккаунта? <router-link to="/registration"> регистрация </router-link> </span>
     </div>
 </template>
 
@@ -76,12 +78,12 @@
     }
     h1{
         width:50%;
-        margin: auto;
-        font-family: Ubuntu;
-        font-size: 2.5em;
-        color:white;
+        margin:5% auto;
+        font-family: -apple-system;
+        font-size: 1.5em;
+        color:#DCDCDC;
         text-align: center;
-        border-right:4px solid #4682B4;
+        border-right:2px solid #DCDCDC;
     }
 
     #form-reg{
@@ -98,13 +100,13 @@
         display:flex;
         flex-direction:column;
         align-items: center;
-        margin:5% auto;
+        margin:1% auto;
         padding-top:2%;
-        width:50%;
+        width:45%;
         height:auto;
     }
     form img{
-        width:30%;
+        width:25%;
         margin:auto;
     }
     form input{
@@ -151,5 +153,8 @@
     }
     span{
         color: #dcdcdc;
+    }
+    span a{
+        color:#4682B4;
     }
 </style>

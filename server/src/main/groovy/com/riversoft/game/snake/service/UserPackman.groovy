@@ -3,6 +3,8 @@ package com.riversoft.game.snake.service
 import com.riversoft.game.snake.dto.ElementType
 import groovy.util.logging.Slf4j
 
+import javax.annotation.PostConstruct
+
 @Slf4j
 class UserPackman {
 
@@ -15,9 +17,7 @@ class UserPackman {
 
     // --------------------------------
     // --------------------------------
-
     String name
-    int PACMAN = 2
     int x
     int y
     public int rating = 0
@@ -38,25 +38,26 @@ class UserPackman {
         this.name = name
         this.x = x
         this.y = y
-        if(map[x][y] == EMPTYSPACE ){
+
+        if (map[y][x] == EMPTYSPACE ) {
             map[y][x] = ElementType.PACMAN.value
-        }else if(map[x][y] != EMPTYSPACE) {
-            while (map[x][y] != EMPTYSPACE) {
+
+        } else  {
+            while (map[y][x] != EMPTYSPACE) {
+
                 y -= 1
                 x -= 1
             }
 
-            map[y][x] = ElementType.PACMAN.value
-
-        }else{
-            while (map[x][y] == COINS | map[x][y] == PACMAN | map[x][y] == BORDERS) {
-                x += 1
-            }
+            this.y = y
+            this.x = x
 
             map[y][x] = ElementType.PACMAN.value
+
         }
 
     }
+
 
     def move(int x, int y, int x1, int y1) {
 
@@ -64,24 +65,26 @@ class UserPackman {
             return false
         }
 
-        if (x1 < 0 || y1 < 0 || x1 >= 64 || y1 >= 64) {
+        if (x1 < 0 || y1 < 0 || x1 >= 63 || y1 >= 63) {
             return false
         }
 
         def element = ElementType.fromValue(map[y1][x1] as int)
 
+        def pacman = x != x1 ? ElementType.PACMANRIGHT : ElementType.PACMAN
+
         switch (element) {
 
             case ElementType.EMPTY:
                 map[y][x] = ElementType.EMPTY.value
-                map[y1][x1] = ElementType.PACMAN.value
+                map[y1][x1] = pacman.value
                 this.x = x1
                 this.y = y1
                 break
 
             case ElementType.COIN:
                 map[y][x] = ElementType.EMPTY.value
-                map[y1][x1] = ElementType.PACMAN.value
+                map[y1][x1] = pacman.value
                 this.x = x1
                 this.y = y1
                 rating++
@@ -110,7 +113,7 @@ class UserPackman {
                 } else {
                     opponent.setDead(true)
                     map[y][x] = ElementType.EMPTY.value
-                    map[y1][x1] = ElementType.PACMAN.value
+                    map[y1][x1] = pacman.value
                 }
                 break
         }
@@ -128,12 +131,10 @@ class UserPackman {
 
     def moveUp() {
           move(x, y, x, y - 1)
-          log.debug('i move up')
 
     }
 
     def moveDown() {
         move(x, y, x, y + 1)
     }
-
 }

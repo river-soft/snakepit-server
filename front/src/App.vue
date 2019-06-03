@@ -19,7 +19,7 @@ export default {
 <style>
 
   body{
-
+      /*background:url('assets/bg-2.png')100% 100%;*/
   }
 #app {
   position: relative;

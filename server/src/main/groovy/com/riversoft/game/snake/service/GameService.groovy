@@ -215,8 +215,9 @@ class GameService {
                         log.debug("${i.name} go to the top")
                         break
                 }
-            }else{
-                i.moveUp()
+            } else {
+                i.moveRight()
+                log.debug("${i.name} go to the right")
             }
         }
     }

@@ -1,8 +1,8 @@
 <template>
     <div id="form-reg">
-        <h1>Пройдите регистрацию <br> чтобы начать играть</h1>
         <form action="">
             <img src="../assets/user.png">
+            <h1>Пройдите регистрацию <br> чтобы начать играть</h1>
             <input type="text" placeholder="Имя" v-model="user.username">
              <span class="error" v-if="!nameIsValid">Введите Имя</span>
              <span class="error" v-else="nameIsValid"></span>
@@ -12,6 +12,7 @@
             <span class="error"  v-else="passIsValid"></span>
             <router-link class="link-to-arena" to="/arena"><button :disabled="!formIsValid"  @click="registration">Зарегистрироваться</button></router-link>
         </form>
+        <span>Уже есть аккаунт ? <router-link to="/login">войти</router-link></span>
     </div>
 </template>
 
@@ -58,7 +59,6 @@ import swal from 'sweetalert'
                            // this.$router('/arena');
                         }).catch((e)  => {
                             this.error = 'Имя занято';
-                        // swal('Ты не уникален');
                       console.log(e)
                     })
                   }
@@ -77,14 +77,19 @@ import swal from 'sweetalert'
         margin:0;
         padding:0;
     }
+    span {
+
+        color:#DCDCDC;
+    }
+
     h1{
         width:50%;
-        margin: auto;
-        font-family: Ubuntu;
-        font-size: 2.5em;
-        color:white;
+        margin:5% auto;
+        font-family: -apple-system;
+        font-size: 1.5em;
+        color:#DCDCDC;
         text-align: center;
-        border-right:4px solid #4682B4;
+        border-right:2px solid #DCDCDC;
     }
 
     #form-reg{
@@ -93,38 +98,40 @@ import swal from 'sweetalert'
         position: relative;
         display: block;
      }
-form{
-    background-color: #222226;
-    box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
-    padding-bottom:1%;
-    display:flex;
-    flex-direction:column;
-    align-items: center;
-    margin:5% auto;
-    padding-top:2%;
-    width:50%;
-    height:auto;
-}
+    form{
+        background-color: #008080;
+        opacity: 0.9;
+        box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+        padding-bottom:1%;
+        display:flex;
+        flex-direction:column;
+        align-items: center;
+        margin:1% auto;
+        padding-top:2%;
+        width:45%;
+        height:auto;
+    }
     form img{
-        width:30%;
+        width:25%;
         margin:auto;
     }
-form input{
-    text-align: center;
-    position:relative;
-    background-color:transparent;
-    font-size:1.4em;
-    outline:0;
-    border:none;
-    border-bottom:2px solid #409EFF;
-    width:50%;
-    height:55px;
-    color:white;
-    margin: 3% auto;
-    padding-bottom: 1%;
-    box-shadow: 0px 3px 0px rgba(0,0,0,0.5);
-    text-shadow:0px 3px 0px rgba(0,0,0,0.5);
-}
+    form input{
+        text-align: center;
+        position:relative;
+        background-color:transparent;
+        font-size:1.4em;
+        outline:0;
+        border:none;
+        border-bottom:2px solid #409EFF;
+        width:50%;
+        height:55px;
+        margin: 3% auto;
+        padding-bottom: 1%;
+        box-shadow: 0px 5px 0px rgba(0,0,0,0.5);
+    }
+    input::placeholder{
+        color:white;
+     }
 button:hover{
     border-color:#409EFF;
     color:white;
@@ -152,5 +159,8 @@ button{
     }
     .link-to-arena{
         width:100%;
+    }
+    span a{
+        color:#4682B4;
     }
 </style>

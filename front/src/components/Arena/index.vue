@@ -42,7 +42,7 @@
                     if(this.users[0].x === x && this.users[0].y === y) {
                         return {
                             url: require('../../assets/arena/pacman.png'),
-                            name: this.users[0].name
+                            name: 'Bla-Bla-Bla-Bla'
                         }
                     }else{
                         return{
@@ -51,7 +51,7 @@
                         }
                     }
                 }else if (code === 21) {
-                    if(this.users[0].x === x && this.users[0].y === y){
+                    if(this.users[0].x === code.x && this.users[0].y === code.y){
                         return {
                             url: require('../../assets/arena/pacman-right.png'),
                             name: this.users[0].name
@@ -93,7 +93,7 @@
         width:auto;
         height:10px;
         position:absolute;
-        z-index:105;
+        z-index:109;
         text-align: center;
         font-size: 10px;
         top:20px;
@@ -103,7 +103,7 @@
         padding-bottom:3px;
     }
     .arena-container{
-       width:70%;
+        width:70%;
         margin:0% 15% auto;
     }
 </style>
