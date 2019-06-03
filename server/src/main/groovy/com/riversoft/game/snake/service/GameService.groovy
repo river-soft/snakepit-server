@@ -103,7 +103,7 @@ class GameService {
         COLUMN_COUNT_X.times { x->
             def temp = []
             COLUMN_COUNT_Y.times{ y->
-                if (y > 0  && x > 0 && y <= ( COLUMN_COUNT_Y ) && x <= ( COLUMN_COUNT_X ) ) {
+                if (y > 0  && x > 0 && y < ( COLUMN_COUNT_Y - 1) && x < ( COLUMN_COUNT_X - 1 ) ) {
                     temp.add(0)
                 } else {
                     temp.add(BORDERS)

@@ -38,8 +38,23 @@ class UserPackman {
         this.name = name
         this.x = x
         this.y = y
+        if(map[x][y] == EMPTYSPACE ){
+            map[y][x] = ElementType.PACMAN.value
+        }else if(map[x][y] != EMPTYSPACE) {
+            while (map[x][y] != EMPTYSPACE) {
+                y -= 1
+                x -= 1
+            }
 
-        map[y][x] = ElementType.PACMAN.value
+            map[y][x] = ElementType.PACMAN.value
+
+        }else{
+            while (map[x][y] == COINS | map[x][y] == PACMAN | map[x][y] == BORDERS) {
+                x += 1
+            }
+
+            map[y][x] = ElementType.PACMAN.value
+        }
 
     }
 

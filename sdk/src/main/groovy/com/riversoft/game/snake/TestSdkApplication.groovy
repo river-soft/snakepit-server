@@ -11,11 +11,10 @@ class MyPackmanClient extends PacManClient {
 
     @Override
     Direction onRequest(ClientMessage message) {
-
-        if(message.map[me.posX][me.posY - 1] == 1){
-            return Direction.DOWN
-        }else{
+        if(message.map[me.posX - 1][me.posY] == 1){
             return Direction.RIGHT
+        } else {
+            return Direction.UP
         }
     }
 }

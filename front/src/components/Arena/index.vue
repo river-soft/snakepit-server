@@ -32,7 +32,7 @@
         },
         methods: {
             srcByCellCode(code, x, y) {
-                console.log('my name is ' + this.users[0].name)
+                console.log('my name is ' + this.users[0].name);
                 console.log(x);
                 if (code === 3) {
                     return {
