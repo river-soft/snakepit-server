@@ -6,6 +6,10 @@
                 <li><p> <i class="material-icons people">people</i>{{username}}</p></li>
                 <li><p> <i class="material-icons people attach_money">attach_money</i>{{rating}}</p></li>
             </ul>
+            <div class="button-panel">
+                <router-link to="/statistic"><button>Статистика</button></router-link>
+                <router-link to="/HistoryMatch"><button>История матчей</button></router-link>
+            </div>
         </div>
         <br>
         <div class="content-arena">
@@ -107,5 +111,27 @@
         float:left;
         padding-left:10%;
         font-size: 30px;
+    }
+    .button-panel{
+        width:100%;
+        display:flex;
+        flex-wrap: wrap;
+        margin:5% auto;
+    }
+    .button-panel button{
+        border:0;
+        outline:0;
+        background-color:#409eff;
+        width:75%;
+        height:60px;
+        color:white;
+        display:block;
+        font-size: 1.2em;
+        margin:2% auto ;
+    }
+    a {
+        width:100%;
+        text-decoration: none;
+        cursor:pointer;
     }
 </style>

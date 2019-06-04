@@ -6,6 +6,7 @@ import Homepage from "../Homepage";
 import ArenaPage from '../../views/ArenaPage';
 import Login from "../Login";
 import statistic from "../statistic";
+import HistoryMatch from "../HistoryMatch";
 
 
 
@@ -35,6 +36,10 @@ export default new Vuerouter({
         {
             path:'/statistic',
             component:statistic,
+        },
+        {
+            path:'/HistoryMatch',
+            component:HistoryMatch,
         }
     ],
 });

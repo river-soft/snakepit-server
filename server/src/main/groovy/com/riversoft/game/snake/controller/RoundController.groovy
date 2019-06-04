@@ -1,8 +1,10 @@
 package com.riversoft.game.snake.controller
 
+import com.riversoft.game.snake.data.domain.Round
 import com.riversoft.game.snake.data.domain.User
 import com.riversoft.game.snake.model.BattleState
 import com.riversoft.game.snake.model.GameRezultModel
+import com.riversoft.game.snake.model.RoundInfo
 import com.riversoft.game.snake.service.GameService
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,7 +24,7 @@ class RoundController {
     @Autowired private GameService gameService
 
     @GetMapping
-    String  getRounds(){
+    List<RoundInfo>  getRounds(){
         gameService.getRounds()
     }
 

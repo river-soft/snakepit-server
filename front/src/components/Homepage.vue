@@ -37,24 +37,24 @@
         display: block;
         margin: auto;
         height:5px;
-        background-color: #00BFFF;
+        background-color: #b3c5d3;
         outline: 0;
         border: none;
         margin-bottom: 3%;
     }
     ul{
-        width:50%;
+        width:55%;
         margin:10% auto;
     }
     ul li{
-        margin:1%;
+        margin:1% 1% 1% 1%;
         width:30px;
         border-radius:50%;
         height:30px;
         display: inline-block;
         animation:fade-out-1 3s;
         transform: translateY(50px);
-        /*background-image: url("../assets/coins-homepage.png");*/
+        background-image: url("../assets/coins-homepage.png");
         background-size: cover;
     }
     ul li:nth-child(2){
@@ -73,13 +73,12 @@
         font-size: 150px;
         font-family:Roboto;
         text-shadow:1px 4px 1px rgba(0,0,0,0.5);
-        color:white;
+        color:#b3c5d3;
     }
     h2{
         font-size: 40px;
         font-family: century;
-        text-shadow:1px 4px 1px rgba(0,0,0,0.5);
-        color:#dcdcdc;
+        color:#b3c5d3;
     }
 
     #main-block{
@@ -141,70 +140,13 @@
         width:60%;
         display:block;
         margin: 3% auto;
-        line-height: 1.5;
+        line-height: 1.4;
         padding: 0% 5% 0% 5%;
-        font-family:century;
-        text-shadow:1px 4px 1px rgba(0,0,0,0.5);
-        color:#dcdcdc;
+        font-family: apple-system;
+        letter-spacing: 3px;
+        color:#92a7b7;
+        text-shadow:1px 2px 1px rgba(0,0,0,0.3);
     }
 
-    @keyframes slidein {
-        from {
-            transform: translateX(0%);
-        }
-        to{
-            transform: translateX(150%);
-            z-index: 102;
-        }
 
-    }
-    @keyframes fade-out-1{
-        from{
-            opacity: 1;
-        }
-        to{
-            opacity:-1;
-            z-index: 0;
-        }
-    }
-
-    @keyframes fade-out-2{
-        from{
-            opacity: 1;
-        }
-        to{
-            opacity:-1;
-            z-index: 0;
-        }
-    }
-
-    @keyframes fade-out-3{
-        from{
-            opacity: 1;
-        }
-        to{
-            opacity:-1;
-            z-index: 0;
-        }
-    }
-
-    @keyframes fade-out-4{
-        from{
-            opacity: 1;
-        }
-        to{
-            opacity:-1;
-            z-index: 0;
-        }
-    }
-
-    @keyframes fade-out-5{
-        from{
-            opacity: 1;
-        }
-        to{
-            opacity:-1;
-            z-index: 0;
-        }
-    }
 </style>

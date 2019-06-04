@@ -12,7 +12,7 @@
             <span class="error"  v-else="passIsValid"></span>
             <router-link class="link-to-arena" to="/arena"><button :disabled="!formIsValid"  @click="registration">Зарегистрироваться</button></router-link>
         </form>
-        <span>Уже есть аккаунт ? <router-link to="/login">войти</router-link></span>
+        <span>Уже есть аккаунт? <router-link to="/login">Войти</router-link></span>
     </div>
 </template>
 
@@ -87,7 +87,7 @@ import swal from 'sweetalert'
         margin:5% auto;
         font-family: -apple-system;
         font-size: 1.5em;
-        color:#252525;
+        color:#566b7c;
         text-align: center;
         border-right:2px solid #252525;
     }
@@ -127,10 +127,9 @@ import swal from 'sweetalert'
         height:55px;
         margin: 3% auto;
         padding-bottom: 1%;
-        box-shadow: 0px 2px 0px rgba(0,0,0,0.5);
     }
     input::placeholder{
-        color:white;
+        color:#51606d;
      }
 button:hover{
     border-color:#409EFF;
@@ -156,6 +155,9 @@ button{
     a{
         color:white;
         text-decoration: none;
+    }
+    span{
+        color:#586672;
     }
     .link-to-arena{
         width:100%;

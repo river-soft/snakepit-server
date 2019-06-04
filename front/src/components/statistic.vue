@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>Турнирная таблица</h3>
+        <h3>Глобальный рейтинг</h3>
     <div class="main-container">
         <span class="container-data-users" v-for="user in users">
             <img src="../assets/user-table.png" alt="">
@@ -49,12 +49,11 @@
         float:left;
         width: 25%;
         margin: 2% 3% auto;
-        background-color: rgba(0,128,128,0.8);
+        background-color: #c7d6e2;
         justify-content: center;
         padding: 1% 1% 0% 1%;
-        box-shadow: 1px 4px 1px rgba(0,0,0,0.5);
-        color: #dcdcdc;
-       align-items: center;
+        color:#566b7c;
+        align-items: center;
     }
 
     .container-data-users img{
@@ -78,8 +77,13 @@
     }
 
     h3{
-        font-size: 3em;
-        color:white;
+        width:100%;
+        font-size: 50px;
+        font-family:Roboto;
+        text-shadow:1px 4px 1px rgba(0,0,0,0.5);
+        color:#b3c5d3;
+        padding-bottom: 3%;
+        margin:2% auto;
     }
 
 </style>

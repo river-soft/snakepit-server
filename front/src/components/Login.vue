@@ -12,7 +12,7 @@
             <span class="error"  v-else="passIsValid"></span>
            <button :disabled="!formIsValid"  @click="login">Войти</button>
         </form>
-        <span>Еще нет аккаунта? <router-link to="/registration"> регистрация </router-link> </span>
+        <span>Еще нет аккаунта? <router-link to="/registration">Зарегистрируйтесь </router-link> </span>
     </div>
 </template>
 
@@ -81,9 +81,9 @@
         margin:5% auto;
         font-family: -apple-system;
         font-size: 1.5em;
-        color:#DCDCDC;
+        color:#566b7c;
         text-align: center;
-        border-right:2px solid #DCDCDC;
+        border-right:2px solid #566b7c;
     }
 
     #form-reg{
@@ -116,15 +116,14 @@
         font-size:1.4em;
         outline:0;
         border:none;
-        border-bottom:2px solid #409EFF;
+        border-bottom:3px solid #409EFF;
         width:50%;
         height:55px;
         margin: 3% auto;
         padding-bottom: 1%;
-        box-shadow: 0px 5px 0px rgba(0,0,0,0.5);
     }
     input::placeholder{
-        color:white;
+        color:#51606d;
     }
     button:hover{
         border-color:#409EFF;
@@ -152,7 +151,7 @@
         text-decoration: none;
     }
     span{
-        color: #dcdcdc;
+        color:#586672;
     }
     span a{
         color:#4682B4;

@@ -9,8 +9,11 @@ import com.riversoft.game.snake.dto.ElementType
 import com.riversoft.game.snake.model.BattleState
 import com.riversoft.game.snake.model.GameRezultModel
 import com.riversoft.game.snake.data.domain.Round
+import com.riversoft.game.snake.model.RoundInfo
+import com.riversoft.game.snake.model.RoundPlayerInfo
 import com.riversoft.game.snake.model.UserInfo
 import groovy.util.logging.Slf4j
+import jdk.nashorn.api.scripting.JSObject
 import org.joda.time.DateTime
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
@@ -48,7 +51,6 @@ class GameService {
     int roundId
     boolean roundStarted = false
     int time = 0
-    //save rounds data
 
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
@@ -67,10 +69,10 @@ class GameService {
                                     posY: x.getY())
                         })
         ))
-
+        //save rounds data
         saveRound()
 
-        if (!packmansList.any { !it.isDead() } && packmansList.size() > 0) {
+        if (!packmansList.any { !it.isDead() } && packmansList.size() > 0 ) {
             roundStarted = false
             generateAll()
         }
@@ -128,7 +130,6 @@ class GameService {
     }
 
     def saveRound() {
-
         def round = roundDataRepository
                 .findByRoundId(roundId)
                 .orElse(new Round(
@@ -324,8 +325,25 @@ class GameService {
 
     }
 
-    String getRounds(){
-        roundDataRepository.findAll()
+    List<RoundInfo> getRounds(){
+        roundDataRepository.findAll().collect{
+         def rating = it.userRoundInformations.sort {x -> x.localRating}.reverse()
+         new RoundInfo (
+             roundId: it.roundId,
+             first: new RoundPlayerInfo(
+                     name: rating[0]?.name,
+                     rating: rating[0]?.localRating
+             ),
+             second: new RoundPlayerInfo(
+                     name: it.userRoundInformations.sort {x -> x.localRating}[1]?.name,
+                     rating: it.userRoundInformations.sort {x -> x.localRating}[1]?.localRating
+             ),
+                 third: new RoundPlayerInfo(
+                         name: it.userRoundInformations.sort {x -> x.localRating}[2]?.name,
+                         rating: it.userRoundInformations.sort {x -> x.localRating}[2]?.localRating
+                 ),
+     )}
+
     }
 
 //get ready data for return into gameControllers

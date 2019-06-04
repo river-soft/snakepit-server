@@ -79,7 +79,7 @@
         top:20px;
         border-bottom: 1px solid #4682B4;
         color:#252525;
-        margin-left:-1.75%;
+        margin-left:-0.3%;
         padding-bottom:3px;
     }
 </style>
