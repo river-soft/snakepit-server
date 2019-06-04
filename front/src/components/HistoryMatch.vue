@@ -39,15 +39,10 @@
             }
         },
         created() {
-            this.intervalHandle = setInterval(() => {
                 HistoryMatches().then((response) => {
                     this.rounds = response.data;
                     console.log("Response new data");
                 });
-            }, 1000);
-        },
-        destroyed() {
-            clearInterval(this.intervalHandle)
         }
     }
 </script>
