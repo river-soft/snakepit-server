@@ -2,14 +2,14 @@
     <div class="main-wrapper">
         <h2>История матчей</h2>
         <br>
-            <div class="round-id">
-                <h1>№</h1>
-                <div class="round-data-id" v-for="round in rounds">{{round.roundId}}</div>
-              </div>
-            <div class="first">
-                <h1>1 место</h1>
-                <div class="round-data-id" v-for="round in rounds">{{round.first.name}} : {{round.first.rating}} очков</div>
-            </div>
+        <div class="round-id">
+            <h1>№</h1>
+            <div class="round-data-id" v-for="round in rounds">{{round.roundId}}</div>
+        </div>
+        <div class="first">
+            <h1>1 место</h1>
+            <div class="round-data-id" v-for="round in rounds">{{round.first.name}} : {{round.first.rating}} очков</div>
+        </div>
         <div class="second">
             <h1>2 место</h1>
             <div class="round-data-id" v-for="round in rounds">{{round.second.name}} : {{round.second.rating}} очков</div>
@@ -39,21 +39,21 @@
             }
         },
         created() {
-                HistoryMatches().then((response) => {
-                    this.rounds = response.data;
-                    console.log("Response new data");
-                });
+            HistoryMatches().then((response) => {
+                this.rounds = response.data;
+                console.log("Response new data");
+            });
         }
     }
 </script>
 
 <style scoped>
-   .main-wrapper{
-       display: flex;
-       flex-wrap:wrap;
-       width:80%;
-       margin:3% 10%;
-   }
+    .main-wrapper{
+        display: flex;
+        flex-wrap:wrap;
+        width:80%;
+        margin:3% 10%;
+    }
     .round-id,.first,.second,.third{
         width:23%;
         flex-direction: column;

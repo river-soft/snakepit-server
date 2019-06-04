@@ -335,12 +335,12 @@ class GameService {
                      rating: rating[0]?.localRating
              ),
              second: new RoundPlayerInfo(
-                     name: it.userRoundInformations.sort {x -> x.localRating}[1]?.name,
-                     rating: it.userRoundInformations.sort {x -> x.localRating}[1]?.localRating
+                     name: rating[1]?.name,
+                     rating: rating[1]?.localRating
              ),
                  third: new RoundPlayerInfo(
-                         name: it.userRoundInformations.sort {x -> x.localRating}[2]?.name,
-                         rating: it.userRoundInformations.sort {x -> x.localRating}[2]?.localRating
+                         name: rating[2]?.name,
+                         rating: rating[2]?.localRating
                  ),
      )}
 

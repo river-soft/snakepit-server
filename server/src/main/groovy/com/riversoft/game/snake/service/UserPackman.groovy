@@ -22,6 +22,7 @@ class UserPackman {
     int y
     public int rating = 0
     public  int glrating = 0
+    public int HistRating = 0
     // --------------------------------
     // --------------------------------
 
@@ -32,7 +33,6 @@ class UserPackman {
     private List<List> map
 
     UserPackman(List<List> map, String name, int x, int y, int rating) {
-
         this.glrating = rating
         this.map = map
         this.name = name
@@ -95,6 +95,8 @@ class UserPackman {
                 this.x = x1
                 rating++
                 glrating ++
+                 list = []
+               // HistRating ++
                 onRating(this)
                 break
 
