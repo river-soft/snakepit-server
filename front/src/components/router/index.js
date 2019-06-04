@@ -7,6 +7,7 @@ import ArenaPage from '../../views/ArenaPage';
 import Login from "../Login";
 import statistic from "../statistic";
 import HistoryMatch from "../HistoryMatch";
+import GameRules from "../GameRules";
 
 
 
@@ -36,10 +37,23 @@ export default new Vuerouter({
         {
             path:'/statistic',
             component:statistic,
+            meta: {
+                requiresAuth:true
+            }
         },
         {
             path:'/HistoryMatch',
             component:HistoryMatch,
+            meta: {
+                requiresAuth:true
+            }
+        },
+        {
+            path:'/gameRules',
+            component:GameRules,
+            meta: {
+                requiresAuth:true
+            }
         }
     ],
 });

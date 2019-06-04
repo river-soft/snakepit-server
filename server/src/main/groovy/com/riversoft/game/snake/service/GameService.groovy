@@ -91,7 +91,7 @@ class GameService {
     def generateAll() {
         //save round data
         def lastRound = roundDataRepository
-                .findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, 'roundId')))
+                .findAll(PageRequest.of(0, 99, Sort.by(Sort.Direction.DESC, 'roundId')))
                 .content
                 .find()
         roundId = lastRound ? lastRound.roundId + 1 : 1
@@ -345,6 +345,8 @@ class GameService {
      )}
 
     }
+
+
 
 //get ready data for return into gameControllers
     GameRezultModel getResult() {

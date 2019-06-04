@@ -22,7 +22,6 @@ class UserPackman {
     int y
     public int rating = 0
     public  int glrating = 0
-    public int HistRating = 0
     // --------------------------------
     // --------------------------------
 
@@ -95,8 +94,6 @@ class UserPackman {
                 this.x = x1
                 rating++
                 glrating ++
-                 list = []
-               // HistRating ++
                 onRating(this)
                 break
 

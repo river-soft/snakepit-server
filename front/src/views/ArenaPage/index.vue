@@ -9,6 +9,7 @@
             <div class="button-panel">
                 <router-link to="/statistic"><button>Статистика</button></router-link>
                 <router-link to="/HistoryMatch"><button>История матчей</button></router-link>
+                <router-link to="/gameRules"><button>Правила игры</button></router-link>
             </div>
         </div>
         <br>
