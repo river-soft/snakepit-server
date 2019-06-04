@@ -5,13 +5,11 @@
 </template>
 
 <script>
-import GameMap from "./components/GameMapView";
+
 
 export default {
   name: 'app',
   components: {
-    GameMap
-   // HelloWorld
   }
 }
 </script>
