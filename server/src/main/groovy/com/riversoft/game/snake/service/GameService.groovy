@@ -88,7 +88,7 @@ class GameService {
     def generateAll() {
         //save round data
         def lastRound = roundDataRepository
-                .findAll(PageRequest.of(0, 99, Sort.by(Sort.Direction.DESC, 'roundId')))
+                .findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, 'roundId')))
                 .content
                 .find()
         roundId = lastRound ? lastRound.roundId + 1 : 1
@@ -323,24 +323,25 @@ class GameService {
     }
 
     List<RoundInfo> getRounds(){
-        roundDataRepository.findAll().collect{
-         def rating = it.userRoundInformations.sort {x -> x.localRating}.reverse()
-         new RoundInfo (
-             roundId: it.roundId,
-             first: new RoundPlayerInfo(
-                     name: rating[0]?.name,
-                     rating: rating[0]?.localRating
-             ),
-             second: new RoundPlayerInfo(
-                     name: rating[1]?.name,
-                     rating: rating[1]?.localRating
-             ),
-                 third: new RoundPlayerInfo(
+        roundDataRepository
+            .findAll(PageRequest.of(0, 100, Sort.by(Sort.Direction.DESC, 'roundId')))
+            .collect {
+                def rating = it.userRoundInformations.sort {x -> x.localRating}.reverse()
+                new RoundInfo (
+                    roundId: it.roundId,
+                    first: new RoundPlayerInfo(
+                         name: rating[0]?.name,
+                         rating: rating[0]?.localRating
+                    ),
+                    second: new RoundPlayerInfo(
+                         name: rating[1]?.name,
+                         rating: rating[1]?.localRating
+                    ),
+                    third: new RoundPlayerInfo(
                          name: rating[2]?.name,
                          rating: rating[2]?.localRating
-                 ),
-     )}
-
+                    ))
+            }
     }
 
 
