@@ -51,7 +51,8 @@ class SocketService extends TextWebSocketHandler {
 
         result.collect {
             try {
-                return [client: it.key.principal?.name, data: it.value.get(1, TimeUnit.SECONDS).payload]
+                sleep(900)
+                return [client: it.key.principal?.name, data: it.value.get(1, TimeUnit.MICROSECONDS).payload]
             } catch (Exception e) { }
 
             [client: it.key.principal?.name, data: '']

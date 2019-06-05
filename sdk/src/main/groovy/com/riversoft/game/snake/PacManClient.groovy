@@ -49,16 +49,18 @@ abstract class PacManClient {
 
             def message = new ObjectMapper().readValue(data, ClientMessage)
 
-            if (showMap) {
-                showMap(message.map)
-            }
-
             me = message.positions.find { it.clientName == username }
 
-            def answer = onRequest(message)
+            if (me) {
+                if (showMap) {
+                    showMap(message.map)
+                }
 
-            println "answer $answer"
-            session.getRemote().sendString(answer.toString().toLowerCase())
+                def answer = onRequest(message)
+
+                println "answer $answer"
+                session.getRemote().sendString(answer.toString().toLowerCase())
+            }
         }
     }
 
@@ -71,7 +73,7 @@ abstract class PacManClient {
         socket = new WebSocketClient()
         socket.start()
 
-        def request = new ClientUpgradeRequest();
+        def request = new ClientUpgradeRequest()
         request.setHeader("Authorization","Basic ${"$username:$password".bytes.encodeBase64()}")
 
         session = socket.connect(new ClientSocket(), ('ws://' + this.host + '/pacman-game').toURI(), request).get(1, TimeUnit.SECONDS)
@@ -81,15 +83,20 @@ abstract class PacManClient {
             0: ' ',
             1: '+',
             3: '@',
-            2: 'O'
+            20: 'O',
+            21: 'O'
     ]
 
-    List<Element> getAllObjects(List<List> map) {
+    static List<Element> getAllObjects(List<List> map, ElementType... types) {
         List<Element> result = []
-        map.eachWithIndex { List entry, int x ->
-            entry.eachWithIndex{ Object cell, int y ->
+        map.eachWithIndex { List entry, int y ->
+            entry.eachWithIndex{ Object cell, int x ->
                 switch (cell) {
-                    case 2:
+                    case 1:
+                        result.add(new Element(type: ElementType.BORDER, x: x, y: y))
+                        break
+                    case 20:
+                    case 21:
                         result.add(new Element(type: ElementType.PACMAN, x: x, y: y))
                         break
                     case 3:
@@ -98,7 +105,7 @@ abstract class PacManClient {
                 }
             }
         }
-        result
+        result.findAll { types.contains(it.type) }
     }
 
     private void showMap(ArrayList<List<Integer>> lists) {

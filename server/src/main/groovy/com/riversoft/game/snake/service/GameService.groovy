@@ -59,7 +59,7 @@ class GameService {
         movePackmans(socketService.getClientAnswer(
                 new ClientMessage(
                         map: map,
-                        positions: packmansList.collect { x ->
+                        positions: packmansList.findAll {!it.isDead()}.collect { x ->
                             new ClientPosition(
                                     clientName: x.name,
                                     posX: x.getX(),
