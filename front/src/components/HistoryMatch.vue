@@ -30,9 +30,6 @@
         name: "HistoryMatch",
         data(){
             return {
-                rounds:[
-                    // {roundId:'',first:[{name:'',rating:0}],second:[{name:'',rating:0}],third:[{name:'',rating:0}]}
-                ],
                 users: [
                     { name: '', rating: 0 }
                 ]
