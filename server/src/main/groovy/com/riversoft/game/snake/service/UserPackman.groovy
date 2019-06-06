@@ -3,17 +3,13 @@ package com.riversoft.game.snake.service
 import com.riversoft.game.snake.dto.ElementType
 import groovy.util.logging.Slf4j
 
-import javax.annotation.PostConstruct
-
 @Slf4j
 class UserPackman {
 
     boolean dead
 
 //const
-    final BORDERS = 1
     final EMPTYSPACE = 0
-    final COINS = 3
 
     // --------------------------------
     // --------------------------------

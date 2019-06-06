@@ -2,7 +2,6 @@ package com.riversoft.game.snake.service
 
 import com.riversoft.game.snake.controller.UserController
 import com.riversoft.game.snake.data.repository.UserRepository
-import com.riversoft.game.snake.model.UserDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails

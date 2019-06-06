@@ -6,15 +6,12 @@ import com.riversoft.game.snake.data.repository.UserRepository
 import com.riversoft.game.snake.dto.ClientMessage
 import com.riversoft.game.snake.dto.ClientPosition
 import com.riversoft.game.snake.dto.ElementType
-import com.riversoft.game.snake.model.BattleState
 import com.riversoft.game.snake.model.GameRezultModel
 import com.riversoft.game.snake.data.domain.Round
 import com.riversoft.game.snake.model.RoundInfo
 import com.riversoft.game.snake.model.RoundPlayerInfo
 import com.riversoft.game.snake.model.UserInfo
 import groovy.util.logging.Slf4j
-import jdk.nashorn.api.scripting.JSObject
-import org.joda.time.DateTime
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -62,7 +59,7 @@ class GameService {
         movePackmans(socketService.getClientAnswer(
                 new ClientMessage(
                         map: map,
-                        positions: packmansList.collect { x ->
+                        positions: packmansList.findAll {!it.isDead()}.collect { x ->
                             new ClientPosition(
                                     clientName: x.name,
                                     posX: x.getX(),
@@ -91,7 +88,7 @@ class GameService {
     def generateAll() {
         //save round data
         def lastRound = roundDataRepository
-                .findAll(PageRequest.of(0, 99, Sort.by(Sort.Direction.DESC, 'roundId')))
+                .findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, 'roundId')))
                 .content
                 .find()
         roundId = lastRound ? lastRound.roundId + 1 : 1
@@ -326,24 +323,25 @@ class GameService {
     }
 
     List<RoundInfo> getRounds(){
-        roundDataRepository.findAll().collect{
-         def rating = it.userRoundInformations.sort {x -> x.localRating}.reverse()
-         new RoundInfo (
-             roundId: it.roundId,
-             first: new RoundPlayerInfo(
-                     name: rating[0]?.name,
-                     rating: rating[0]?.localRating
-             ),
-             second: new RoundPlayerInfo(
-                     name: rating[1]?.name,
-                     rating: rating[1]?.localRating
-             ),
-                 third: new RoundPlayerInfo(
+        roundDataRepository
+            .findAll(PageRequest.of(0, 100, Sort.by(Sort.Direction.DESC, 'roundId')))
+            .collect {
+                def rating = it.userRoundInformations.sort {x -> x.localRating}.reverse()
+                new RoundInfo (
+                    roundId: it.roundId,
+                    first: new RoundPlayerInfo(
+                         name: rating[0]?.name,
+                         rating: rating[0]?.localRating
+                    ),
+                    second: new RoundPlayerInfo(
+                         name: rating[1]?.name,
+                         rating: rating[1]?.localRating
+                    ),
+                    third: new RoundPlayerInfo(
                          name: rating[2]?.name,
                          rating: rating[2]?.localRating
-                 ),
-     )}
-
+                    ))
+            }
     }
 
 

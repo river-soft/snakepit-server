@@ -5,8 +5,6 @@ class walls {
     private List<List> map
     int x
     int y
-    int xWalls = 1
-    int yWalls = 1
 
     walls(List<List> map, int x, y) {
         this.map = map
