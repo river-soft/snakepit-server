@@ -51,6 +51,13 @@ class GameService {
 
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
+        int  life
+        def p = packmansList.each {
+            if(!it.isDead()){
+            life++
+            }
+        }
+        log.info(life.toString())
         if (!roundStarted) {
             log.debug("Round don't started")
             return
@@ -67,9 +74,16 @@ class GameService {
                         })
         ))
         //save rounds data
+
         saveRound()
 
-        if (!packmansList.any { !it.isDead() } && packmansList.size() > 0 ) {
+//        class LastSurvivor(){
+//            if (packmansList.any{!it.isDead()} - it.Dead()){
+//
+//            }
+//        }
+
+        if (!packmansList.any { !it.isDead() } && packmansList.size() > 0 || life == 1) {
             roundStarted = false
             generateAll()
         }
@@ -213,13 +227,12 @@ class GameService {
                         log.debug("${i.name} go to the top")
                         break
                 }
-            } else {
-                i.moveUp()
-                log.debug("${i.name} go to the right")
+
+            }else{
+                i.moveDown()
             }
         }
     }
-
 //add walls in map
     void CreateWalls(){
         walls.each {

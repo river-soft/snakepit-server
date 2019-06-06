@@ -3,6 +3,7 @@ package com.riversoft.game.snake.service
 import com.riversoft.game.snake.dto.ElementType
 import groovy.util.logging.Slf4j
 
+
 @Slf4j
 class UserPackman {
 
@@ -61,8 +62,6 @@ class UserPackman {
         }
 
     }
-
-
     def move(int x, int y, int x1, int y1) {
 
         if (dead) {
@@ -88,8 +87,8 @@ class UserPackman {
                 map[y1][x1] = pacman.value
                 this.y = y1
                 this.x = x1
-                rating++
-                glrating ++
+                rating = rating++
+                glrating = glrating++
                 onRating(this)
                 break
 
