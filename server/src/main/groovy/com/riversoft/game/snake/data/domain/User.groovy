@@ -19,4 +19,5 @@ class User {
     int rating
 
     int countMatch
+    int kpd
 }
