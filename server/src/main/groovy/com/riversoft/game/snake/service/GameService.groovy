@@ -44,22 +44,27 @@ class GameService {
     final COLUMN_COUNT_X = 64
     final COLUMN_COUNT_Y = 64
     final BORDERS = 1
+    def p
 
 
     int roundId
     boolean roundStarted = false
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
-        int  life = packmansList.size()
+        log.info (p.countMatch.toString() + 'Maybe it works but is not right')
+        int  livePacman = packmansList.size()
         packmansList.each {
-            if(it.isDead()){
-                life--
-                if (life == 1){
+            if (it.isDead()) {
+
+                livePacman--
+
+                if (livePacman == 1){
                     it.rating += 5
                 }
             }
         }
-        log.info(life.toString())
+        log.info(livePacman.toString())
+
         if (!roundStarted) {
             log.debug("Round don't started")
             return
@@ -83,7 +88,7 @@ class GameService {
 
         saveRound()
 
-        if (!packmansList.any { !it.isDead() } && packmansList.size() > 0 || life == 1) {
+        if (!packmansList.any { !it.isDead() } && packmansList.size() > 0 || livePacman == 1) {
             roundStarted = false
             generateAll()
         }
@@ -109,6 +114,12 @@ class GameService {
                 .find()
         roundId = lastRound ? lastRound.roundId + 1 : 1
         log.info("Start new round $roundId")
+        if (lastRound) {
+         packmansList.each {
+
+          }
+
+        }
 
         // set timer
         this.time = 120
@@ -181,7 +192,7 @@ class GameService {
             try {
                 int packmansX = new Random().nextInt(COLUMN_COUNT_X)
                 int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
-                packmansList.add(new UserPackman(map, it.username, packmansX, packmansY, it.rating))
+                packmansList.add(new UserPackman(map, it.username, packmansX, packmansY, it.rating, it.countMatch))
             } catch(Exception e) {
                 log.info('something  go wrong in generation pacman')
                 log.info(e.message,e)
@@ -194,6 +205,13 @@ class GameService {
             user.rating = packman.glrating
 
             log.info("Save rating ${packman.glrating} for user ${packman.name}")
+            log.info("Save count Match")
+            userRepository.save(user)
+        }
+        packmansList*.onCountMatch = {UserPackman  pacmanMatch ->
+            def user = userRepository.findByUsername(pacmanMatch.name).get()
+            user.countMatch = pacmanMatch.countMatch
+            log.info("Save count Match")
             userRepository.save(user)
         }
         packmansList*.getPacmanByCoordinate = { x, y ->

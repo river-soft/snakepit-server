@@ -17,23 +17,26 @@ class UserPackman {
     String name
     int x
     int y
-    public int rating = 0
+    public int  rating = 0
     public  int glrating = 0
+    public int  countMatch
     // --------------------------------
     // --------------------------------
 
 
     def onRating = {UserPackman pacman}
+    def onCountMatch = {UserPackman pacmanMatch}
     def getPacmanByCoordinate = {int x, int y -> }
 
     private List<List> map
 
-    UserPackman(List<List> map, String name, int x, int y, int rating) {
+    UserPackman(List<List> map, String name, int x, int y, int rating, int countMatch) {
         this.glrating = rating
         this.map = map
         this.name = name
         this.x = x
         this.y = y
+        this.countMatch = countMatch
 
 
         if (map[y][x] == EMPTYSPACE ) {
@@ -88,8 +91,8 @@ class UserPackman {
                 map[y1][x1] = pacman.value
                 this.y = y1
                 this.x = x1
-                rating = rating++
-                glrating = glrating++
+                rating++
+                glrating++
                 onRating(this)
                 break
 

@@ -2,6 +2,9 @@ package com.riversoft.game.snake
 
 import com.riversoft.game.snake.dto.ClientMessage
 import com.riversoft.game.snake.dto.Direction
+import com.riversoft.game.snake.dto.Element
+import com.riversoft.game.snake.dto.ElementType
+import groovy.util.logging.Log4j
 
 class MyPackmanClient extends PacManClient {
 
@@ -9,20 +12,22 @@ class MyPackmanClient extends PacManClient {
         super(host, username, password)
     }
 
+    List<Element> p
+
     @Override
     Direction onRequest(ClientMessage message) {
 
-        // Ваш код здесь пример :
-        // return Direction.Up
+    }
 
+
+    class TestSdkApplication {
+
+        static void main(String[] args) {
+
+            new MyPackmanClient('localhost:8080', 'Николай', 'coly26341')
+
+        }
     }
 }
 
-class TestSdkApplication {
 
-    static void main(String[] args) {
-
-        new MyPackmanClient('192.168.1.192:8080', 'qwe', 'qwe')
-
-    }
-}
