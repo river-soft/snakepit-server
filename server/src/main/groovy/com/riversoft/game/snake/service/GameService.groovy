@@ -1,5 +1,6 @@
 package com.riversoft.game.snake.service
 
+import com.riversoft.game.snake.PacManClient
 import com.riversoft.game.snake.data.domain.UserRoundInformation
 import com.riversoft.game.snake.data.repository.RoundRepository
 import com.riversoft.game.snake.data.repository.UserRepository
@@ -18,9 +19,9 @@ import org.springframework.data.domain.Sort
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
-
 import javax.annotation.PostConstruct
 
+import static java.util.List.*
 
 
 @Slf4j
@@ -47,14 +48,15 @@ class GameService {
 
     int roundId
     boolean roundStarted = false
-    int time = 0
-
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
-        int  life
-        def p = packmansList.each {
-            if(!it.isDead()){
-            life++
+        int  life = packmansList.size()
+        packmansList.each {
+            if(it.isDead()){
+                life--
+                if (life == 1){
+                    it.rating += 5
+                }
             }
         }
         log.info(life.toString())
@@ -62,7 +64,10 @@ class GameService {
             log.debug("Round don't started")
             return
         }
-
+        def rating = packmansList.each{
+            it.rating
+        }
+        log.info(rating.rating.toString())
         movePackmans(socketService.getClientAnswer(
                 new ClientMessage(
                         map: map,
@@ -73,15 +78,10 @@ class GameService {
                                     posY: x.getY())
                         })
         ))
+
         //save rounds data
 
         saveRound()
-
-//        class LastSurvivor(){
-//            if (packmansList.any{!it.isDead()} - it.Dead()){
-//
-//            }
-//        }
 
         if (!packmansList.any { !it.isDead() } && packmansList.size() > 0 || life == 1) {
             roundStarted = false
@@ -93,6 +93,8 @@ class GameService {
             generateAll()
         }
     }
+
+    int time = 0
 
     @PostConstruct
     void init() {
@@ -388,4 +390,3 @@ class GameService {
         )
     }
 }
-

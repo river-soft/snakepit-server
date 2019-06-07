@@ -35,6 +35,7 @@ class UserPackman {
         this.x = x
         this.y = y
 
+
         if (map[y][x] == EMPTYSPACE ) {
             map[y][x] = ElementType.PACMAN.value
 
