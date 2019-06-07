@@ -376,6 +376,7 @@ class GameService {
 
 
 
+
 //get ready data for return into gameControllers
     GameRezultModel getResult() {
         def currentUserName =  SecurityContextHolder.getContext().authentication?.name ?: 'Unknown'
