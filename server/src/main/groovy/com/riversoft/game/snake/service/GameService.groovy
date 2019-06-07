@@ -135,7 +135,7 @@ class GameService {
         CreateWalls() //add walls in map
 
         //create coins
-        (0..100).each {
+        (0..400).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
                 coins.add(new Coins(map, coinsX, coinsY))
@@ -157,13 +157,13 @@ class GameService {
         round.endPackmanCount = packmansList.findAll { !it.isDead() }.size()
         round.endCoinsCount = calcCoinsByMap(map)
         round.userRoundInformations = packmansList.collect {
-            new UserRoundInformation(
+            new UserRoundInformation (
                     name: it.name,
                     localRating: it.rating,
                     globalRating: it.glrating,
                     lifeTime: 0,
                     dead: it.isDead(),
-                    kpd:(it.glrating/it.countMatch),
+                    kpd:(it.glrating / it.countMatch),
             )
         }
 
@@ -215,7 +215,6 @@ class GameService {
             packmansList.find { it.x == x && it.y == y }
         }
     }
-
     void movePackmans(List<Map> answers) {
         packmansList.each { i->
             def answer = answers.find { x -> x.client == i.name }
@@ -245,8 +244,6 @@ class GameService {
                         break
                 }
 
-            }else{
-                i.moveLeft()
             }
         }
     }
@@ -380,7 +377,8 @@ class GameService {
 
 
 //get ready data for return into gameControllers
-    GameRezultModel getResult() {
+
+    GameRezultModel getResult () {
         def currentUserName =  SecurityContextHolder.getContext().authentication?.name ?: 'Unknown'
 
         def pacmanData = packmansList.find {
