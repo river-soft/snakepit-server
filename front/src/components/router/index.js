@@ -50,9 +50,6 @@ export default new Vuerouter({
         {
             path:'/gameRules',
             component:GameRules,
-            meta: {
-                requiresAuth:true
-            }
         }
     ],
 });
