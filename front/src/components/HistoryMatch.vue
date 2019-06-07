@@ -31,8 +31,9 @@
         data(){
             return {
                 users: [
-                    { name: '', rating: 0 }
-                ]
+                    { name: '', kpd: 0 }
+                ],
+                rounds:[]
             }
         },
         created() {

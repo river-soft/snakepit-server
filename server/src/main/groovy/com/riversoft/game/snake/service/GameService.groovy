@@ -44,12 +44,13 @@ class GameService {
     final COLUMN_COUNT_X = 64
     final COLUMN_COUNT_Y = 64
     final BORDERS = 1
-    def p
 
     int roundId
     boolean roundStarted = false
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
+
+
 
         if (!roundStarted) {
             log.debug("Round don't started")
@@ -66,17 +67,19 @@ class GameService {
                         })
         ))
 
-        //save rounds data
+        // calculate count alive pacmans
+
         def lifePacmanCount = packmansList.findAll { !it.isDead() }.size()
 
         if (lifePacmanCount <= 1) {
             if (lifePacmanCount == 1) {
-                def lastPacman =  packmansList.find {
+             def p =  packmansList.find {
                     !it.isDead()
                 }
-                lastPacman.glrating += 5
-//                log.info('i give bonus for ' + p.name.toString())
+                p.glrating += 5
+                log.info('i give bonus for ' + p.name.toString())
             }
+            roundStarted = false
             generateAll()
         }
 
@@ -103,6 +106,12 @@ class GameService {
                 .find()
         roundId = lastRound ? lastRound.roundId + 1 : 1
         log.info("Start new round $roundId")
+        if (lastRound) {
+        userRepository.findAll().each {
+            it.countMatch++
+            log.info('save count match for all users' + it.countMatch.toString())
+          }
+        }
 
         // set timer
         this.time = 120
@@ -154,7 +163,7 @@ class GameService {
                     globalRating: it.glrating,
                     lifeTime: 0,
                     dead: it.isDead(),
-                    kpd:it.glrating/it.countMatch,
+                    kpd:(it.glrating/it.countMatch),
             )
         }
 
@@ -193,6 +202,12 @@ class GameService {
             user.rating = pacman.glrating
 
             log.info("Save rating ${pacman.glrating} for user ${pacman.name}")
+            log.info("Save count Match")
+            userRepository.save(user)
+        }
+        packmansList*.onCountMatch = {UserPackman  packmanMatch ->
+            def user = userRepository.findByUsername(packmanMatch.name).get()
+            user.countMatch = packmanMatch.countMatch
             log.info("Save count Match")
             userRepository.save(user)
         }
@@ -341,23 +356,26 @@ class GameService {
         roundDataRepository
             .findAll(PageRequest.of(0, 100, Sort.by(Sort.Direction.DESC, 'roundId')))
             .collect {
-                def kpd = it.userRoundInformations.sort {x -> x.kpd}.reverse()
+                def kpd = it.userRoundInformations.sort { i -> i.kpd }.reverse()
                 new RoundInfo (
                     roundId: it.roundId,
                     first: new RoundPlayerInfo(
-                            name: kpd[0]?.name,
-                            kpd: kpd[0]?.kpd
+                         name: kpd[0]?.name,
+                         kpd: kpd[0]?.kpd
                     ),
+
                     second: new RoundPlayerInfo(
                             name: kpd[1]?.name,
                             kpd: kpd[1]?.kpd
                     ),
+
                     third: new RoundPlayerInfo(
                             name: kpd[2]?.name,
                             kpd: kpd[2]?.kpd
                     ))
             }
     }
+
 
 
 
