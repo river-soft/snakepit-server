@@ -363,10 +363,12 @@ class GameService {
                          name: kpd[0]?.name,
                          kpd: kpd[0]?.kpd
                     ),
+
                     second: new RoundPlayerInfo(
                             name: kpd[1]?.name,
                             kpd: kpd[1]?.kpd
                     ),
+
                     third: new RoundPlayerInfo(
                             name: kpd[2]?.name,
                             kpd: kpd[2]?.kpd
