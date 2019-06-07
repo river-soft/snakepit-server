@@ -46,12 +46,11 @@ class GameService {
     final BORDERS = 1
     def p
 
-
     int roundId
     boolean roundStarted = false
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
-        log.info (p.countMatch.toString() + 'Maybe it works but is not right')
+
         int  livePacman = packmansList.size()
         packmansList.each {
             if (it.isDead()) {
@@ -60,11 +59,12 @@ class GameService {
 
                 if (livePacman == 1){
                     it.rating += 5
+                    log.info('the last live pacman is' + it.name.toString())
                 }
             }
         }
+        log.info(packmansList.countMatch.toString() + 'the Count' )
         log.info(livePacman.toString())
-
         if (!roundStarted) {
             log.debug("Round don't started")
             return
@@ -114,12 +114,6 @@ class GameService {
                 .find()
         roundId = lastRound ? lastRound.roundId + 1 : 1
         log.info("Start new round $roundId")
-        if (lastRound) {
-         packmansList.each {
-
-          }
-
-        }
 
         // set timer
         this.time = 120
@@ -151,6 +145,10 @@ class GameService {
 
         start()
         roundStarted = true
+        packmansList.each {
+            it.countMatch++
+            it.onCountMatch(it)
+        }
     }
 
     def saveRound() {
@@ -188,7 +186,8 @@ class GameService {
 
     def start() {
         packmansList = []
-        userRepository.findAll().each {
+        def users = userRepository.findAll()
+        users.each {
             try {
                 int packmansX = new Random().nextInt(COLUMN_COUNT_X)
                 int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
@@ -199,18 +198,21 @@ class GameService {
             }
         }
 
-        packmansList*.onRating = { UserPackman packman ->
+        users.each{it.countMatch++}
+        users.each { userRepository.save(it) }
 
-            def user = userRepository.findByUsername(packman.name).get()
-            user.rating = packman.glrating
+        packmansList*.onRating = { UserPackman pacman ->
 
-            log.info("Save rating ${packman.glrating} for user ${packman.name}")
+            def user = userRepository.findByUsername(pacman.name).get()
+            user.rating = pacman.glrating
+
+            log.info("Save rating ${pacman.glrating} for user ${pacman.name}")
             log.info("Save count Match")
             userRepository.save(user)
         }
-        packmansList*.onCountMatch = {UserPackman  pacmanMatch ->
-            def user = userRepository.findByUsername(pacmanMatch.name).get()
-            user.countMatch = pacmanMatch.countMatch
+        packmansList*.onCountMatch = {UserPackman  packmanMatch ->
+            def user = userRepository.findByUsername(packmanMatch.name).get()
+            user.countMatch = packmanMatch.countMatch
             log.info("Save count Match")
             userRepository.save(user)
         }
@@ -249,7 +251,7 @@ class GameService {
                 }
 
             }else{
-                i.moveDown()
+                i.moveLeft()
             }
         }
     }

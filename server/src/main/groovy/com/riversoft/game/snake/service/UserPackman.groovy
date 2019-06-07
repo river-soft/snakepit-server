@@ -25,7 +25,7 @@ class UserPackman {
 
 
     def onRating = {UserPackman pacman}
-    def onCountMatch = {UserPackman pacmanMatch}
+    def onCountMatch = {UserPackman pacman}
     def getPacmanByCoordinate = {int x, int y -> }
 
     private List<List> map
