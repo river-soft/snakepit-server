@@ -8,6 +8,5 @@ class RoundInfo {
 }
 class RoundPlayerInfo{
     String name;
-    Integer rating;
     int kpd;
 }

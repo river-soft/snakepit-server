@@ -12,21 +12,19 @@ class MyPackmanClient extends PacManClient {
         super(host, username, password)
     }
 
-    List<Element> p
 
     @Override
     Direction onRequest(ClientMessage message) {
-
+        return Direction.RIGHT
     }
+}
 
+class TestSdkApplication {
 
-    class TestSdkApplication {
+    static void main(String[] args) {
 
-        static void main(String[] args) {
+        new MyPackmanClient('localhost:8080', 'Николай', 'coly26341')
 
-            new MyPackmanClient('localhost:8080', 'Николай', 'coly26341')
-
-        }
     }
 }
 
