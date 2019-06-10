@@ -5,6 +5,7 @@
              <li> <p> <br> Для управления пакменом пользователь пишет программу (алгоритм). Подключение игре происходит через handshake клиентской программы к серверу (Пример написанный на языке программирования «Groovy» : </p> </li>
              <li> <p> <br> <a  href="https://drive.google.com/open?id=1XqWWWlZ6vBeHT6AUyQRa-4KhuwvfVP2w" download>Скачать файлы для начала игры </a>
                      <br>
+
                      <br>
                  <br> import com.riversoft.game.snake.PacManClient
                  <br> import com.riversoft.game.snake.dto.ClientMessage
