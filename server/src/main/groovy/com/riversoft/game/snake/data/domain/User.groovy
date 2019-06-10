@@ -17,4 +17,6 @@ class User {
 
     String passwordHash
     int rating
+
+    int countMatch
 }

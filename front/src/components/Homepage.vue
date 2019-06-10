@@ -1,9 +1,9 @@
 <template>
         <div id="main-block">
-            <h1>Packman Arena</h1>
-              <br>
-                <hr>
-                    <br>
+                 <h1>Packman Arena</h1>
+                   <br>
+                     <hr>
+                      <br>
             <p>Аркадная игра, созданная для любителей программирования  Проверь свои алгоритмы на оптимальность и быстройдествие</p>
             <img alt="" src="../assets/packman.gif">
             <img class="second-img" alt="" src="../assets/packman.gif">
@@ -17,7 +17,8 @@
             <div class="buttons-panel">
                 <button><router-link to="/registration">Регистрация</router-link></button>
                 <button><router-link to="/login">Вход</router-link></button>
-                <router-view></router-view>
+                <button><router-link to="/gameRules">Правила</router-link> </button>
+                <router-viwew></router-viwew>
             </div>
         </div>
 </template>
@@ -110,7 +111,7 @@
     button{
         display: block;
         margin:1%;
-        width:20%;
+        width:15%;
         height:55px;
         background-color: transparent;
         outline: 0;
@@ -126,8 +127,11 @@
         background-color: #409eff;
 
     }
-    button:last-child{
+    button:nth-child(2){
         background-color: #F08080;
+    }
+    button:nth-child(3){
+        background-color: #20B2AA;
     }
     a{
         text-decoration: none;
@@ -147,6 +151,24 @@
         color:#92a7b7;
         text-shadow:1px 2px 1px rgba(0,0,0,0.3);
     }
+    .top-panel{
+        width:100%;
+        display:flex;
+        flex-wrap:wrap;
+    }
+    .top-panel button{
+        float:left;
+        vertical-align: center;
+        margin-top: 5%;
+        width:10%;
+        border:1px solid #dcdcdc;
+        background-color: transparent;
+        border-radius: 0;
+        box-shadow: 0px 0px 0px;
+        font-size: 1.2em;
+        color:#92a7b7;
+    }
+
 
 
 </style>

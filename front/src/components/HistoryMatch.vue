@@ -8,34 +8,31 @@
         </div>
         <div class="first">
             <h1>1 место</h1>
-            <div class="round-data-id" v-for="round in rounds">{{round.first.name}} : {{round.first.rating}} очков</div>
+            <div class="round-data-id" v-for="round in rounds">{{round.first.name}} : {{round.first.kpd}} кпд</div>
         </div>
         <div class="second">
             <h1>2 место</h1>
-            <div class="round-data-id" v-for="round in rounds">{{round.second.name}} : {{round.second.rating}} очков</div>
+            <div class="round-data-id" v-for="round in rounds">{{round.second.name}} : {{round.second.kpd}} кпд</div>
         </div>
         <div class="third">
             <h1>3 место</h1>
-            <div class="round-data-id" v-for="round in rounds">{{round.third.name}} : {{round.third.rating}} очков</div>
+            <div class="round-data-id" v-for="round in rounds">{{round.third.name}} : {{round.third.kpd}} кпд</div>
         </div>
 
     </div>
 </template>
 
 <script>
-    import { gameMap } from "../api/gameRepository";
-    import { HistoryMatches} from "../api/gameRepository";
+    import { HistoryMatches} from "../api/roundsRepository";
 
     export default {
         name: "HistoryMatch",
         data(){
             return {
-                rounds:[
-                    // {roundId:'',first:[{name:'',rating:0}],second:[{name:'',rating:0}],third:[{name:'',rating:0}]}
-                ],
                 users: [
-                    { name: '', rating: 0 }
-                ]
+                    { name: '', kpd: 0 }
+                ],
+                rounds:[]
             }
         },
         created() {

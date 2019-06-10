@@ -3,6 +3,7 @@ package com.riversoft.game.snake.service
 import com.riversoft.game.snake.dto.ElementType
 import groovy.util.logging.Slf4j
 
+
 @Slf4j
 class UserPackman {
 
@@ -16,23 +17,27 @@ class UserPackman {
     String name
     int x
     int y
-    public int rating = 0
+    public int  rating = 0
     public  int glrating = 0
+    public int  countMatch
     // --------------------------------
     // --------------------------------
 
 
     def onRating = {UserPackman pacman}
+    def onCountMatch = {UserPackman pacman}
     def getPacmanByCoordinate = {int x, int y -> }
 
     private List<List> map
 
-    UserPackman(List<List> map, String name, int x, int y, int rating) {
+    UserPackman(List<List> map, String name, int x, int y, int rating, int countMatch) {
         this.glrating = rating
         this.map = map
         this.name = name
         this.x = x
         this.y = y
+        this.countMatch = countMatch
+
 
         if (map[y][x] == EMPTYSPACE ) {
             map[y][x] = ElementType.PACMAN.value
@@ -61,8 +66,6 @@ class UserPackman {
         }
 
     }
-
-
     def move(int x, int y, int x1, int y1) {
 
         if (dead) {
@@ -89,7 +92,7 @@ class UserPackman {
                 this.y = y1
                 this.x = x1
                 rating++
-                glrating ++
+                glrating++
                 onRating(this)
                 break
 

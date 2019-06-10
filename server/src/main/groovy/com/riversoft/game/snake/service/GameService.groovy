@@ -1,5 +1,6 @@
 package com.riversoft.game.snake.service
 
+import com.riversoft.game.snake.PacManClient
 import com.riversoft.game.snake.data.domain.UserRoundInformation
 import com.riversoft.game.snake.data.repository.RoundRepository
 import com.riversoft.game.snake.data.repository.UserRepository
@@ -18,9 +19,9 @@ import org.springframework.data.domain.Sort
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
-
 import javax.annotation.PostConstruct
 
+import static java.util.List.*
 
 
 @Slf4j
@@ -44,18 +45,17 @@ class GameService {
     final COLUMN_COUNT_Y = 64
     final BORDERS = 1
 
-
     int roundId
     boolean roundStarted = false
-    int time = 0
-
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
+
+
+
         if (!roundStarted) {
             log.debug("Round don't started")
             return
         }
-
         movePackmans(socketService.getClientAnswer(
                 new ClientMessage(
                         map: map,
@@ -66,19 +66,32 @@ class GameService {
                                     posY: x.getY())
                         })
         ))
-        //save rounds data
-        saveRound()
 
-        if (!packmansList.any { !it.isDead() } && packmansList.size() > 0 ) {
+        // calculate count alive pacmans
+
+        def lifePacmanCount = packmansList.findAll { !it.isDead() }.size()
+
+        if (lifePacmanCount <= 1) {
+            if (lifePacmanCount == 1) {
+             def p =  packmansList.find {
+                    !it.isDead()
+                }
+                p.glrating += 5
+                log.info('i give bonus for ' + p.name.toString())
+            }
             roundStarted = false
             generateAll()
         }
+
+        saveRound()
 
         if (--time < 0) {
             roundStarted = false
             generateAll()
         }
     }
+
+    int time = 0
 
     @PostConstruct
     void init() {
@@ -93,6 +106,12 @@ class GameService {
                 .find()
         roundId = lastRound ? lastRound.roundId + 1 : 1
         log.info("Start new round $roundId")
+        if (lastRound) {
+        userRepository.findAll().each {
+            it.countMatch++
+            log.info('save count match for all users' + it.countMatch.toString())
+          }
+        }
 
         // set timer
         this.time = 120
@@ -116,7 +135,7 @@ class GameService {
         CreateWalls() //add walls in map
 
         //create coins
-        (0..100).each {
+        (0..400).each {
             int coinsX = new Random().nextInt(COLUMN_COUNT_X)
             int coinsY = new Random().nextInt(COLUMN_COUNT_Y)
                 coins.add(new Coins(map, coinsX, coinsY))
@@ -138,12 +157,13 @@ class GameService {
         round.endPackmanCount = packmansList.findAll { !it.isDead() }.size()
         round.endCoinsCount = calcCoinsByMap(map)
         round.userRoundInformations = packmansList.collect {
-            new UserRoundInformation(
+            new UserRoundInformation (
                     name: it.name,
                     localRating: it.rating,
                     globalRating: it.glrating,
                     lifeTime: 0,
-                    dead: it.isDead()
+                    dead: it.isDead(),
+                    kpd:(it.glrating / it.countMatch),
             )
         }
 
@@ -161,30 +181,40 @@ class GameService {
 
     def start() {
         packmansList = []
-        userRepository.findAll().each {
+        def users = userRepository.findAll()
+        users.each {
             try {
                 int packmansX = new Random().nextInt(COLUMN_COUNT_X)
                 int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
-                packmansList.add(new UserPackman(map, it.username, packmansX, packmansY, it.rating))
+                packmansList.add(new UserPackman(map, it.username, packmansX, packmansY, it.rating, it.countMatch))
             } catch(Exception e) {
                 log.info('something  go wrong in generation pacman')
                 log.info(e.message,e)
             }
         }
 
-        packmansList*.onRating = { UserPackman packman ->
+        users.each{it.countMatch++}
+        users.each { userRepository.save(it) }
 
-            def user = userRepository.findByUsername(packman.name).get()
-            user.rating = packman.glrating
+        packmansList*.onRating = { UserPackman pacman ->
 
-            log.info("Save rating ${packman.glrating} for user ${packman.name}")
+            def user = userRepository.findByUsername(pacman.name).get()
+            user.rating = pacman.glrating
+
+            log.info("Save rating ${pacman.glrating} for user ${pacman.name}")
+            log.info("Save count Match")
+            userRepository.save(user)
+        }
+        packmansList*.onCountMatch = {UserPackman  packmanMatch ->
+            def user = userRepository.findByUsername(packmanMatch.name).get()
+            user.countMatch = packmanMatch.countMatch
+            log.info("Save count Match")
             userRepository.save(user)
         }
         packmansList*.getPacmanByCoordinate = { x, y ->
             packmansList.find { it.x == x && it.y == y }
         }
     }
-
     void movePackmans(List<Map> answers) {
         packmansList.each { i->
             def answer = answers.find { x -> x.client == i.name }
@@ -213,13 +243,10 @@ class GameService {
                         log.debug("${i.name} go to the top")
                         break
                 }
-            } else {
-                i.moveUp()
-                log.debug("${i.name} go to the right")
+
             }
         }
     }
-
 //add walls in map
     void CreateWalls(){
         walls.each {
@@ -326,28 +353,32 @@ class GameService {
         roundDataRepository
             .findAll(PageRequest.of(0, 100, Sort.by(Sort.Direction.DESC, 'roundId')))
             .collect {
-                def rating = it.userRoundInformations.sort {x -> x.localRating}.reverse()
+                def kpd = it.userRoundInformations.sort { i -> i.kpd }.reverse()
                 new RoundInfo (
                     roundId: it.roundId,
                     first: new RoundPlayerInfo(
-                         name: rating[0]?.name,
-                         rating: rating[0]?.localRating
+                         name: kpd[0]?.name,
+                         kpd: kpd[0]?.kpd
                     ),
+
                     second: new RoundPlayerInfo(
-                         name: rating[1]?.name,
-                         rating: rating[1]?.localRating
+                            name: kpd[1]?.name,
+                            kpd: kpd[1]?.kpd
                     ),
+
                     third: new RoundPlayerInfo(
-                         name: rating[2]?.name,
-                         rating: rating[2]?.localRating
+                            name: kpd[2]?.name,
+                            kpd: kpd[2]?.kpd
                     ))
             }
     }
 
 
 
+
 //get ready data for return into gameControllers
-    GameRezultModel getResult() {
+
+    GameRezultModel getResult () {
         def currentUserName =  SecurityContextHolder.getContext().authentication?.name ?: 'Unknown'
 
         def pacmanData = packmansList.find {
@@ -375,4 +406,3 @@ class GameService {
         )
     }
 }
-

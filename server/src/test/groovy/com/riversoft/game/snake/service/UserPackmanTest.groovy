@@ -20,6 +20,7 @@ class UserPackmanTest extends Specification {
         rating == 2
     }
 
+
     def 'Пекмен двигается влево'() {
         given: 'карта, пекмен'
         def rating = 1

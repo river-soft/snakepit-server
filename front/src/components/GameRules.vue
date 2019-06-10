@@ -7,6 +7,10 @@
              </li>
              <li>
                  <p>
+                 <a  href="https://drive.google.com/open?id=1Y-RJ_UwO0Q_fW1o49QgbMcD7BCWhqr3k" download>Скачать файлы для начала игры</a>
+                     <br>
+                     <br>
+                     <br>
                  class MyPackmanClient extends PacManClient {<br>
                  MyPackmanClient(String host, String username, String password) {<br>
                  super(host, username, password)<br>
@@ -100,6 +104,11 @@
         margin-left: 15%;
         line-height:1.9;
         color:#FA8072;
+    }
+    p a {
+        color: gray;
+        padding: 1%;
+        border:1px solid #dcdcdc;
     }
 
 </style>
