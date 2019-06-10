@@ -29,6 +29,6 @@ class UserRoundInformation {
     int globalRating
     boolean dead
     int lifeTime
-    int kpd
+    float kpd
     }
 

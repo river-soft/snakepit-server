@@ -2,61 +2,48 @@
     <div class="txt-wrapper">
         <h1>Правила Pacman Arena</h1>
          <ul>
-             <li>
-                 <p>  Для управления пакменом пользователь пишет программу (алгоритм). Подключение игре происходит через handshake клиентской программы к серверу (Пример написанный на языке программирования «Groovy» :</p>
-             </li>
-             <li>
-                 <p>
-                 <a  href="https://drive.google.com/open?id=1Y-RJ_UwO0Q_fW1o49QgbMcD7BCWhqr3k" download>Скачать файлы для начала игры</a>
+             <li> <p> <br> Для управления пакменом пользователь пишет программу (алгоритм). Подключение игре происходит через handshake клиентской программы к серверу (Пример написанный на языке программирования «Groovy» : </p> </li>
+             <li> <p> <br> <a  href="https://drive.google.com/open?id=1XqWWWlZ6vBeHT6AUyQRa-4KhuwvfVP2w" download>Скачать файлы для начала игры </a>
                      <br>
+
                      <br>
-                     <br>
-                 class MyPackmanClient extends PacManClient {<br>
-                 MyPackmanClient(String host, String username, String password) {<br>
-                 super(host, username, password)<br>
-                 }<br>
+                 <br> import com.riversoft.game.snake.PacManClient
+                 <br> import com.riversoft.game.snake.dto.ClientMessage
+                 <br> import com.riversoft.game.snake.dto.Direction
+                 <br>
+                 <br>
+                 class MyPackmanClient extends PacManClient  { <br>
+                 MyPackmanClient(String host, String username, String password) { <br>
+                 super(host, username, password) <br>
+                 } <br>
                  @Override <br>
                  Direction onRequest(ClientMessage message) { <br>
                  // Ваш код здесь пример : <br>
                  // return Direction.Up <br>
                   } <br>
                  } <br>
-                 class TestSdkApplication { <br>
                  static void main(String[] args) { <br>
-                 new MyPackmanClient('snakepit.westeurope.cloudapp.azure.com', 'Username', 'password') <br>
+                 new MyPackmanClient('3.122.9.136', 'Username', 'password') <br>
                      } <br>
-                 } <br>
                  </p>
              </li>
-             <li>
-                 <p>
-                  За съедение монеты игрок получает очки рейтинга.
-                 </p>
-             </li>
-             <li>
-                 <p>
-                 Общее число рейтинга можно увидеть на странице «Статистика («Глобальный рейтинг»)», а также можно увидеть победителей (1,2,3 — места в раунде (в зависимости от набранных очков)) на странице «История Матчей».
-                 </p>
-             </li>
-             <li>
-                 <p>
-                 Игрок делает 1 ход/секунду.
-                 </p>
-             </li>
-             <li> <p>Сессия длится 2 минуты (120 сек.), а если все пакмены умирают до конца, то сессия заканчивается досрочно.</p></li>
-             <li> <p>При столкновения 2-оих пакменов умирает тот у кого меньше очков локального рейтинга, а если он (рейтинг) одинаковый, то 50/50</p>.</li>
+             <li> <p> <br> За съедение монеты игрок получает очки рейтинга. </p> </li>
+             <li> <p> <br> Общее число рейтинга можно увидеть на странице «Статистика («Глобальный рейтинг»)», а также можно увидеть лидеров (1,2,3 — места (в зависимости от КПД)) на странице «Лидеры». </p> </li>
+             <li> <p> <br> КПД рассчитывается по формуле : "Глобальный рейтинг / кол-во сыграных пользователем раундов". <br> </p> </li>
+             <li> <p> <br> Игрок делает 1 ход/секунду. </p> </li>
+             <li> <p> <br> Сессия длится 2 минуты (120 сек.), а если все пакмены умирают до конца, то сессия заканчивается досрочно. </p> </li>
+             <li> <p> <br> При столкновения 2-оих пакменов умирает тот у кого меньше очков локального рейтинга, а если он (рейтинг) одинаковый, то 50/50. </p> </li>
              <li>
                  <p>
                      <br>
-                     Карта символов :<br>
-                     0 -  Пустота.<br>
-                     1 -  Стена.<br>
-                     2 -  Pacman.<br>
-                     3 -  Coin.<br>
+                     Карта символов : <br>
+                     0 -  Пустота. <br>
+                     1 -  Стена. <br>
+                     2 -  Pacman. <br>
+                     3 -  Coin. <br>
                  </p>
              </li>
          </ul>
-
     </div>
 </template>
 

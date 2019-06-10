@@ -15,7 +15,9 @@ class MyPackmanClient extends PacManClient {
 
     @Override
     Direction onRequest(ClientMessage message) {
-        return Direction.RIGHT
+
+       return Direction.DOWN
+
     }
 }
 
@@ -23,9 +25,10 @@ class TestSdkApplication {
 
     static void main(String[] args) {
 
-        new MyPackmanClient('localhost:8080', 'Николай', 'coly26341')
+        new MyPackmanClient('3.122.9.136', 'qwe', 'qwe')
 
     }
+
 }
 
 
