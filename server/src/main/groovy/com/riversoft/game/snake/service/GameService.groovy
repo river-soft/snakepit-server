@@ -20,6 +20,8 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 import static java.util.List.*
 
@@ -193,6 +195,7 @@ class GameService {
             }
         }
 
+
         users.each{it.countMatch++}
         users.each { userRepository.save(it) }
 
@@ -243,7 +246,6 @@ class GameService {
                         log.debug("${i.name} go to the top")
                         break
                 }
-
             }
         }
     }
@@ -349,7 +351,7 @@ class GameService {
 
     }
 
-    List<RoundInfo> getRounds(){
+    List<RoundInfo> getRounds() {
         roundDataRepository
             .findAll(PageRequest.of(0, 100, Sort.by(Sort.Direction.DESC, 'roundId')))
             .collect {
@@ -358,17 +360,18 @@ class GameService {
                     roundId: it.roundId,
                     first: new RoundPlayerInfo(
                          name: kpd[0]?.name,
-                         kpd: kpd[0]?.kpd
+                         kpd:  Math.round(kpd[0]?.kpd*100)/100,
+
                     ),
 
                     second: new RoundPlayerInfo(
                             name: kpd[1]?.name,
-                            kpd: kpd[1]?.kpd
+                            kpd:Math.round(kpd[1]?.kpd*100)/100,
                     ),
 
                     third: new RoundPlayerInfo(
                             name: kpd[2]?.name,
-                            kpd: kpd[2]?.kpd
+                            kpd: Math.round(kpd[2]?.kpd*100)/100,
                     ))
             }
     }

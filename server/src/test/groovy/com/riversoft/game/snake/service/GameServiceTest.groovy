@@ -8,6 +8,7 @@ class GameServiceTest extends Specification {
     GameService gameService = new GameService()
 
     def 'test'() {
+
         expect:
         1 == 1
     }
