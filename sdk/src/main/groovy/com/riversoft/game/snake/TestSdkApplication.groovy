@@ -28,6 +28,7 @@ class TestSdkApplication {
         new MyPackmanClient('3.122.9.136', 'qwe', 'qwe')
 
     }
+
 }
 
 
