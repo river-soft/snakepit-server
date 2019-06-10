@@ -3,11 +3,11 @@
         <h1>Правила Pacman Arena</h1>
          <ul>
              <li>
-                 <p>  Для управления пакменом пользователь пишет программу (алгоритм). Подключение игре происходит через handshake клиентской программы к серверу (Пример написанный на языке программирования «Groovy» :</p>
+                 <p> Для управления пакменом пользователь пишет программу (алгоритм). Подключение игре происходит через handshake клиентской программы к серверу (Пример написанный на языке программирования «Groovy» :</p>
              </li>
              <li>
                  <p>
-                 <a  href="https://drive.google.com/open?id=1Y-RJ_UwO0Q_fW1o49QgbMcD7BCWhqr3k" download>Скачать файлы для начала игры</a>
+                 <a  href="https://drive.google.com/open?id=1XqWWWlZ6vBeHT6AUyQRa-4KhuwvfVP2w" download>Скачать файлы для начала игры</a>
                      <br>
                      <br>
                      <br>
@@ -23,7 +23,7 @@
                  } <br>
                  class TestSdkApplication { <br>
                  static void main(String[] args) { <br>
-                 new MyPackmanClient('snakepit.westeurope.cloudapp.azure.com', 'Username', 'password') <br>
+                 new MyPackmanClient('3.122.9.136', 'Username', 'password') <br>
                      } <br>
                  } <br>
                  </p>

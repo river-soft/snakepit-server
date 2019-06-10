@@ -8,5 +8,5 @@ class RoundInfo {
 }
 class RoundPlayerInfo{
     String name;
-    int kpd;
+    float kpd;
 }
