@@ -1,5 +1,6 @@
 package com.riversoft.game.snake.service
 
+import com.riversoft.game.snake.data.domain.User
 import com.riversoft.game.snake.data.domain.UserRoundInformation
 import com.riversoft.game.snake.data.repository.RoundRepository
 import com.riversoft.game.snake.data.repository.UserRepository
@@ -48,6 +49,7 @@ class GameService {
     @Scheduled(cron = '* * * * * *')
     void gameTick() {
 
+        log.info ('it is user final points' + packmansList.each {it.finalResult}.finalResult.toString())
         if (!roundStarted) {
             log.debug("Round don't started")
             return
@@ -76,6 +78,7 @@ class GameService {
                 log.info('i give bonus for ' + p.name.toString())
             }
             roundStarted = false
+            checkFinalUsers()
             generateAll()
         }
 
@@ -83,6 +86,7 @@ class GameService {
 
         if (--time < 0) {
             roundStarted = false
+            checkFinalUsers()
             generateAll()
         }
     }
@@ -213,6 +217,8 @@ class GameService {
         packmansList*.getPacmanByCoordinate = { x, y ->
             packmansList.find { it.x == x && it.y == y }
         }
+
+
     }
 
  def addUserRoundCount () {
@@ -227,7 +233,37 @@ class GameService {
      users.each {userRepository.save(it)}
  }
 
+def checkFinalUsers () {
 
+    def usersCheck = userRepository.findAll()
+    usersCheck.each {
+        if (it.countMatch >= 1 || it.rating >= 1) {
+            it.kpd = Math.round(it.rating / it.countMatch * 100) / 100
+        } else{
+            it.kpd = 0
+        }
+    }
+
+    usersCheck.each {userRepository.save(it)}
+
+    def kpd = packmansList.sort {i -> i.kpd }.reverse()
+    usersCheck.each {
+        switch (it.kpd) {
+            case kpd.kpd[0]:
+                it.finalResult += 3
+                log.info('the first is ' + it.username.toString())
+                break
+            case kpd.kpd[1]:
+                it.finalResult += 2
+                log.info('the second is ' + it.username.toString())
+                break
+            case kpd.kpd[2]:
+                it.finalResult += 1
+                log.info('the third is ' + it.username.toString())
+                break
+        }
+    }
+}
     void movePackmans(List<Map> answers) {
         packmansList.each { i->
             def answer = answers.find { x -> x.client == i.name }
@@ -369,35 +405,22 @@ class GameService {
                 .findAll(PageRequest.of(0, 100, Sort.by(Sort.Direction.DESC, 'roundId')))
                 .collect {
                     def kpd = it.userRoundInformations.sort { i -> i.kpd }.reverse()
-                    packmansList.each {
-                        switch (it.kpd) {
-                            case kpd.kpd[0]: it.finalResult += 3
-                                log.info('the first is ' + it.name.toString())
-                                break
-                            case kpd.kpd[1]: it.finalResult += 2
-                                log.info('the second is ' + it.name.toString())
-                                break
-                            case kpd.kpd[2]: it.finalResult += 1
-                                log.info('the third is ' + it.name.toString())
-                                break
-                        }
-                    }
                     new RoundInfo (
                             roundId: it.roundId,
                             first: new RoundPlayerInfo(
                                     name: kpd[0]?.name,
-                                    kpd:  Math.round(kpd[0]?.kpd*100)/100,
+                                    kpd:  kpd[0]?.kpd,
 
                             ),
 
                             second: new RoundPlayerInfo(
                                     name: kpd[1]?.name,
-                                    kpd:Math.round(kpd[1]?.kpd*100)/100,
+                                    kpd:  kpd[1]?.kpd,
                             ),
 
                             third: new RoundPlayerInfo(
                                     name: kpd[2]?.name,
-                                    kpd: Math.round(kpd[2]?.kpd*100)/100,
+                                    kpd:  kpd[2]?.kpd,
                             ))
                 }
     }
@@ -442,8 +465,7 @@ class GameService {
                         y: pacmanData?.y ?: 0,
                         global: userRepository.findByUsername(currentUserName).get().rating
                 ),
-                users       : packmansList.collect { new UserInfo(
-
+                users: packmansList.collect { new UserInfo(
                         name: it.name,
                         rating: it.rating,
                         x: it.x,
@@ -451,5 +473,14 @@ class GameService {
                         global: userRepository.findByUsername(it.name).get().rating)
                 }
         )
+    }
+
+
+    List<User> getFinalUsers () {
+        userRepository
+                .findAll()
+                .sort { i -> i.finalResult }
+                .reverse()
+                .take(3)
     }
 }
