@@ -19,4 +19,5 @@ class User {
     int rating
 
     int countMatch
+    boolean answer = false
 }

@@ -16,8 +16,8 @@ class PacmanKillTest extends Specification {
     def 'Пекмен с меньшим рейтингом должен погибнуть когда ходит первым'() {
 
         given: 'два пекмена расположены под углом друг к другу, у второго рейтинга больше'
-        def pac1 = new UserPackman(map, 'pac1', 1, 1,0,1)
-        def pac2 = new UserPackman(map, 'pac2', 2, 0,0,1)
+        def pac1 = new UserPackman(map, 'pac1', 1, 1,0,1,false,1,1)
+        def pac2 = new UserPackman(map, 'pac2', 2, 0,0,1,false,1,1)
         [pac1, pac2]*.getPacmanByCoordinate = {x, y ->
             [pac2, pac1].find { it.x == x && it.y == y}
         }
@@ -34,8 +34,8 @@ class PacmanKillTest extends Specification {
     def 'Пекмен с меньшим рейтингом должен погибнуть когда ходит вторым'() {
 
         given: 'два пекмена расположены под углом друг к другу, у второго рейтинга больше'
-        def pac1 = new UserPackman(map, 'pac1', 1, 1,0,1)
-        def pac2 = new UserPackman(map, 'pac2', 2, 0,0,1)
+        def pac1 = new UserPackman(map, 'pac1', 1, 1,0,1,false,1,1)
+        def pac2 = new UserPackman(map, 'pac2', 2, 0,0,1,false,1,1)
         [pac1, pac2]*.getPacmanByCoordinate = {x, y ->
             [pac2, pac1].find { it.x == x && it.y == y}
         }
@@ -52,8 +52,8 @@ class PacmanKillTest extends Specification {
     def 'Если пекмены с одинаковым рейтингом, то должен погибнуть тот кто ходит первым'() {
 
         given: 'два пекмена расположены под углом друг к другу'
-        def pac1 = new UserPackman(map, 'pac1', 1, 1,0,1)
-        def pac2 = new UserPackman(map, 'pac2', 2, 0,0,1)
+        def pac1 =  new UserPackman(map, 'pac1', 1, 1,0,1,false,1,1)
+        def pac2 =  new UserPackman(map, 'pac1', 2, 0,0,1,false,1,1)
         [pac1, pac2]*.getPacmanByCoordinate = {x, y ->
             [pac2, pac1].find { it.x == x && it.y == y}
         }
@@ -69,8 +69,8 @@ class PacmanKillTest extends Specification {
     def 'Если есть монета на месте столкновения то забирает ее выживший пекмен'() {
 
         given: 'два пекмена расположены под углом друг к другу и монета на месте куда прийдут пекмены'
-        def pac1 = new UserPackman(map, 'pac1', 1, 1,0,1)
-        def pac2 = new UserPackman(map, 'pac2', 2, 0,0,1)
+        def pac1 = new UserPackman(map, 'pac1', 1, 1,0,1,false,1,1)
+        def pac2 = new UserPackman(map, 'pac2', 2, 0,0,1,false,1,1)
         [pac1, pac2]*.getPacmanByCoordinate = {x, y ->
             [pac2, pac1].find { it.x == x && it.y == y}
         }
