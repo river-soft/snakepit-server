@@ -22,7 +22,7 @@
         name: "login",
         data(){
             return {
-                user: {username: '', password: ''},
+                user: { username: '', password: '' },
                 error: '',
                 loggedIn :false,
                 userData:'',

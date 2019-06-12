@@ -15,7 +15,7 @@ Axios.interceptors.request.use((config) => {
         router.push('/');
         swal({
           title:'Ошибка',
-          text:'Вам нужно зарегистрироватся что бы попасть на карту',
+          text:'Пожалуйста , авторизируйтесь',
           button:'Ok'
         });
         console.log(error);
@@ -30,13 +30,11 @@ Axios.interceptors.response.use((response) => {
   router.push('/');
   swal({
     title:'Ошибка',
-    text:'Вам нужно зарегистрироватся что бы попасть на карту',
+    text:'Пожалуйста , авторизируйтесь',
     button:'Ok'
   });
   return Promise.reject(error)
 });
-//sdsd
-
 
 Vue.use(ui);
 new Vue({

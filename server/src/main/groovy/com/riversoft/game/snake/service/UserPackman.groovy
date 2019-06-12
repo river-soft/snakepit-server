@@ -8,20 +8,20 @@ import groovy.util.logging.Slf4j
 class UserPackman {
 
     boolean dead
+    boolean answer
 
 //const
     final EMPTYSPACE = 0
 
-    // --------------------------------
-    // --------------------------------
     String name
     int x
     int y
     public int  rating = 0
     public  int glrating = 0
     public int  countMatch
-    // --------------------------------
-    // --------------------------------
+    public float kpd
+    public int finalResult
+
 
 
     def onRating = {UserPackman pacman}
@@ -30,14 +30,16 @@ class UserPackman {
 
     private List<List> map
 
-    UserPackman(List<List> map, String name, int x, int y, int rating, int countMatch) {
+    UserPackman(List<List> map, String name, int x, int y, int rating, int countMatch,boolean answer,float kpd, int finalResult) {
         this.glrating = rating
         this.map = map
         this.name = name
         this.x = x
         this.y = y
         this.countMatch = countMatch
-
+        this.answer = answer
+        this.kpd = kpd
+        this.finalResult = finalResult
 
         if (map[y][x] == EMPTYSPACE ) {
             map[y][x] = ElementType.PACMAN.value

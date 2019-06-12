@@ -29,7 +29,7 @@ class UserService implements UserDetailsService {
     }
 
     String getRezult() {
-        userRepository.findAll()
+       return userRepository.findAll()
     }
 
     com.riversoft.game.snake.data.domain.User addNewUser(com.riversoft.game.snake.data.domain.User user) {

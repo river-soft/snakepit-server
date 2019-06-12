@@ -54,12 +54,12 @@ import swal from 'sweetalert'
                         username: this.user.username,
                         passwordHash: this.user.password
                     })
-                        .then((response) => {
+                           .then((response) => {
                            console.log(response);
-                           // this.$router('/arena');
+                            this.$router('/login');
                         }).catch((e)  => {
                             this.error = 'Имя занято';
-                      console.log(e)
+                            console.log(e)
                     })
                   }
                 }

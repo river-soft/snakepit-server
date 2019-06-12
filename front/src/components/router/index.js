@@ -7,6 +7,7 @@ import Login from "../Login";
 import statistic from "../statistic";
 import HistoryMatch from "../HistoryMatch";
 import GameRules from "../GameRules";
+import finalResults from "../finalResults";
 
 
 
@@ -50,6 +51,13 @@ export default new Vuerouter({
         {
             path:'/gameRules',
             component:GameRules,
+        },
+        {
+            path:'/finalResults',
+            component:finalResults,
+            meta:{
+                requiresAuth:true,
+            }
         }
     ],
 });
