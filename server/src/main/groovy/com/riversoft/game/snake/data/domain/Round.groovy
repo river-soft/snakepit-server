@@ -30,5 +30,6 @@ class UserRoundInformation {
     boolean dead
     int lifeTime
     float kpd
-    }
+    boolean active
+}
 

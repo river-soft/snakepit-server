@@ -37,7 +37,6 @@ class UserPackman {
         this.x = x
         this.y = y
         this.countMatch = countMatch
-        this.answer = answer
         this.kpd = kpd
         this.finalResult = finalResult
 
