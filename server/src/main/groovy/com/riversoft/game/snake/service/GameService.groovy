@@ -168,7 +168,7 @@ class GameService {
             def roundCount = roundDataRepository
                     .findAll()
                     .collect { x -> x.userRoundInformations.find { i -> i.name = it.name }?.active }
-                    .count{ n -> n }
+                    .count{ n -> n?:1 }
 
             new UserRoundInformation (
                     name: it.name,
@@ -177,7 +177,7 @@ class GameService {
                     lifeTime: 0,
                     dead: it.isDead(),
                     active: it.answer,
-                    kpd:(it.glrating / roundCount),
+                    kpd:(it.glrating?:1 / roundCount),
             )
         }
         log.debug("Save round ${roundId} info ${round}")
@@ -203,7 +203,7 @@ class GameService {
             try {
                 int packmansX = new Random().nextInt(COLUMN_COUNT_X)
                 int packmansY = new Random().nextInt(COLUMN_COUNT_Y)
-                packmansList.add(new UserPackman(map, it.username, packmansX, packmansY, it.rating, it.countMatch,it.answer,Math.round(it.rating / it.countMatch * 100) / 100,0))
+                packmansList.add(new UserPackman(map, it.username, packmansX, packmansY, it.rating, it.countMatch,false,Math.round(it.rating / it.countMatch * 100) / 100,0))
             } catch(Exception e) {
                 log.info('something  go wrong in generation pacman')
                 log.info(e.message,e)
