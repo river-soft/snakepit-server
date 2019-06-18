@@ -9,21 +9,6 @@ class MyPackmanClient extends PacManClient {
         super(host, username, password)
     }
 
-//    static def checkBorders (List<List> map, int x, int y) {
-//      switch ( map[x][y] ) {
-//              case 1 :
-//              return false
-//                 break
-//              case 0 :
-//              return true
-//                 break
-//              case 3:
-//              return true
-//
-//      }
-//    }
-
-
 
     @Override
     Direction onRequest(ClientMessage message) {
@@ -78,7 +63,7 @@ class TestSdkApplication {
 
     static void main(String[] args) {
 
-        new MyPackmanClient('localhost:8080', 'огурчик', 'огурчик')
+        new MyPackmanClient('localhost:8080', 'qwe', 'qwe')
 
     }
 

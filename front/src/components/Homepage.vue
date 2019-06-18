@@ -17,7 +17,7 @@
             <div class="buttons-panel">
                 <button><router-link to="/registration">Регистрация</router-link></button>
                 <button><router-link to="/login">Вход</router-link></button>
-                <button><router-link to="/gameRules">Правила</router-link> </button>
+                <button><router-link to="/gameRules">Описание</router-link> </button>
                 <router-viwew></router-viwew>
             </div>
         </div>

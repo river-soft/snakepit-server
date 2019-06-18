@@ -1,7 +1,9 @@
 <template>
     <div>
         <br>
-        <h1>Финальные результаты</h1>
+        <br>
+        <br>
+        <h1>Лидеры</h1>
         <br>
             <ul>
                 <li> {{users[0].username}}</li>
@@ -44,7 +46,7 @@
         padding-bottom: 3%;
     }
     li {
-        width:50%;
+        width:30%;
         display:block;
         background-color: #c7d6e2;
         color:#566b7c;

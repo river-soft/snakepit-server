@@ -7,9 +7,11 @@
                 <li><p> <i class="material-icons people attach_money">attach_money</i>{{rating}}</p></li>
             </ul>
             <div class="button-panel">
+                <router-link to="/finalResults"><button>Лидеры</button></router-link>
                 <router-link to="/statistic"><button>Статистика</button></router-link>
                 <router-link to="/HistoryMatch"><button>История матчей</button></router-link>
-                <router-link to="/gameRules"><button>Правила игры</button></router-link>
+                <router-link to="/gameRules"><button>Описание игры</button></router-link>
+
             </div>
         </div>
         <br>

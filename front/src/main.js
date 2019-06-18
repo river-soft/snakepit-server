@@ -12,10 +12,10 @@ Axios.interceptors.request.use((config) => {
 
         return config
      },(error) =>{
-        router.push('/');
+        router.push('/registration');
         swal({
           title:'Ошибка',
-          text:'Пожалуйста , авторизируйтесь',
+          text:'Такой ник уже занят другим игроком',
           button:'Ok'
         });
         console.log(error);
@@ -27,10 +27,10 @@ Axios.interceptors.response.use((response) => {
 
   return response
 },(error) =>{
-  router.push('/');
+  router.push('/login');
   swal({
     title:'Ошибка',
-    text:'Пожалуйста , авторизируйтесь',
+    text:'Неправильный логин или пароль',
     button:'Ok'
   });
   return Promise.reject(error)

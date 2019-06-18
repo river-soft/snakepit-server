@@ -122,7 +122,7 @@ class GameService {
         }
 
         // set timer
-        this.time = 10
+        this.time = 120
 
         map = []
 
@@ -234,34 +234,6 @@ class GameService {
 
     }
 
-//  def checkFinalUsers () {
-//
-//    def usersCheck = userRepository.findAll()
-//    usersCheck.each {
-//            it.kpd = Math.round(it.rating / it.countMatch * 100) / 100
-//    }
-//
-//    usersCheck.each {userRepository.save(it)}
-//
-//     def kpd = roundDataRepository.findAll().each {it.userRoundInformations.sort {i -> i.kpd}}.reverse()
-//    usersCheck.each {
-//        switch (it.kpd) {
-//            case kpd.userRoundInformations.kpd[0]:
-//                it.finalResult += 3
-//                log.info('the first is ' + it.username.toString())
-//                break
-//            case kpd.userRoundInformations.kpd[1]:
-//                it.finalResult += 2
-//                log.info('the second is ' + it.username.toString())
-//                break
-//            case kpd.userRoundInformations.kpd[2]:
-//                it.finalResult += 1
-//                log.info('the third is ' + it.username.toString())
-//                break
-//        }
-//    }
-//
-//}
     void movePackmans(List<Map> answers) {
         packmansList.each { i->
             def answer = answers.find { x -> x.client == i.name }
