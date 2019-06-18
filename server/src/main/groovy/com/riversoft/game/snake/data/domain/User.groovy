@@ -19,7 +19,5 @@ class User {
     int rating = 1
 
     int countMatch = 1
-    boolean answer = false
     int finalResult
-    float kpd
 }
