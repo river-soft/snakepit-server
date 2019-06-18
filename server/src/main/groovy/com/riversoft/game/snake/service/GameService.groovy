@@ -122,7 +122,7 @@ class GameService {
         }
 
         // set timer
-        this.time = 120
+        this.time = 10
 
         map = []
 

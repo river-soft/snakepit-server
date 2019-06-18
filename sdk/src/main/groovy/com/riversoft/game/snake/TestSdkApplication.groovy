@@ -12,60 +12,19 @@ class MyPackmanClient extends PacManClient {
 
     @Override
     Direction onRequest(ClientMessage message) {
-        def countXLeft = 0
-        def countXRight = 0
-        def countYUp = 0
-        def countYDown = 0
-
-        while (message.map[me.posX + 1][me.posY] != 3) {
-            countXRight++
-        }
-        while (message.map[me.posX - 1][me.posY] != 3) {
-            countXLeft++
-        }
-        while (message.map[me.posX][me.posY + 1] != 3) {
-            countYDown++
-        }
-        while (message.map[me.posX][me.posY - 1] != 3) {
-            countYUp++
-        }
-
-
-
-        println('в правую сторону  =   ' + countXRight.toString())
-        println('в левую сторону  =   ' + countXLeft.toString())
-        println('в верхнюю сторону  =   ' + countYUp.toString())
-        println('в нижнюю сторону  =   ' + countYDown.toString())
-
-        if (countXLeft < countXRight) {
-            if  ( message.map[me.posX - 1][me.posY] != 1) {
-                return Direction.LEFT
-            } else {
-                return Direction.RIGHT
-            }
-        } else if (countXLeft > countXRight) {
-            if (  message.map[me.posX + 1][me.posY] != 1) {
-                return Direction.RIGHT
-            } else {
-                return Direction.LEFT
-            }
-        } else {
-           if (  message.map[me.posX][me.posY - 1] != 1 ) {
-               return Direction.UP
-           } else {
-               return Direction.DOWN
-           }
-        }
+            return Direction.RIGHT
     }
+
 }
 
 class TestSdkApplication {
 
     static void main(String[] args) {
 
-        new MyPackmanClient('localhost:8080', 'qwe', 'qwe')
+        new MyPackmanClient('localhost:8080', '123', '123')
 
     }
+
 
 }
 
