@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 
 @Service
-class SocketService extends TextWebSocketHandler {
+class  SocketService extends TextWebSocketHandler {
 
     private List<WebSocketSession> sessions = []
     private Map<WebSocketSession, CompletableFuture<TextMessage>> result = new ConcurrentHashMap()
@@ -49,9 +49,10 @@ class SocketService extends TextWebSocketHandler {
 
         sessions*.sendMessage(new TextMessage(new ObjectMapper().writeValueAsBytes(message)))
 
+        sleep(900)
+
         result.collect {
             try {
-                sleep(900)
                 return [client: it.key.principal?.name, data: it.value.get(1, TimeUnit.MICROSECONDS).payload]
             } catch (Exception e) { }
 
