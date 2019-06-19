@@ -157,7 +157,7 @@
         width:60%;
         margin: auto;
         display: block;
-        padding: 2%;
+        padding: 10%;
     }
 
     h1{
@@ -177,9 +177,10 @@
     }
     p.space{
         margin-left: 5%;
+        padding: 5%;
         background-color: #e3ecf2;
-        padding: 1%;
     }
+
     *{
         display:block;
         text-align: justify;

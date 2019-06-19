@@ -27,12 +27,21 @@ Axios.interceptors.response.use((response) => {
 
   return response
 },(error) =>{
+    // console.log(error);
+    if(error.response.status === 401){
   router.push('/login');
   swal({
     title:'Ошибка',
     text:'Неправильный логин или пароль',
     button:'Ok'
-  });
+   });
+    }else if(error.response.status  === 500){
+  router.push('/Registration');
+      swal({
+          title:'Ошибка',
+          text:'Этот ник уже занят другим игроком',
+          button:'Ok'
+      });}
   return Promise.reject(error)
 });
 
