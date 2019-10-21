@@ -31,6 +31,7 @@ changeBuildType(RelativeId("BuildServer")) {
         }
         update<GradleBuildStep>(1) {
             tasks = "clean :server:build"
+            param("teamcity.tool.jacoco", "")
         }
         insert(2) {
             dockerCommand {
