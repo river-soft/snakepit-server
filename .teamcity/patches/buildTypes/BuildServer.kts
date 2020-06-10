@@ -15,6 +15,11 @@ To apply the patch, change the buildType with id = 'BuildServer'
 accordingly, and delete the patch script.
 */
 changeBuildType(RelativeId("BuildServer")) {
+    check(paused == false) {
+        "Unexpected paused: '$paused'"
+    }
+    paused = true
+
     expectSteps {
         gradle {
             tasks = "clean build"

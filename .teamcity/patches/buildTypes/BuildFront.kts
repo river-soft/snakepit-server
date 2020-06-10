@@ -17,6 +17,7 @@ in the root project, and delete the patch script.
 create(DslContext.projectId, BuildType({
     id("BuildFront")
     name = "Build front"
+    paused = true
 
     artifactRules = "front/dist/* => front.zip"
 
